@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=9 format=3 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
 [ext_resource type="Script" path="res://components/tile_highlighter.gd" id="2_855b2"]
 [ext_resource type="Texture2D" uid="uid://mbxv0ayrsu3d" path="res://assets/star_particle.png" id="2_m4bap"]
 [ext_resource type="Script" path="res://components/unit_grid.gd" id="4_m7ydk"]
+[ext_resource type="PackedScene" uid="uid://bd6jhfp83q1rv" path="res://scenes/unit/unit.tscn" id="4_nenrg"]
 
 [sub_resource type="Curve" id="Curve_kxla4"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.227273, 1), 0.0, 0.0, 0, 0, Vector2(0.791667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -62,6 +63,7 @@ layer_1/modulate = Color(1, 1, 1, 0.592157)
 layer_1/tile_data = PackedInt32Array(65542, 1, 21, 327689, 65537, 22, 131082, 1, 22)
 layer_2/name = "highlight"
 layer_2/tile_data = PackedInt32Array()
+metadata/_edit_lock_ = true
 
 [node name="TileHighlighter" type="Node" parent="GameTiles" node_paths=PackedStringArray("tilemap")]
 script = ExtResource("2_855b2")
@@ -79,6 +81,7 @@ layer_0/name = "walls_slots"
 layer_0/tile_data = PackedInt32Array(-131072, 65537, 1, -131071, 65537, 1, -131070, 65537, 1, -131069, 65537, 1, -131068, 65537, 1, -131067, 65537, 1, -131066, 65537, 1, -131065, 65537, 1, -131064, 65537, 1, -131063, 65537, 1, 0, 1, 0, 65536, 65537, 0, 1, 1, 11, 65537, 65537, 0, 2, 1, 7, 65538, 65537, 0, 3, 1, 11, 65539, 65537, 0, 4, 1, 7, 65540, 65537, 0, 5, 1, 11, 65541, 65537, 0, 6, 1, 7, 65542, 65537, 0, 7, 1, 11, 65543, 65537, 0, 8, 1, 7, 65544, 65537, 0, 9, 1, 11, 65545, 65537, 0, 10, 1, 7, 65546, 65537, 0, 11, 1, 0, 65547, 65537, 0)
 layer_1/name = "highlight"
 layer_1/tile_data = PackedInt32Array()
+metadata/_edit_lock_ = true
 
 [node name="TileHighlighter" type="Node" parent="Bench" node_paths=PackedStringArray("tilemap")]
 script = ExtResource("2_855b2")
@@ -95,3 +98,9 @@ size = Vector2i(10, 7)
 [node name="BenchUnits" type="Node" parent="."]
 script = ExtResource("4_m7ydk")
 size = Vector2i(10, 1)
+
+[node name="Unit" parent="BenchUnits" instance=ExtResource("4_nenrg")]
+position = Vector2(192, 320)
+
+[node name="Unit2" parent="BenchUnits" instance=ExtResource("4_nenrg")]
+position = Vector2(384, 320)

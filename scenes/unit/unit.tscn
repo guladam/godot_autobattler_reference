@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bd6jhfp83q1rv"]
+
+[ext_resource type="Script" path="res://scenes/arena/unit.gd" id="1_aueks"]
+[ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/rogues.png" id="2_pvsvo"]
+[ext_resource type="Script" path="res://components/drag_and_drop.gd" id="3_dhhtl"]
+[ext_resource type="Script" path="res://components/velocity_based_rotation.gd" id="4_j53m8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0qp17"]
+size = Vector2(36, 36)
+
+[node name="Unit" type="Area2D" groups=["units"]]
+script = ExtResource("1_aueks")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = ExtResource("2_pvsvo")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(32, 96, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_0qp17")
+
+[node name="DragAndDropComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("3_dhhtl")
+target = NodePath("..")
+
+[node name="VelocityBasedRotation" type="Node" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("4_j53m8")
+enabled = false
+target = NodePath("../Sprite2D")
+rotation_multiplier = 70
