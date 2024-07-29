@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3 uid="uid://xjus2xsvdrxh"]
+
+[ext_resource type="Script" path="res://scenes/unit/unit_stats.gd" id="1_48804"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_48804")
+name = "warrior"
+tier = 1

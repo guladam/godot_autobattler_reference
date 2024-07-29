@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mbxv0ayrsu3d"
-path="res://.godot/imported/star_particle.png-b2a5595c6e43770fecf48337394550a2.ctex"
+uid="uid://cnreie73qy5rv"
+path="res://.godot/imported/level2.png-2f64d8100f57d7588b4ad25f772eecf3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/star_particle.png"
-dest_files=["res://.godot/imported/star_particle.png-b2a5595c6e43770fecf48337394550a2.ctex"]
+source_file="res://assets/sprites/level2.png"
+dest_files=["res://.godot/imported/level2.png-2f64d8100f57d7588b4ad25f772eecf3.ctex"]
 
 [params]
 

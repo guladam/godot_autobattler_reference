@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://dk0bcfpbo130r"]
 
 [ext_resource type="Script" path="res://scenes/sell_portal/sell_portal.gd" id="1_gt8yb"]
-[ext_resource type="Material" uid="uid://bb8m5fhpi4wqn" path="res://assets/2d_outline_shader.tres" id="1_t3wda"]
-[ext_resource type="Texture2D" uid="uid://b1ro1ssup7dcp" path="res://assets/tiles.png" id="2_e1nv4"]
+[ext_resource type="Material" uid="uid://bb8m5fhpi4wqn" path="res://assets/shaders/2d_outline_shader.tres" id="1_t3wda"]
+[ext_resource type="Texture2D" uid="uid://b1ro1ssup7dcp" path="res://assets/sprites/tiles.png" id="2_e1nv4"]
 [ext_resource type="Script" path="res://components/outline_highlighter.gd" id="3_534p2"]
 [ext_resource type="FontFile" uid="uid://wqfms7k4ykv2" path="res://assets/font/abaddon_bold.ttf" id="5_io8n6"]
 

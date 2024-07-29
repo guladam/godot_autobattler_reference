@@ -5,6 +5,8 @@ signal drag_started
 signal drag_canceled
 signal dropped(starting_position: Vector2)
 
+@export var stats: UnitStats
+
 @onready var visuals: CanvasGroup = $Visuals
 @onready var drag_and_drop_component: DragAndDrop = $DragAndDropComponent
 @onready var velocity_based_rotation: VelocityBasedRotation = $VelocityBasedRotation

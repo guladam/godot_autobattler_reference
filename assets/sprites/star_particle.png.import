@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx1ivjobggp8n"
-path="res://.godot/imported/rogues.png-4c8bd7e7a3ddc5059681049eb3217e4d.ctex"
+uid="uid://mbxv0ayrsu3d"
+path="res://.godot/imported/star_particle.png-45f9efc460f1dbd87ac6550329bf15f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/rogues.png"
-dest_files=["res://.godot/imported/rogues.png-4c8bd7e7a3ddc5059681049eb3217e4d.ctex"]
+source_file="res://assets/sprites/star_particle.png"
+dest_files=["res://.godot/imported/star_particle.png-45f9efc460f1dbd87ac6550329bf15f8.ctex"]
 
 [params]
 

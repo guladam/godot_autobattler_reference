@@ -1,25 +1,46 @@
-[gd_scene load_steps=8 format=3 uid="uid://bd6jhfp83q1rv"]
+[gd_scene load_steps=12 format=3 uid="uid://bd6jhfp83q1rv"]
 
 [ext_resource type="Script" path="res://scenes/unit/unit.gd" id="1_v6qje"]
-[ext_resource type="Material" uid="uid://bb8m5fhpi4wqn" path="res://assets/2d_outline_shader.tres" id="2_mfirb"]
-[ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/rogues.png" id="2_pvsvo"]
+[ext_resource type="Resource" uid="uid://xjus2xsvdrxh" path="res://scenes/unit/test_unit.tres" id="2_an7oq"]
+[ext_resource type="Material" uid="uid://bb8m5fhpi4wqn" path="res://assets/shaders/2d_outline_shader.tres" id="2_odlpc"]
 [ext_resource type="Script" path="res://components/drag_and_drop.gd" id="3_dhhtl"]
+[ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/sprites/rogues.png" id="3_sepav"]
 [ext_resource type="Script" path="res://components/velocity_based_rotation.gd" id="4_j53m8"]
 [ext_resource type="Script" path="res://components/outline_highlighter.gd" id="6_mu807"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0qp17"]
 size = Vector2(36, 36)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i1sdb"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hn534"]
+bg_color = Color(2.16588e-06, 0.732302, 0.314512, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kodbq"]
+bg_color = Color(3.17663e-06, 0.479901, 0.694869, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
 [node name="Unit" type="Area2D" groups=["units"]]
 script = ExtResource("1_v6qje")
+stats = ExtResource("2_an7oq")
 metadata/_edit_group_ = true
 
 [node name="Visuals" type="CanvasGroup" parent="."]
-material = ExtResource("2_mfirb")
+material = ExtResource("2_odlpc")
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
 position = Vector2(16, 8)
-texture = ExtResource("2_pvsvo")
+texture = ExtResource("3_sepav")
 flip_h = true
 region_enabled = true
 region_rect = Rect2(32, 96, 32, 32)
@@ -27,6 +48,27 @@ region_rect = Rect2(32, 96, 32, 32)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(16, 8)
 shape = SubResource("RectangleShape2D_0qp17")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = 1.0
+offset_top = -20.0
+offset_right = 31.0
+offset_bottom = -14.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_i1sdb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hn534")
+value = 100.0
+show_percentage = false
+
+[node name="ManaBar" type="ProgressBar" parent="."]
+offset_left = 1.0
+offset_top = -15.0
+offset_right = 31.0
+offset_bottom = -11.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_i1sdb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kodbq")
+show_percentage = false
 
 [node name="DragAndDropComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("3_dhhtl")

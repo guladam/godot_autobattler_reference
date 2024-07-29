@@ -23,7 +23,11 @@ window/size/window_width_override=1300
 window/size/window_height_override=800
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
-mouse_cursor/custom_image="res://assets/cursor.png"
+mouse_cursor/custom_image="res://assets/sprites/cursor.png"
+
+[gui]
+
+theme/custom="res://assets/game_theme.tres"
 
 [input]
 
