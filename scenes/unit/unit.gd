@@ -8,6 +8,7 @@ signal dropped(starting_position: Vector2)
 @onready var visuals: CanvasGroup = $Visuals
 @onready var drag_and_drop_component: DragAndDrop = $DragAndDropComponent
 @onready var velocity_based_rotation: VelocityBasedRotation = $VelocityBasedRotation
+@onready var outline_highlighter: OutlineHighlighter = $OutlineHighlighter
 
 
 func _ready() -> void:
@@ -19,14 +20,6 @@ func _ready() -> void:
 func reset_after_dragging(starting_position: Vector2) -> void:
 	velocity_based_rotation.enabled = false
 	global_position = starting_position
-
-
-func _clear_highlight() -> void:
-	visuals.material.set_shader_parameter("line_thickness", 0)
-
-
-func _highlight() -> void:
-	visuals.material.set_shader_parameter("line_thickness", 2)
 
 
 func _on_drag_started() -> void:
@@ -44,8 +37,8 @@ func _on_dropped(starting_position: Vector2) -> void:
 
 
 func _on_mouse_entered() -> void:
-	_highlight()
+	outline_highlighter.highlight()
 
 
 func _on_mouse_exited() -> void:
-	_clear_highlight()
+	outline_highlighter.clear_highlight()

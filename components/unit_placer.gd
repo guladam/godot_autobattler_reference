@@ -7,6 +7,7 @@ const HALF_CELL_SIZE := Vector2(16, 16)
 
 
 func _ready() -> void:
+	# TODO do the same when a new unit is added
 	var units := get_tree().get_nodes_in_group("units")
 	for unit: Unit in units:
 		unit.drag_started.connect(_on_unit_drag_started.bind(unit))
@@ -66,8 +67,11 @@ func _on_unit_dropped(starting_position: Vector2, unit: Unit) -> void:
 	
 	# swap units if we have to
 	if new_area.unit_grid.is_tile_occupied(grid):
+		var old_unit: Unit = new_area.unit_grid.units[grid]
 		play_areas[original_index].unit_grid.set_cell_unit(original_grid, new_area.unit_grid.units[grid])
-		new_area.unit_grid.units[grid].global_position = starting_position
+		old_unit.global_position = starting_position
+		old_unit.reparent(play_areas[original_index].unit_grid)
 	
 	unit.global_position = new_area.to_global(final_local_position)
 	new_area.unit_grid.set_cell_unit(grid, unit)
+	unit.reparent(new_area.unit_grid)

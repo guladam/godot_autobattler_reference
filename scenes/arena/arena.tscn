@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=14 format=3 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
 [ext_resource type="Script" path="res://components/tile_highlighter.gd" id="2_855b2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://components/unit_placer.gd" id="5_dlikq"]
 [ext_resource type="Script" path="res://components/play_area.gd" id="6_73s8l"]
 [ext_resource type="Shader" path="res://assets/2d_outline.gdshader" id="7_mve78"]
+[ext_resource type="PackedScene" uid="uid://dk0bcfpbo130r" path="res://scenes/sell_portal/sell_portal.tscn" id="8_4fftf"]
 
 [sub_resource type="Curve" id="Curve_kxla4"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.227273, 1), 0.0, 0.0, 0, 0, Vector2(0.791667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -34,7 +35,7 @@ color = Color(1, 1, 1, 0.498039)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qhhh3"]
 resource_local_to_scene = true
 shader = ExtResource("7_mve78")
-shader_parameter/line_colour = Color(1, 1, 0.627451, 1)
+shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_thickness = 0
 
 [node name="Arena" type="Node2D"]
@@ -125,6 +126,9 @@ material = SubResource("ShaderMaterial_qhhh3")
 
 [node name="Sprite2D" parent="Bench/BenchUnitGrid/Unit2/Visuals" index="0"]
 region_rect = Rect2(64, 0, 32, 32)
+
+[node name="SellPortal" parent="." instance=ExtResource("8_4fftf")]
+position = Vector2(576, 288)
 
 [node name="UnitPlacer" type="Node" parent="." node_paths=PackedStringArray("play_areas")]
 script = ExtResource("5_dlikq")

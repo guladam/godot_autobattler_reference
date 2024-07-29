@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bd6jhfp83q1rv"]
+[gd_scene load_steps=8 format=3 uid="uid://bd6jhfp83q1rv"]
 
 [ext_resource type="Script" path="res://scenes/unit/unit.gd" id="1_v6qje"]
 [ext_resource type="Material" uid="uid://bb8m5fhpi4wqn" path="res://assets/2d_outline_shader.tres" id="2_mfirb"]
 [ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/rogues.png" id="2_pvsvo"]
 [ext_resource type="Script" path="res://components/drag_and_drop.gd" id="3_dhhtl"]
 [ext_resource type="Script" path="res://components/velocity_based_rotation.gd" id="4_j53m8"]
+[ext_resource type="Script" path="res://components/outline_highlighter.gd" id="6_mu807"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0qp17"]
 size = Vector2(36, 36)
@@ -36,6 +37,12 @@ script = ExtResource("4_j53m8")
 enabled = false
 target = NodePath("../Visuals/Sprite2D")
 rotation_multiplier = 70
+
+[node name="OutlineHighlighter" type="Node" parent="." node_paths=PackedStringArray("visuals")]
+script = ExtResource("6_mu807")
+visuals = NodePath("../Visuals")
+outline_color = Color(1, 1, 1, 1)
+outline_thickness = 2
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
