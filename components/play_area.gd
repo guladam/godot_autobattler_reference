@@ -16,12 +16,20 @@ func get_grid_coordinate(tile: Vector2i) -> Vector2i:
 	return tile - starting_coordinate
 
 
+func get_tile_from_grid(grid: Vector2i) -> Vector2i:
+	return grid + starting_coordinate
+
+
 func get_tile_from_local(local: Vector2) -> Vector2i:
 	return local_to_map(local)
 
 
 func get_tile_from_global(global: Vector2) -> Vector2i:
 	return local_to_map(to_local(global))
+
+
+func get_global_from_tile(tile: Vector2i) -> Vector2:
+	return to_global(map_to_local(tile))
 
 
 func get_hovered_tile() -> Vector2i:

@@ -1,12 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://dk0bcfpbo130r"]
+[gd_scene load_steps=8 format=3 uid="uid://dk0bcfpbo130r"]
 
 [ext_resource type="Script" path="res://scenes/sell_portal/sell_portal.gd" id="1_gt8yb"]
 [ext_resource type="Material" uid="uid://bb8m5fhpi4wqn" path="res://assets/2d_outline_shader.tres" id="1_t3wda"]
 [ext_resource type="Texture2D" uid="uid://b1ro1ssup7dcp" path="res://assets/tiles.png" id="2_e1nv4"]
 [ext_resource type="Script" path="res://components/outline_highlighter.gd" id="3_534p2"]
+[ext_resource type="FontFile" uid="uid://wqfms7k4ykv2" path="res://assets/font/abaddon_bold.ttf" id="5_io8n6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dhngt"]
 radius = 24.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_iqwb5"]
+font = ExtResource("5_io8n6")
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.572549)
 
 [node name="SellPortal" type="Area2D"]
 script = ExtResource("1_gt8yb")
@@ -27,8 +33,16 @@ shape = SubResource("CircleShape2D_dhngt")
 [node name="OutlineHighlighter" type="Node" parent="." node_paths=PackedStringArray("visuals")]
 script = ExtResource("3_534p2")
 visuals = NodePath("../Visuals")
-outline_color = Color(0.914161, 0.904956, 0.864003, 1)
+outline_color = Color(0.558506, 0.914516, 0.744922, 1)
 outline_thickness = 2
+
+[node name="Label" type="Label" parent="."]
+offset_top = 36.0
+offset_right = 32.0
+offset_bottom = 54.0
+text = "sell"
+label_settings = SubResource("LabelSettings_iqwb5")
+horizontal_alignment = 1
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

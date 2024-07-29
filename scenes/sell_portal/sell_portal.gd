@@ -6,10 +6,13 @@ extends Area2D
 var current_unit: Unit
 
 func _ready() -> void:
-	# TODO do the same when a new unit is added
 	var units := get_tree().get_nodes_in_group("units")
 	for unit: Unit in units:
-		unit.dropped.connect(_on_unit_dropped.bind(unit))
+		setup_unit(unit)
+
+
+func setup_unit(unit: Unit) -> void:
+	unit.dropped.connect(_on_unit_dropped.bind(unit))
 
 
 func _on_unit_dropped(_starting_position: Vector2, unit: Unit) -> void:

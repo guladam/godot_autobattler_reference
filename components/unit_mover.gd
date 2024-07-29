@@ -1,4 +1,4 @@
-class_name UnitPlacer
+class_name UnitMover
 extends Node
 
 const HALF_CELL_SIZE := Vector2(16, 16)
@@ -7,12 +7,15 @@ const HALF_CELL_SIZE := Vector2(16, 16)
 
 
 func _ready() -> void:
-	# TODO do the same when a new unit is added
 	var units := get_tree().get_nodes_in_group("units")
 	for unit: Unit in units:
-		unit.drag_started.connect(_on_unit_drag_started.bind(unit))
-		unit.drag_canceled.connect(_on_unit_drag_canceled)
-		unit.dropped.connect(_on_unit_dropped.bind(unit))
+		setup_unit(unit)
+
+
+func setup_unit(unit: Unit) -> void:
+	unit.drag_started.connect(_on_unit_drag_started.bind(unit))
+	unit.drag_canceled.connect(_on_unit_drag_canceled)
+	unit.dropped.connect(_on_unit_dropped.bind(unit))
 
 
 func _set_highlighters(enabled: bool) -> void:

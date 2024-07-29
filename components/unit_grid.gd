@@ -20,8 +20,24 @@ func set_cell_unit(tile: Vector2i, unit: Node) -> void:
 
 
 func is_tile_occupied(tile: Vector2i) -> bool:
-	return units[tile] != null
+	# we need is instance valid, because when we sell a unit
+	# it won't be null but a "freed object" instead!
+	# see is_grid_full() print message!
+	return units[tile] != null and is_instance_valid(units[tile])
 
+
+func is_grid_full() -> bool:
+	print(units.values())
+	return units.keys().all(is_tile_occupied)
+
+
+func get_first_empty_tile() -> Vector2i:
+	for tile in units:
+		if not is_tile_occupied(tile):
+			return tile
+
+	# no empty tile
+	return Vector2i(-1, -1)
 
 # NOTE might need these in the future
 #func is_tile_in_bounds(tile: Vector2i) -> bool:
