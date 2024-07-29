@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=13 format=3 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
 [ext_resource type="Script" path="res://components/tile_highlighter.gd" id="2_855b2"]
 [ext_resource type="Texture2D" uid="uid://mbxv0ayrsu3d" path="res://assets/star_particle.png" id="2_m4bap"]
 [ext_resource type="Script" path="res://components/unit_grid.gd" id="4_m7ydk"]
 [ext_resource type="PackedScene" uid="uid://bd6jhfp83q1rv" path="res://scenes/unit/unit.tscn" id="4_nenrg"]
+[ext_resource type="Script" path="res://components/unit_placer.gd" id="5_dlikq"]
+[ext_resource type="Script" path="res://components/play_area.gd" id="6_73s8l"]
+[ext_resource type="Shader" path="res://assets/2d_outline.gdshader" id="7_mve78"]
 
 [sub_resource type="Curve" id="Curve_kxla4"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.227273, 1), 0.0, 0.0, 0, 0, Vector2(0.791667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -27,6 +30,12 @@ scale_min = 0.1
 scale_max = 0.2
 scale_curve = SubResource("CurveTexture_l00ks")
 color = Color(1, 1, 1, 0.498039)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qhhh3"]
+resource_local_to_scene = true
+shader = ExtResource("7_mve78")
+shader_parameter/line_colour = Color(1, 1, 0.627451, 1)
+shader_parameter/line_thickness = 0
 
 [node name="Arena" type="Node2D"]
 metadata/_edit_lock_ = true
@@ -52,7 +61,7 @@ process_material = SubResource("ParticleProcessMaterial_76jh2")
 texture = ExtResource("2_m4bap")
 lifetime = 6.0
 
-[node name="GameTiles" type="TileMap" parent="."]
+[node name="GameTiles" type="TileMap" parent="." node_paths=PackedStringArray("unit_grid", "tile_highlighter")]
 position = Vector2(128, 0)
 tile_set = ExtResource("1_hreld")
 format = 2
@@ -63,17 +72,24 @@ layer_1/modulate = Color(1, 1, 1, 0.592157)
 layer_1/tile_data = PackedInt32Array(65542, 1, 21, 327689, 65537, 22, 131082, 1, 22)
 layer_2/name = "highlight"
 layer_2/tile_data = PackedInt32Array()
+script = ExtResource("6_73s8l")
+starting_coordinate = Vector2i(1, 1)
+unit_grid = NodePath("ArenaUnitGrid")
+tile_highlighter = NodePath("TileHighlighter")
 metadata/_edit_lock_ = true
 
-[node name="TileHighlighter" type="Node" parent="GameTiles" node_paths=PackedStringArray("tilemap")]
+[node name="TileHighlighter" type="Node" parent="GameTiles" node_paths=PackedStringArray("play_area")]
 script = ExtResource("2_855b2")
-tilemap = NodePath("..")
+enabled = false
+play_area = NodePath("..")
 layer = 2
 tile = Vector2i(3, 0)
-bound_limit_start = Vector2i(1, 1)
-bound_limit_size = Vector2i(10, 7)
 
-[node name="Bench" type="TileMap" parent="."]
+[node name="ArenaUnitGrid" type="Node" parent="GameTiles"]
+script = ExtResource("4_m7ydk")
+size = Vector2i(4, 7)
+
+[node name="Bench" type="TileMap" parent="." node_paths=PackedStringArray("unit_grid", "tile_highlighter")]
 position = Vector2(128, 320)
 tile_set = ExtResource("1_hreld")
 format = 2
@@ -81,26 +97,37 @@ layer_0/name = "walls_slots"
 layer_0/tile_data = PackedInt32Array(-131072, 65537, 1, -131071, 65537, 1, -131070, 65537, 1, -131069, 65537, 1, -131068, 65537, 1, -131067, 65537, 1, -131066, 65537, 1, -131065, 65537, 1, -131064, 65537, 1, -131063, 65537, 1, 0, 1, 0, 65536, 65537, 0, 1, 1, 11, 65537, 65537, 0, 2, 1, 7, 65538, 65537, 0, 3, 1, 11, 65539, 65537, 0, 4, 1, 7, 65540, 65537, 0, 5, 1, 11, 65541, 65537, 0, 6, 1, 7, 65542, 65537, 0, 7, 1, 11, 65543, 65537, 0, 8, 1, 7, 65544, 65537, 0, 9, 1, 11, 65545, 65537, 0, 10, 1, 7, 65546, 65537, 0, 11, 1, 0, 65547, 65537, 0)
 layer_1/name = "highlight"
 layer_1/tile_data = PackedInt32Array()
+script = ExtResource("6_73s8l")
+starting_coordinate = Vector2i(1, 0)
+unit_grid = NodePath("BenchUnitGrid")
+tile_highlighter = NodePath("TileHighlighter")
 metadata/_edit_lock_ = true
 
-[node name="TileHighlighter" type="Node" parent="Bench" node_paths=PackedStringArray("tilemap")]
+[node name="TileHighlighter" type="Node" parent="Bench" node_paths=PackedStringArray("play_area")]
 script = ExtResource("2_855b2")
-tilemap = NodePath("..")
+enabled = false
+play_area = NodePath("..")
 layer = 1
 tile = Vector2i(3, 0)
-bound_limit_start = Vector2i(1, 0)
-bound_limit_size = Vector2i(10, 1)
 
-[node name="ArenaUnits" type="Node" parent="."]
-script = ExtResource("4_m7ydk")
-size = Vector2i(10, 7)
-
-[node name="BenchUnits" type="Node" parent="."]
+[node name="BenchUnitGrid" type="Node" parent="Bench"]
 script = ExtResource("4_m7ydk")
 size = Vector2i(10, 1)
 
-[node name="Unit" parent="BenchUnits" instance=ExtResource("4_nenrg")]
+[node name="Unit" parent="Bench/BenchUnitGrid" instance=ExtResource("4_nenrg")]
 position = Vector2(192, 320)
 
-[node name="Unit2" parent="BenchUnits" instance=ExtResource("4_nenrg")]
+[node name="Unit2" parent="Bench/BenchUnitGrid" instance=ExtResource("4_nenrg")]
 position = Vector2(384, 320)
+
+[node name="Visuals" parent="Bench/BenchUnitGrid/Unit2" index="0"]
+material = SubResource("ShaderMaterial_qhhh3")
+
+[node name="Sprite2D" parent="Bench/BenchUnitGrid/Unit2/Visuals" index="0"]
+region_rect = Rect2(64, 0, 32, 32)
+
+[node name="UnitPlacer" type="Node" parent="." node_paths=PackedStringArray("play_areas")]
+script = ExtResource("5_dlikq")
+play_areas = [NodePath("../GameTiles"), NodePath("../Bench")]
+
+[editable path="Bench/BenchUnitGrid/Unit2"]

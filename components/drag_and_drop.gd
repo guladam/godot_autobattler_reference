@@ -23,9 +23,14 @@ func _process(_delta: float) -> void:
 		target.global_position = target.get_global_mouse_position() + offset
 
 
-func _cancel_dragging() -> void:
+func _end_dragging() -> void:
 	dragging = false
 	target.remove_from_group("dragging")
+	target.z_index = 0
+
+
+func _cancel_dragging() -> void:
+	_end_dragging()
 	drag_canceled.emit(starting_position)
 
 
@@ -39,10 +44,9 @@ func _start_dragging() -> void:
 
 
 func _drop() -> void:
-	dragging = false
-	target.remove_from_group("dragging")
+	_end_dragging()
 	dropped.emit(starting_position)
-
+	
 
 func _on_target_input_event(_viewport: Node, event: InputEvent) -> void:
 	if not enabled:
