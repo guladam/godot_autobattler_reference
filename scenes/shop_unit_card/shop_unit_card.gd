@@ -3,14 +3,17 @@ extends Control
 
 signal unit_bought(unit: UnitStats)
 
+const HOVER_BORDER_COLOR := Color("fafa82")
+
 @export var unit_stats: UnitStats : set = set_unit_stats
 
-@onready var unit_icon: TextureRect = %UnitIcon
+@onready var traits: Label = %Traits
 @onready var bottom: Panel = %Bottom
 @onready var unit_name: Label = %UnitName
 @onready var gold_cost: Label = %GoldCost
 @onready var border: Panel = %Border
 @onready var empty_placeholder: Panel = %EmptyPlaceholder
+@onready var unit_icon: TextureRect = %UnitIcon
 @onready var border_sb: StyleBoxFlat = border.get_theme_stylebox("panel")
 @onready var bottom_sb: StyleBoxFlat = bottom.get_theme_stylebox("panel")
 
@@ -32,7 +35,7 @@ func set_unit_stats(value: UnitStats) -> void:
 
 
 func _on_mouse_entered() -> void:
-	border_sb.border_color = Color("fafa82")
+	border_sb.border_color = HOVER_BORDER_COLOR
 
 
 func _on_mouse_exited() -> void:

@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 func setup_unit(unit: Unit) -> void:
-	unit.dropped.connect(_on_unit_dropped.bind(unit))
+	unit.drag_and_drop.dropped.connect(_on_unit_dropped.bind(unit))
 
 
 func _on_unit_dropped(_starting_position: Vector2, unit: Unit) -> void:

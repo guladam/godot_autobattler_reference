@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://h35dg0gwcdag"]
+
+[ext_resource type="Texture2D" uid="uid://c4awhqfup7o2k" path="res://assets/sprites/gold.png" id="1_o3rio"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0kux0"]
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.647059)
+
+[node name="VBoxContainer" type="VBoxContainer"]
+custom_minimum_size = Vector2(24, 36)
+offset_right = 12.0
+offset_bottom = 36.0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+texture = ExtResource("1_o3rio")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Gold" type="Label" parent="."]
+layout_mode = 2
+text = "10"
+label_settings = SubResource("LabelSettings_0kux0")
+horizontal_alignment = 1

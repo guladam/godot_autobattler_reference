@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=22 format=3 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="Script" path="res://scenes/arena/arena.gd" id="1_a1ak0"]
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
@@ -13,6 +13,9 @@
 [ext_resource type="Script" path="res://components/unit_adder.gd" id="10_8rjpw"]
 [ext_resource type="Script" path="res://components/unit_combiner.gd" id="11_ex2js"]
 [ext_resource type="PackedScene" uid="uid://otxvh4f85gni" path="res://scenes/shop_unit_card/shop_unit_card.tscn" id="13_52mlx"]
+[ext_resource type="PackedScene" uid="uid://h35dg0gwcdag" path="res://scenes/gold_display/gold_display.tscn" id="13_aag0k"]
+[ext_resource type="Resource" uid="uid://d1opxbi6ouvxn" path="res://units/harry.tres" id="14_5h2ca"]
+[ext_resource type="Resource" uid="uid://1b645f77jlhi" path="res://units/robin.tres" id="14_vh0m0"]
 
 [sub_resource type="Curve" id="Curve_kxla4"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.227273, 1), 0.0, 0.0, 0, 0, Vector2(0.791667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -45,50 +48,14 @@ gold_cost = 1
 tier = 1
 skin_coordinates = Vector2i(0, 0)
 
-[sub_resource type="Resource" id="Resource_625ny"]
+[sub_resource type="Resource" id="Resource_2ly0b"]
 resource_local_to_scene = true
 script = ExtResource("8_gcysu")
-name = "Mage"
+name = "Bjorn"
 rarity = 0
 gold_cost = 1
 tier = 1
-skin_coordinates = Vector2i(4, 0)
-
-[sub_resource type="Resource" id="Resource_txd04"]
-resource_local_to_scene = true
-script = ExtResource("8_gcysu")
-name = "Mage"
-rarity = 0
-gold_cost = 1
-tier = 1
-skin_coordinates = Vector2i(4, 0)
-
-[sub_resource type="Resource" id="Resource_oy7ue"]
-resource_local_to_scene = true
-script = ExtResource("8_gcysu")
-name = "Mage"
-rarity = 0
-gold_cost = 1
-tier = 1
-skin_coordinates = Vector2i(4, 0)
-
-[sub_resource type="Resource" id="Resource_rfbtc"]
-resource_local_to_scene = true
-script = ExtResource("8_gcysu")
-name = "Mage"
-rarity = 0
-gold_cost = 1
-tier = 1
-skin_coordinates = Vector2i(4, 0)
-
-[sub_resource type="Resource" id="Resource_0o3ge"]
-resource_local_to_scene = true
-script = ExtResource("8_gcysu")
-name = "Mage"
-rarity = 0
-gold_cost = 1
-tier = 1
-skin_coordinates = Vector2i(4, 0)
+skin_coordinates = Vector2i(1, 3)
 
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_a1ak0")
@@ -189,32 +156,40 @@ script = ExtResource("11_ex2js")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="ShopCards" type="VBoxContainer" parent="UI"]
+[node name="Shop" type="HBoxContainer" parent="UI"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -88.0
+offset_left = -104.0
 offset_top = 8.0
 offset_right = -8.0
 offset_bottom = 274.0
 grow_horizontal = 0
+theme_override_constants/separation = 8
 
-[node name="ShopUnitCard" parent="UI/ShopCards" instance=ExtResource("13_52mlx")]
+[node name="GoldDisplay" parent="UI/Shop" instance=ExtResource("13_aag0k")]
 layout_mode = 2
-unit_stats = SubResource("Resource_625ny")
+alignment = 1
 
-[node name="ShopUnitCard2" parent="UI/ShopCards" instance=ExtResource("13_52mlx")]
+[node name="ShopCards" type="VBoxContainer" parent="UI/Shop"]
 layout_mode = 2
-unit_stats = SubResource("Resource_txd04")
 
-[node name="ShopUnitCard3" parent="UI/ShopCards" instance=ExtResource("13_52mlx")]
+[node name="ShopUnitCard" parent="UI/Shop/ShopCards" instance=ExtResource("13_52mlx")]
 layout_mode = 2
-unit_stats = SubResource("Resource_oy7ue")
+unit_stats = SubResource("Resource_2ly0b")
 
-[node name="ShopUnitCard4" parent="UI/ShopCards" instance=ExtResource("13_52mlx")]
+[node name="ShopUnitCard2" parent="UI/Shop/ShopCards" instance=ExtResource("13_52mlx")]
 layout_mode = 2
-unit_stats = SubResource("Resource_rfbtc")
+unit_stats = ExtResource("14_5h2ca")
 
-[node name="ShopUnitCard5" parent="UI/ShopCards" instance=ExtResource("13_52mlx")]
+[node name="ShopUnitCard3" parent="UI/Shop/ShopCards" instance=ExtResource("13_52mlx")]
 layout_mode = 2
-unit_stats = SubResource("Resource_0o3ge")
+unit_stats = ExtResource("14_vh0m0")
+
+[node name="ShopUnitCard4" parent="UI/Shop/ShopCards" instance=ExtResource("13_52mlx")]
+layout_mode = 2
+unit_stats = ExtResource("14_5h2ca")
+
+[node name="ShopUnitCard5" parent="UI/Shop/ShopCards" instance=ExtResource("13_52mlx")]
+layout_mode = 2
+unit_stats = ExtResource("14_vh0m0")

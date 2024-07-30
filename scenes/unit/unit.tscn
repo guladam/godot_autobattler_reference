@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bd6jhfp83q1rv"]
 
 [ext_resource type="Script" path="res://scenes/unit/unit.gd" id="1_v6qje"]
-[ext_resource type="Resource" uid="uid://xjus2xsvdrxh" path="res://scenes/unit/test_unit.tres" id="2_an7oq"]
+[ext_resource type="Resource" uid="uid://xjus2xsvdrxh" path="res://units/bjorn.tres" id="2_5umk7"]
 [ext_resource type="Material" uid="uid://bb8m5fhpi4wqn" path="res://assets/shaders/2d_outline_shader.tres" id="2_odlpc"]
 [ext_resource type="Script" path="res://components/drag_and_drop.gd" id="3_dhhtl"]
 [ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/sprites/rogues.png" id="3_sepav"]
@@ -32,7 +32,7 @@ border_color = Color(0, 0, 0, 1)
 
 [node name="Unit" type="Area2D" groups=["units"]]
 script = ExtResource("1_v6qje")
-stats = ExtResource("2_an7oq")
+stats = ExtResource("2_5umk7")
 metadata/_edit_group_ = true
 
 [node name="Visuals" type="CanvasGroup" parent="."]
@@ -43,7 +43,7 @@ position = Vector2(16, 8)
 texture = ExtResource("3_sepav")
 flip_h = true
 region_enabled = true
-region_rect = Rect2(128, 0, 32, 32)
+region_rect = Rect2(32, 96, 32, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(16, 8)
@@ -70,7 +70,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_i1sdb")
 theme_override_styles/fill = SubResource("StyleBoxFlat_kodbq")
 show_percentage = false
 
-[node name="DragAndDropComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
+[node name="DragAndDrop" type="Node" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("3_dhhtl")
 target = NodePath("..")
 

@@ -13,9 +13,9 @@ func _ready() -> void:
 
 
 func setup_unit(unit: Unit) -> void:
-	unit.drag_started.connect(_on_unit_drag_started.bind(unit))
-	unit.drag_canceled.connect(_on_unit_drag_canceled)
-	unit.dropped.connect(_on_unit_dropped.bind(unit))
+	unit.drag_and_drop.drag_started.connect(_on_unit_drag_started.bind(unit))
+	unit.drag_and_drop.drag_canceled.connect(_on_unit_drag_canceled.unbind(1))
+	unit.drag_and_drop.dropped.connect(_on_unit_dropped.bind(unit))
 
 
 func _set_highlighters(enabled: bool) -> void:

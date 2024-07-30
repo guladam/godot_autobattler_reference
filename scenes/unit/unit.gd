@@ -2,23 +2,18 @@
 class_name Unit
 extends Area2D
 
-signal drag_started
-signal drag_canceled
-signal dropped(starting_position: Vector2)
-
 @export var stats: UnitStats : set = set_stats
 
 @onready var skin: Sprite2D = $Visuals/Skin
-@onready var drag_and_drop_component: DragAndDrop = $DragAndDropComponent
+@onready var drag_and_drop: DragAndDrop = $DragAndDrop
 @onready var velocity_based_rotation: VelocityBasedRotation = $VelocityBasedRotation
 @onready var outline_highlighter: OutlineHighlighter = $OutlineHighlighter
 
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
-		drag_and_drop_component.drag_started.connect(_on_drag_started)
-		drag_and_drop_component.drag_canceled.connect(_on_drag_canceled)
-		drag_and_drop_component.dropped.connect(_on_dropped)
+		drag_and_drop.drag_started.connect(_on_drag_started)
+		drag_and_drop.drag_canceled.connect(_on_drag_canceled)
 
 
 func set_stats(value: UnitStats) -> void:
@@ -37,16 +32,10 @@ func reset_after_dragging(starting_position: Vector2) -> void:
 
 func _on_drag_started() -> void:
 	velocity_based_rotation.enabled = true
-	drag_started.emit()
 
 
 func _on_drag_canceled(starting_position: Vector2) -> void:
 	reset_after_dragging(starting_position)
-	drag_canceled.emit()
-
-
-func _on_dropped(starting_position: Vector2) -> void:
-	dropped.emit(starting_position)
 
 
 func _on_mouse_entered() -> void:

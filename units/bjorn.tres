@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3 uid="uid://xjus2xsvdrxh"]
 
-[ext_resource type="Script" path="res://scenes/unit/unit_stats.gd" id="1_48804"]
+[ext_resource type="Script" path="res://scenes/unit/unit_stats.gd" id="1_n8exx"]
 
 [resource]
 resource_local_to_scene = true
-script = ExtResource("1_48804")
-name = "Mage"
+script = ExtResource("1_n8exx")
+name = "Bjorn"
 rarity = 0
 gold_cost = 1
 tier = 1
-skin_coordinates = Vector2i(4, 0)
+skin_coordinates = Vector2i(1, 3)
