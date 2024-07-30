@@ -1,0 +1,133 @@
+[gd_scene load_steps=9 format=3 uid="uid://otxvh4f85gni"]
+
+[ext_resource type="StyleBox" uid="uid://cfbqjkjc3qola" path="res://scenes/shop_unit_card/shop_unit_card_border.tres" id="1_8pgg2"]
+[ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/sprites/rogues.png" id="1_gljwm"]
+[ext_resource type="Script" path="res://scenes/shop_unit_card/shop_unit_card.gd" id="1_n540f"]
+[ext_resource type="Resource" uid="uid://xjus2xsvdrxh" path="res://scenes/unit/test_unit.tres" id="2_7l2dw"]
+[ext_resource type="StyleBox" uid="uid://ka3ji8mat7ni" path="res://scenes/shop_unit_card/shop_unit_card_bottom.tres" id="2_vpmtq"]
+[ext_resource type="Texture2D" uid="uid://c4awhqfup7o2k" path="res://assets/sprites/gold.png" id="3_5y0ne"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctb54"]
+resource_local_to_scene = true
+atlas = ExtResource("1_gljwm")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ch1h2"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="ShopUnitCard" type="Control"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -560.0
+offset_bottom = -308.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n540f")
+unit_stats = ExtResource("2_7l2dw")
+
+[node name="Content" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1.23335e-07, 0.0836737, 0.125022, 1)
+
+[node name="UnitIcon" type="TextureRect" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_top = 2.0
+offset_right = 16.0
+offset_bottom = 34.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_ctb54")
+stretch_mode = 5
+
+[node name="Bottom" type="Panel" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_vpmtq")
+
+[node name="MarginContainer" type="MarginContainer" parent="Bottom"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Bottom/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="UnitName" type="Label" parent="Bottom/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Warrior"
+
+[node name="GoldContainer" type="HBoxContainer" parent="Bottom/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 2
+alignment = 2
+
+[node name="GoldIcon" type="TextureRect" parent="Bottom/MarginContainer/HBoxContainer/GoldContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_5y0ne")
+stretch_mode = 5
+
+[node name="GoldCost" type="Label" parent="Bottom/MarginContainer/HBoxContainer/GoldContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1"
+
+[node name="Border" type="Panel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("1_8pgg2")
+
+[node name="EmptyPlaceholder" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ch1h2")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

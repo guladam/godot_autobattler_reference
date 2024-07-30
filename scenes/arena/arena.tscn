@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=23 format=3 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="Script" path="res://scenes/arena/arena.gd" id="1_a1ak0"]
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://components/unit_mover.gd" id="9_snp81"]
 [ext_resource type="Script" path="res://components/unit_adder.gd" id="10_8rjpw"]
 [ext_resource type="Script" path="res://components/unit_combiner.gd" id="11_ex2js"]
+[ext_resource type="PackedScene" uid="uid://otxvh4f85gni" path="res://scenes/shop_unit_card/shop_unit_card.tscn" id="13_52mlx"]
 
 [sub_resource type="Curve" id="Curve_kxla4"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.227273, 1), 0.0, 0.0, 0, 0, Vector2(0.791667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -39,13 +40,55 @@ color = Color(1, 1, 1, 0.498039)
 resource_local_to_scene = true
 script = ExtResource("8_gcysu")
 name = "warrior"
+rarity = 0
+gold_cost = 1
 tier = 1
+skin_coordinates = Vector2i(0, 0)
 
-[sub_resource type="Resource" id="Resource_bilte"]
+[sub_resource type="Resource" id="Resource_625ny"]
 resource_local_to_scene = true
 script = ExtResource("8_gcysu")
-name = "warrior"
+name = "Mage"
+rarity = 0
+gold_cost = 1
 tier = 1
+skin_coordinates = Vector2i(4, 0)
+
+[sub_resource type="Resource" id="Resource_txd04"]
+resource_local_to_scene = true
+script = ExtResource("8_gcysu")
+name = "Mage"
+rarity = 0
+gold_cost = 1
+tier = 1
+skin_coordinates = Vector2i(4, 0)
+
+[sub_resource type="Resource" id="Resource_oy7ue"]
+resource_local_to_scene = true
+script = ExtResource("8_gcysu")
+name = "Mage"
+rarity = 0
+gold_cost = 1
+tier = 1
+skin_coordinates = Vector2i(4, 0)
+
+[sub_resource type="Resource" id="Resource_rfbtc"]
+resource_local_to_scene = true
+script = ExtResource("8_gcysu")
+name = "Mage"
+rarity = 0
+gold_cost = 1
+tier = 1
+skin_coordinates = Vector2i(4, 0)
+
+[sub_resource type="Resource" id="Resource_0o3ge"]
+resource_local_to_scene = true
+script = ExtResource("8_gcysu")
+name = "Mage"
+rarity = 0
+gold_cost = 1
+tier = 1
+skin_coordinates = Vector2i(4, 0)
 
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_a1ak0")
@@ -129,12 +172,8 @@ size = Vector2i(10, 1)
 position = Vector2(192, 320)
 stats = SubResource("Resource_p05m5")
 
-[node name="Unit2" parent="Bench/BenchUnitGrid" instance=ExtResource("4_nenrg")]
-position = Vector2(384, 320)
-stats = SubResource("Resource_bilte")
-
 [node name="SellPortal" parent="." instance=ExtResource("8_4fftf")]
-position = Vector2(576, 288)
+position = Vector2(64, 288)
 
 [node name="UnitMover" type="Node" parent="." node_paths=PackedStringArray("play_areas")]
 script = ExtResource("9_snp81")
@@ -147,3 +186,35 @@ game_area = NodePath("../GameTiles")
 
 [node name="UnitCombiner" type="Node" parent="."]
 script = ExtResource("11_ex2js")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ShopCards" type="VBoxContainer" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -88.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 274.0
+grow_horizontal = 0
+
+[node name="ShopUnitCard" parent="UI/ShopCards" instance=ExtResource("13_52mlx")]
+layout_mode = 2
+unit_stats = SubResource("Resource_625ny")
+
+[node name="ShopUnitCard2" parent="UI/ShopCards" instance=ExtResource("13_52mlx")]
+layout_mode = 2
+unit_stats = SubResource("Resource_txd04")
+
+[node name="ShopUnitCard3" parent="UI/ShopCards" instance=ExtResource("13_52mlx")]
+layout_mode = 2
+unit_stats = SubResource("Resource_oy7ue")
+
+[node name="ShopUnitCard4" parent="UI/ShopCards" instance=ExtResource("13_52mlx")]
+layout_mode = 2
+unit_stats = SubResource("Resource_rfbtc")
+
+[node name="ShopUnitCard5" parent="UI/ShopCards" instance=ExtResource("13_52mlx")]
+layout_mode = 2
+unit_stats = SubResource("Resource_0o3ge")

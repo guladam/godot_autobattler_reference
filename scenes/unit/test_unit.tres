@@ -5,5 +5,8 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_48804")
-name = "warrior"
+name = "Mage"
+rarity = 0
+gold_cost = 1
 tier = 1
+skin_coordinates = Vector2i(4, 0)

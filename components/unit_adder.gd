@@ -13,11 +13,6 @@ const UNIT = preload("res://scenes/unit/unit.tscn")
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("unit_add"):
 		add_unit()
-		add_unit()
-		add_unit()
-		add_unit()
-		add_unit()
-		add_unit()
 
 
 func _get_first_available_area() -> PlayArea:

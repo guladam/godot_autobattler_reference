@@ -38,12 +38,12 @@ metadata/_edit_group_ = true
 [node name="Visuals" type="CanvasGroup" parent="."]
 material = ExtResource("2_odlpc")
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+[node name="Skin" type="Sprite2D" parent="Visuals"]
 position = Vector2(16, 8)
 texture = ExtResource("3_sepav")
 flip_h = true
 region_enabled = true
-region_rect = Rect2(32, 96, 32, 32)
+region_rect = Rect2(128, 0, 32, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(16, 8)
@@ -77,7 +77,7 @@ target = NodePath("..")
 [node name="VelocityBasedRotation" type="Node" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("4_j53m8")
 enabled = false
-target = NodePath("../Visuals/Sprite2D")
+target = NodePath("../Visuals/Skin")
 rotation_multiplier = 70
 
 [node name="OutlineHighlighter" type="Node" parent="." node_paths=PackedStringArray("visuals")]
