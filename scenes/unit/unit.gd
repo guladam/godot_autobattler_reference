@@ -17,7 +17,8 @@ func _ready() -> void:
 
 
 func set_stats(value: UnitStats) -> void:
-	stats = value
+	stats = value.duplicate() # NOTE point this out in the tutorial
+	# without duplicate() the tier of units would be shared
 	
 	if not skin:
 		await ready

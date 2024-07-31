@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://2fft4iykjm1b"]
+[gd_scene load_steps=11 format=3 uid="uid://2fft4iykjm1b"]
 
 [ext_resource type="FontFile" uid="uid://8di0jvr25vat" path="res://assets/font/m5x7.ttf" id="1_2rube"]
 [ext_resource type="Texture2D" uid="uid://c4awhqfup7o2k" path="res://assets/sprites/gold.png" id="1_tgfs3"]
@@ -6,6 +6,8 @@
 [ext_resource type="StyleBox" uid="uid://5qdjlavnhcfk" path="res://assets/theme/shop_button_hover.tres" id="2_cm5xd"]
 [ext_resource type="Texture2D" uid="uid://b8ht5o2amn6iw" path="res://assets/sprites/refresh.png" id="2_lar6g"]
 [ext_resource type="StyleBox" uid="uid://mgcn15cjl08u" path="res://assets/theme/shop_button_pressed.tres" id="3_qc641"]
+[ext_resource type="Script" path="res://scenes/reroll_button/reroll_button.gd" id="4_dnwq0"]
+[ext_resource type="Resource" uid="uid://dlnsfkjue2dlt" path="res://data/player/player_stats.tres" id="5_ggxxf"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_swyy2"]
 
@@ -22,6 +24,8 @@ theme_override_styles/normal = ExtResource("1_tu42m")
 theme_override_styles/hover = ExtResource("2_cm5xd")
 theme_override_styles/pressed = ExtResource("3_qc641")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_swyy2")
+script = ExtResource("4_dnwq0")
+player_stats = ExtResource("5_ggxxf")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(80, 0)
@@ -56,3 +60,5 @@ custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("2_lar6g")
 stretch_mode = 5
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

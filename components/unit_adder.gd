@@ -12,7 +12,7 @@ const UNIT = preload("res://scenes/unit/unit.tscn")
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("unit_add"):
-		add_unit()
+		add_unit(preload("res://data/units/bjorn.tres"))
 
 
 func _get_first_available_area() -> PlayArea:
@@ -25,7 +25,7 @@ func _get_first_available_area() -> PlayArea:
 	return null
 
 
-func add_unit() -> void:
+func add_unit(unit: UnitStats) -> void:
 	var area := _get_first_available_area()
 	assert(area, "No available space to add unit to!")
 	
@@ -35,4 +35,5 @@ func add_unit() -> void:
 	area.unit_grid.add_child(new_unit)
 	area.unit_grid.set_cell_unit(grid, new_unit)
 	new_unit.global_position = area.get_global_from_tile(tile) - HALF_CELL_SIZE
+	new_unit.stats = unit
 	unit_added.emit(new_unit)

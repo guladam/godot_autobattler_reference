@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://data/units/unit_stats.gd" id="1_n8exx"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_n8exx")
 name = "Bjorn"
 rarity = 0
 gold_cost = 1
 tier = 1
+pool_count = 15
 skin_coordinates = Vector2i(1, 3)

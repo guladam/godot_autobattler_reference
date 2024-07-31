@@ -1,0 +1,98 @@
+[gd_scene load_steps=12 format=3 uid="uid://bhhtibvtken5o"]
+
+[ext_resource type="PackedScene" uid="uid://h35dg0gwcdag" path="res://scenes/gold_display/gold_display.tscn" id="1_otctg"]
+[ext_resource type="Script" path="res://scenes/shop/shop.gd" id="1_w5f7r"]
+[ext_resource type="PackedScene" uid="uid://otxvh4f85gni" path="res://scenes/shop_unit_card/shop_unit_card.tscn" id="2_eydp6"]
+[ext_resource type="Resource" uid="uid://doebgx0llcf1o" path="res://data/unit_pool/unit_pool.tres" id="2_u2n7j"]
+[ext_resource type="Script" path="res://data/units/unit_stats.gd" id="3_qpg5i"]
+[ext_resource type="Resource" uid="uid://d1opxbi6ouvxn" path="res://data/units/harry.tres" id="4_7ji4f"]
+[ext_resource type="Resource" uid="uid://1b645f77jlhi" path="res://data/units/robin.tres" id="5_knwln"]
+[ext_resource type="PackedScene" uid="uid://2fft4iykjm1b" path="res://scenes/reroll_button/reroll_button.tscn" id="6_iivgf"]
+[ext_resource type="PackedScene" uid="uid://ch2lduhujm43e" path="res://scenes/xp_tracker/xp_tracker.tscn" id="7_cmru2"]
+[ext_resource type="PackedScene" uid="uid://da0ap0qtkwrcq" path="res://scenes/xp_button/xp_button.tscn" id="8_epkkf"]
+
+[sub_resource type="Resource" id="Resource_2ly0b"]
+resource_local_to_scene = true
+script = ExtResource("3_qpg5i")
+name = "Bjorn"
+rarity = 0
+gold_cost = 1
+tier = 1
+pool_count = 15
+skin_coordinates = Vector2i(1, 3)
+
+[node name="Shop" type="Control"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+script = ExtResource("1_w5f7r")
+unit_pool = ExtResource("2_u2n7j")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -104.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 274.0
+grow_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="GoldDisplay" parent="HBoxContainer" instance=ExtResource("1_otctg")]
+custom_minimum_size = Vector2(30, 266)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ShopCards" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 276)
+layout_mode = 2
+
+[node name="ShopUnitCard" parent="HBoxContainer/VBoxContainer/ShopCards" instance=ExtResource("2_eydp6")]
+layout_mode = 2
+unit_stats = SubResource("Resource_2ly0b")
+
+[node name="ShopUnitCard2" parent="HBoxContainer/VBoxContainer/ShopCards" instance=ExtResource("2_eydp6")]
+layout_mode = 2
+unit_stats = ExtResource("4_7ji4f")
+
+[node name="ShopUnitCard3" parent="HBoxContainer/VBoxContainer/ShopCards" instance=ExtResource("2_eydp6")]
+layout_mode = 2
+unit_stats = ExtResource("5_knwln")
+
+[node name="ShopUnitCard4" parent="HBoxContainer/VBoxContainer/ShopCards" instance=ExtResource("2_eydp6")]
+layout_mode = 2
+unit_stats = ExtResource("4_7ji4f")
+
+[node name="ShopUnitCard5" parent="HBoxContainer/VBoxContainer/ShopCards" instance=ExtResource("2_eydp6")]
+layout_mode = 2
+unit_stats = ExtResource("5_knwln")
+
+[node name="RerollButton" parent="HBoxContainer/VBoxContainer" instance=ExtResource("6_iivgf")]
+layout_mode = 2
+
+[node name="XPTracker" parent="HBoxContainer/VBoxContainer" instance=ExtResource("7_cmru2")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="XPButton" parent="." instance=ExtResource("8_epkkf")]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 326.0
+offset_right = -90.0
+offset_bottom = 356.0
+grow_horizontal = 0
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/RerollButton" to="." method="_on_reroll_button_pressed"]

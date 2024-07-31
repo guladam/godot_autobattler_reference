@@ -8,4 +8,5 @@ name = "Harry"
 rarity = 0
 gold_cost = 1
 tier = 1
+pool_count = 15
 skin_coordinates = Vector2i(2, 2)

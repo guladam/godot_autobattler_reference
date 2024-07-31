@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ch2lduhujm43e"]
+[gd_scene load_steps=7 format=3 uid="uid://ch2lduhujm43e"]
 
+[ext_resource type="Script" path="res://scenes/xp_tracker/xp_tracker.gd" id="1_r01c5"]
 [ext_resource type="FontFile" uid="uid://8di0jvr25vat" path="res://assets/font/m5x7.ttf" id="1_vydxg"]
+[ext_resource type="Resource" uid="uid://dlnsfkjue2dlt" path="res://data/player/player_stats.tres" id="2_1dv14"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6y8m7"]
 bg_color = Color(0, 0, 0, 1)
@@ -24,8 +26,11 @@ offset_right = 60.0
 offset_bottom = 28.0
 theme_override_constants/separation = 0
 alignment = 2
+script = ExtResource("1_r01c5")
+player_stats = ExtResource("2_1dv14")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -39,12 +44,14 @@ show_percentage = false
 layout_mode = 2
 
 [node name="XPLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "99/99"
 label_settings = SubResource("LabelSettings_hmrw1")
 
 [node name="LevelLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "lvl: 1"
 label_settings = SubResource("LabelSettings_hmrw1")

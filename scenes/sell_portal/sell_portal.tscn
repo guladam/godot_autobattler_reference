@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dk0bcfpbo130r"]
+[gd_scene load_steps=9 format=3 uid="uid://dk0bcfpbo130r"]
 
 [ext_resource type="Script" path="res://scenes/sell_portal/sell_portal.gd" id="1_gt8yb"]
 [ext_resource type="Material" uid="uid://bb8m5fhpi4wqn" path="res://assets/shaders/2d_outline_shader.tres" id="1_t3wda"]
 [ext_resource type="Texture2D" uid="uid://b1ro1ssup7dcp" path="res://assets/sprites/tiles.png" id="2_e1nv4"]
 [ext_resource type="Script" path="res://components/outline_highlighter.gd" id="3_534p2"]
 [ext_resource type="FontFile" uid="uid://wqfms7k4ykv2" path="res://assets/font/abaddon_bold.ttf" id="5_io8n6"]
+[ext_resource type="Texture2D" uid="uid://c4awhqfup7o2k" path="res://assets/sprites/gold.png" id="6_1kakr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dhngt"]
 radius = 24.0
@@ -43,6 +44,29 @@ offset_bottom = 54.0
 text = "sell"
 label_settings = SubResource("LabelSettings_iqwb5")
 horizontal_alignment = 1
+
+[node name="Gold" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_top = 52.0
+offset_right = 32.0
+offset_bottom = 70.0
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="GoldLabel" type="Label" parent="Gold"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "99"
+label_settings = SubResource("LabelSettings_iqwb5")
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Gold"]
+custom_minimum_size = Vector2(9, 0)
+layout_mode = 2
+texture = ExtResource("6_1kakr")
+expand_mode = 1
+stretch_mode = 5
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]
