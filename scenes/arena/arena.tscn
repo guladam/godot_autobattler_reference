@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=25 format=3 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="Script" path="res://scenes/arena/arena.gd" id="1_a1ak0"]
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
@@ -8,14 +8,17 @@
 [ext_resource type="PackedScene" uid="uid://bd6jhfp83q1rv" path="res://scenes/unit/unit.tscn" id="4_nenrg"]
 [ext_resource type="Script" path="res://components/play_area.gd" id="6_73s8l"]
 [ext_resource type="PackedScene" uid="uid://dk0bcfpbo130r" path="res://scenes/sell_portal/sell_portal.tscn" id="8_4fftf"]
-[ext_resource type="Script" path="res://scenes/unit/unit_stats.gd" id="8_gcysu"]
+[ext_resource type="Script" path="res://data/units/unit_stats.gd" id="8_gcysu"]
 [ext_resource type="Script" path="res://components/unit_mover.gd" id="9_snp81"]
 [ext_resource type="Script" path="res://components/unit_adder.gd" id="10_8rjpw"]
 [ext_resource type="Script" path="res://components/unit_combiner.gd" id="11_ex2js"]
 [ext_resource type="PackedScene" uid="uid://otxvh4f85gni" path="res://scenes/shop_unit_card/shop_unit_card.tscn" id="13_52mlx"]
 [ext_resource type="PackedScene" uid="uid://h35dg0gwcdag" path="res://scenes/gold_display/gold_display.tscn" id="13_aag0k"]
-[ext_resource type="Resource" uid="uid://d1opxbi6ouvxn" path="res://units/harry.tres" id="14_5h2ca"]
-[ext_resource type="Resource" uid="uid://1b645f77jlhi" path="res://units/robin.tres" id="14_vh0m0"]
+[ext_resource type="Resource" uid="uid://d1opxbi6ouvxn" path="res://data/units/harry.tres" id="14_5h2ca"]
+[ext_resource type="Resource" uid="uid://1b645f77jlhi" path="res://data/units/robin.tres" id="14_vh0m0"]
+[ext_resource type="PackedScene" uid="uid://2fft4iykjm1b" path="res://scenes/reroll_container/reroll_container.tscn" id="17_cw2r3"]
+[ext_resource type="PackedScene" uid="uid://da0ap0qtkwrcq" path="res://scenes/xp_container/xp_container.tscn" id="18_koam2"]
+[ext_resource type="PackedScene" uid="uid://ch2lduhujm43e" path="res://scenes/xp_tracker/xp_tracker.tscn" id="19_08sqt"]
 
 [sub_resource type="Curve" id="Curve_kxla4"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.227273, 1), 0.0, 0.0, 0, 0, Vector2(0.791667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -165,31 +168,52 @@ offset_top = 8.0
 offset_right = -8.0
 offset_bottom = 274.0
 grow_horizontal = 0
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 
 [node name="GoldDisplay" parent="UI/Shop" instance=ExtResource("13_aag0k")]
 layout_mode = 2
-alignment = 1
 
-[node name="ShopCards" type="VBoxContainer" parent="UI/Shop"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Shop"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ShopCards" type="VBoxContainer" parent="UI/Shop/VBoxContainer"]
 layout_mode = 2
 
-[node name="ShopUnitCard" parent="UI/Shop/ShopCards" instance=ExtResource("13_52mlx")]
+[node name="ShopUnitCard" parent="UI/Shop/VBoxContainer/ShopCards" instance=ExtResource("13_52mlx")]
 layout_mode = 2
 unit_stats = SubResource("Resource_2ly0b")
 
-[node name="ShopUnitCard2" parent="UI/Shop/ShopCards" instance=ExtResource("13_52mlx")]
+[node name="ShopUnitCard2" parent="UI/Shop/VBoxContainer/ShopCards" instance=ExtResource("13_52mlx")]
 layout_mode = 2
 unit_stats = ExtResource("14_5h2ca")
 
-[node name="ShopUnitCard3" parent="UI/Shop/ShopCards" instance=ExtResource("13_52mlx")]
+[node name="ShopUnitCard3" parent="UI/Shop/VBoxContainer/ShopCards" instance=ExtResource("13_52mlx")]
 layout_mode = 2
 unit_stats = ExtResource("14_vh0m0")
 
-[node name="ShopUnitCard4" parent="UI/Shop/ShopCards" instance=ExtResource("13_52mlx")]
+[node name="ShopUnitCard4" parent="UI/Shop/VBoxContainer/ShopCards" instance=ExtResource("13_52mlx")]
 layout_mode = 2
 unit_stats = ExtResource("14_5h2ca")
 
-[node name="ShopUnitCard5" parent="UI/Shop/ShopCards" instance=ExtResource("13_52mlx")]
+[node name="ShopUnitCard5" parent="UI/Shop/VBoxContainer/ShopCards" instance=ExtResource("13_52mlx")]
 layout_mode = 2
 unit_stats = ExtResource("14_vh0m0")
+
+[node name="RerollContainer" parent="UI/Shop/VBoxContainer" instance=ExtResource("17_cw2r3")]
+layout_mode = 2
+
+[node name="XPTracker" parent="UI/Shop/VBoxContainer" instance=ExtResource("19_08sqt")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="XPContainer" parent="UI" instance=ExtResource("18_koam2")]
+custom_minimum_size = Vector2(30, 30)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -117.0
+offset_top = 320.0
+offset_right = -87.0
+offset_bottom = 350.0
+grow_horizontal = 0

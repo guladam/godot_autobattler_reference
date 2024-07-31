@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://da0ap0qtkwrcq"]
+
+[ext_resource type="StyleBox" uid="uid://c3ias4kwkl52j" path="res://assets/theme/shop_button_normal.tres" id="1_5gf0r"]
+[ext_resource type="FontFile" uid="uid://8di0jvr25vat" path="res://assets/font/m5x7.ttf" id="1_8v34c"]
+[ext_resource type="Texture2D" uid="uid://c4awhqfup7o2k" path="res://assets/sprites/gold.png" id="2_4po06"]
+[ext_resource type="StyleBox" uid="uid://5qdjlavnhcfk" path="res://assets/theme/shop_button_hover.tres" id="2_npkc1"]
+[ext_resource type="StyleBox" uid="uid://mgcn15cjl08u" path="res://assets/theme/shop_button_pressed.tres" id="3_sxiva"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2xppc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ysom"]
+font = ExtResource("1_8v34c")
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.619608)
+
+[node name="XPButton" type="Button"]
+custom_minimum_size = Vector2(40, 30)
+offset_right = 40.0
+offset_bottom = 28.0
+theme_override_styles/normal = ExtResource("1_5gf0r")
+theme_override_styles/hover = ExtResource("2_npkc1")
+theme_override_styles/pressed = ExtResource("3_sxiva")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2xppc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -14.0
+offset_right = 15.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="XPLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "+XP"
+label_settings = SubResource("LabelSettings_2ysom")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="GoldLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "4"
+label_settings = SubResource("LabelSettings_2ysom")
+
+[node name="GoldIcon" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(8, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_4po06")
+expand_mode = 1
+stretch_mode = 5

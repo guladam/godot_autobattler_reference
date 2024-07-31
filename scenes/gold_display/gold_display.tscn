@@ -6,15 +6,15 @@
 shadow_size = 2
 shadow_color = Color(0, 0, 0, 0.647059)
 
-[node name="VBoxContainer" type="VBoxContainer"]
-custom_minimum_size = Vector2(24, 36)
-offset_right = 12.0
-offset_bottom = 36.0
-theme_override_constants/separation = 0
+[node name="GoldDisplay" type="HBoxContainer"]
+custom_minimum_size = Vector2(30, 18)
+offset_right = 30.0
+offset_bottom = 18.0
+theme_override_constants/separation = 4
 alignment = 1
 
 [node name="Icon" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(0, 18)
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 texture = ExtResource("1_o3rio")
 expand_mode = 1

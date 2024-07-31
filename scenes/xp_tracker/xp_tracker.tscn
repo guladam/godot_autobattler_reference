@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://ch2lduhujm43e"]
+
+[ext_resource type="FontFile" uid="uid://8di0jvr25vat" path="res://assets/font/m5x7.ttf" id="1_vydxg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6y8m7"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vpqxg"]
+bg_color = Color(0.338683, 0.635809, 0.883053, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hmrw1"]
+font = ExtResource("1_vydxg")
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.556863)
+
+[node name="XPTracker" type="VBoxContainer"]
+custom_minimum_size = Vector2(70, 28)
+offset_right = 60.0
+offset_bottom = 28.0
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_6y8m7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vpqxg")
+value = 50.0
+show_percentage = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="XPLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "99/99"
+label_settings = SubResource("LabelSettings_hmrw1")
+
+[node name="LevelLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "lvl: 1"
+label_settings = SubResource("LabelSettings_hmrw1")
+horizontal_alignment = 2

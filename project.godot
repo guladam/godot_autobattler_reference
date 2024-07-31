@@ -27,7 +27,7 @@ mouse_cursor/custom_image="res://assets/sprites/cursor.png"
 
 [gui]
 
-theme/custom="res://assets/game_theme.tres"
+theme/custom="res://assets/theme/game_theme.tres"
 
 [input]
 

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3 uid="uid://xjus2xsvdrxh"]
 
-[ext_resource type="Script" path="res://scenes/unit/unit_stats.gd" id="1_n8exx"]
+[ext_resource type="Script" path="res://data/units/unit_stats.gd" id="1_n8exx"]
 
 [resource]
 resource_local_to_scene = true
