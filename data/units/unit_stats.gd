@@ -3,12 +3,13 @@ extends Resource
 
 signal stats_changed
 
-enum Rarity {COMMON, UNCOMMON, RARE}
+enum Rarity {COMMON, UNCOMMON, RARE, LEGENDARY}
 
 const RARITY_COLORS := {
 	Rarity.COMMON: Color("124a2e"),
 	Rarity.UNCOMMON: Color("1c527c"),
-	Rarity.RARE: Color("ab0979")
+	Rarity.RARE: Color("ab0979"),
+	Rarity.LEGENDARY: Color("ea940b"),
 }
 
 @export var name: String
@@ -23,8 +24,12 @@ const RARITY_COLORS := {
 @export var skin_coordinates: Vector2i
 
 
+func get_combined_unit_count() -> int:
+	return 3 ** (tier-1)
+
+
 func get_gold_value() -> int:
-	return gold_cost * 3 ** (tier-1)
+	return gold_cost * get_combined_unit_count()
 
 
 func set_tier(value: int) -> void:

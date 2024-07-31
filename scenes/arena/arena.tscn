@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=20 format=3 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="Script" path="res://scenes/arena/arena.gd" id="1_a1ak0"]
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://data/units/unit_stats.gd" id="8_gcysu"]
 [ext_resource type="Script" path="res://components/unit_mover.gd" id="9_snp81"]
 [ext_resource type="Script" path="res://components/unit_adder.gd" id="10_8rjpw"]
+[ext_resource type="Resource" uid="uid://doebgx0llcf1o" path="res://data/unit_pool/unit_pool.tres" id="10_if8r1"]
 [ext_resource type="Resource" uid="uid://dlnsfkjue2dlt" path="res://data/player/player_stats.tres" id="10_n3gg6"]
 [ext_resource type="Script" path="res://components/unit_combiner.gd" id="11_ex2js"]
 [ext_resource type="PackedScene" uid="uid://bhhtibvtken5o" path="res://scenes/shop/shop.tscn" id="13_256pg"]
@@ -37,7 +38,7 @@ scale_max = 0.2
 scale_curve = SubResource("CurveTexture_l00ks")
 color = Color(1, 1, 1, 0.498039)
 
-[sub_resource type="Resource" id="Resource_p05m5"]
+[sub_resource type="Resource" id="Resource_6ca12"]
 resource_local_to_scene = true
 script = ExtResource("8_gcysu")
 name = "warrior"
@@ -127,10 +128,11 @@ size = Vector2i(10, 1)
 
 [node name="Unit" parent="Bench/BenchUnitGrid" instance=ExtResource("4_nenrg")]
 position = Vector2(192, 320)
-stats = SubResource("Resource_p05m5")
+stats = SubResource("Resource_6ca12")
 
 [node name="SellPortal" parent="." instance=ExtResource("8_4fftf")]
 position = Vector2(64, 288)
+unit_pool = ExtResource("10_if8r1")
 player_stats = ExtResource("10_n3gg6")
 
 [node name="UnitMover" type="Node" parent="." node_paths=PackedStringArray("play_areas")]
