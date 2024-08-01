@@ -31,8 +31,15 @@ func _input(event: InputEvent) -> void:
 
 
 func set_stats(value: UnitStats) -> void:
-	stats = value.duplicate() # NOTE point this out in the tutorial
+	stats = value
+	
+	if value == null:
+		return
+	
+	# NOTE point this out in the tutorial
 	# without duplicate() the tier of units would be shared
+	if not Engine.is_editor_hint():
+		stats = value.duplicate()
 	
 	if not skin:
 		await ready

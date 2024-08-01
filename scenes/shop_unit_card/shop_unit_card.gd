@@ -33,6 +33,12 @@ func set_unit_stats(value: UnitStats) -> void:
 	if not is_node_ready():
 		await ready
 
+	if not unit_stats:
+		empty_placeholder.show()
+		disabled = true
+		bought = true
+		return
+
 	border_color = UnitStats.RARITY_COLORS[unit_stats.rarity]
 	border_sb.border_color = border_color
 	bottom_sb.bg_color = border_color
@@ -51,6 +57,9 @@ func _on_mouse_exited() -> void:
 
 
 func _on_player_stats_changed() -> void:
+	if not unit_stats:
+		return
+
 	var has_enough_gold := player_stats.gold >= unit_stats.gold_cost
 	disabled = not has_enough_gold
 	

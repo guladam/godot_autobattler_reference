@@ -13,9 +13,10 @@ func _ready() -> void:
 
 func _on_player_stats_changed() -> void:
 	var has_enough_gold := player_stats.gold >= 4
-	disabled = not has_enough_gold
+	var level_10 := player_stats.level == 10
+	disabled = not has_enough_gold or level_10
 	
-	if has_enough_gold:
+	if has_enough_gold and not level_10:
 		v_box_container.modulate = Color(Color.WHITE, 1.0)
 	else:
 		v_box_container.modulate = Color(Color.WHITE, 0.5)

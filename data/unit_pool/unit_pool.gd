@@ -14,11 +14,15 @@ func generate_unit_pool() -> void:
 			unit_pool.append(unit)
 
 
-func get_random_unit_by_tier(tier: int) -> UnitStats:
+func get_random_unit_by_rarity(rarity: UnitStats.Rarity) -> UnitStats:
 	var units := unit_pool.filter(
 		func(unit: UnitStats):
-			return unit.tier == tier
+			return unit.rarity == rarity
 	)
+	
+	if units.is_empty():
+		return null
+	
 	var picked_unit: UnitStats = units.pick_random()
 	unit_pool.erase(picked_unit)
 	

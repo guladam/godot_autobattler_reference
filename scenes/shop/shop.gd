@@ -6,6 +6,8 @@ signal unit_bought(unit: UnitStats)
 const SHOP_UNIT_CARD = preload("res://scenes/shop_unit_card/shop_unit_card.tscn")
 
 @export var unit_pool: UnitPool
+@export var player_stats: PlayerStats
+
 @onready var shop_cards: VBoxContainer = %ShopCards
 
 
@@ -20,8 +22,10 @@ func _ready() -> void:
 
 func _roll_units() -> void:
 	for i in 5:
+		# FIXME first line can be replaced in Godot 4.3
+		var rarity := Arena.get_random_rarity_for_level(player_stats.level)
 		var new_card := SHOP_UNIT_CARD.instantiate() as ShopUnitCard
-		new_card.unit_stats = unit_pool.get_random_unit_by_tier(1)
+		new_card.unit_stats = unit_pool.get_random_unit_by_rarity(rarity)
 		new_card.unit_bought.connect(_on_unit_bought)
 		shop_cards.add_child(new_card)
 
