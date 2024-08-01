@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3 uid="uid://20elxpwlmntd"]
+
+[ext_resource type="Script" path="res://scenes/trait_ui/trait_ui.gd" id="1_3h43f"]
+[ext_resource type="PackedScene" uid="uid://dcqq1jeo1w2wf" path="res://scenes/trait_icon/trait_icon.tscn" id="1_v5jhs"]
+[ext_resource type="FontFile" uid="uid://wqfms7k4ykv2" path="res://assets/font/abaddon_bold.ttf" id="2_lvfxq"]
+[ext_resource type="Resource" uid="uid://cse4d6ci0do3j" path="res://data/traits/elf.tres" id="2_ty8yd"]
+[ext_resource type="FontFile" uid="uid://8di0jvr25vat" path="res://assets/font/m5x7.ttf" id="3_qrl3o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0f0pw"]
+bg_color = Color(0, 0, 0, 0.392157)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_yo56w"]
+font = ExtResource("2_lvfxq")
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.701961)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wa4xl"]
+font = ExtResource("3_qrl3o")
+shadow_color = Color(0, 0, 0, 0.392157)
+
+[node name="TraitUI" type="PanelContainer"]
+offset_right = 64.0
+offset_bottom = 32.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0f0pw")
+script = ExtResource("1_3h43f")
+trait_data = ExtResource("2_ty8yd")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TraitIcon" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1_v5jhs")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = -4
+alignment = 2
+
+[node name="ActiveUnitsLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_yo56w")
+vertical_alignment = 2
+
+[node name="TraitLevelLabels" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 16)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.666569, 0.666569, 0.666569, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_qrl3o")
+bbcode_enabled = true
+text = "2/4/6"
+scroll_active = false
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+
+[node name="TraitLabel" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ranger"
+label_settings = SubResource("LabelSettings_wa4xl")

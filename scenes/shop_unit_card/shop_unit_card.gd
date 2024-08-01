@@ -39,6 +39,7 @@ func set_unit_stats(value: UnitStats) -> void:
 		bought = true
 		return
 
+	traits.text = "\n".join(unit_stats.get_trait_names())
 	border_color = UnitStats.RARITY_COLORS[unit_stats.rarity]
 	border_sb.border_color = border_color
 	bottom_sb.bg_color = border_color

@@ -121,7 +121,7 @@ position = Vector2(192, 320)
 stats = ExtResource("8_63mi8")
 
 [node name="SellPortal" parent="." instance=ExtResource("8_4fftf")]
-position = Vector2(64, 288)
+position = Vector2(80, 288)
 unit_pool = ExtResource("10_if8r1")
 player_stats = ExtResource("10_n3gg6")
 

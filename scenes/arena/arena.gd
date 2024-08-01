@@ -22,10 +22,7 @@ static func get_random_rarity_for_level(level: int) -> int:
 	for weight in PlayerStats.ROLL_CHANCES[level]:
 		weight_sum += weight
 	
-	print("current level: ", level)
-	print("sum: ", weight_sum)
 	var dist := randf() * weight_sum
-	print("dist rolled: ", dist)
 	for i in PlayerStats.ROLL_CHANCES[level].size():
 		dist -= PlayerStats.ROLL_CHANCES[level][i]
 		if dist < 0:

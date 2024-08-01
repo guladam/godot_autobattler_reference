@@ -18,6 +18,7 @@ const RARITY_COLORS := {
 @export var rarity: Rarity 
 @export var gold_cost := 1
 @export_range(1, 3) var tier := 1 : set = set_tier
+@export var traits: Array[Trait]
 @export var pool_count := 15
 
 @export_category("Visuals")
@@ -30,6 +31,15 @@ func get_combined_unit_count() -> int:
 
 func get_gold_value() -> int:
 	return gold_cost * get_combined_unit_count()
+
+
+func get_trait_names() -> PackedStringArray:
+	var trait_names: PackedStringArray = []
+	
+	for current_trait in traits:
+		trait_names.append(current_trait.name)
+		
+	return trait_names
 
 
 func set_tier(value: int) -> void:
