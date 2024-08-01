@@ -38,7 +38,7 @@ scale_max = 0.2
 scale_curve = SubResource("CurveTexture_l00ks")
 color = Color(1, 1, 1, 0.498039)
 
-[sub_resource type="Resource" id="Resource_6ca12"]
+[sub_resource type="Resource" id="Resource_mxice"]
 resource_local_to_scene = true
 script = ExtResource("8_gcysu")
 name = "warrior"
@@ -128,7 +128,7 @@ size = Vector2i(10, 1)
 
 [node name="Unit" parent="Bench/BenchUnitGrid" instance=ExtResource("4_nenrg")]
 position = Vector2(192, 320)
-stats = SubResource("Resource_6ca12")
+stats = SubResource("Resource_mxice")
 
 [node name="SellPortal" parent="." instance=ExtResource("8_4fftf")]
 position = Vector2(64, 288)
@@ -144,8 +144,12 @@ script = ExtResource("10_8rjpw")
 bench = NodePath("../Bench")
 game_area = NodePath("../GameTiles")
 
-[node name="UnitCombiner" type="Node" parent="."]
+[node name="UnitCombiner" type="Node" parent="." node_paths=PackedStringArray("buffer_timer")]
 script = ExtResource("11_ex2js")
+buffer_timer = NodePath("BufferTimer")
+
+[node name="BufferTimer" type="Timer" parent="UnitCombiner"]
+one_shot = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 

@@ -10,6 +10,7 @@ extends Area2D
 
 var current_unit: Unit
 
+
 func _ready() -> void:
 	var units := get_tree().get_nodes_in_group("units")
 	for unit: Unit in units:
@@ -18,16 +19,21 @@ func _ready() -> void:
 
 func setup_unit(unit: Unit) -> void:
 	unit.drag_and_drop.dropped.connect(_on_unit_dropped.bind(unit))
+	unit.quick_sell_pressed.connect(_sell_unit.bind(unit))
+
+
+func _sell_unit(unit: Unit) -> void:
+	player_stats.gold += unit.stats.get_gold_value()
+	# TODO give items back
+	for i in unit.stats.get_combined_unit_count():
+		unit_pool.add_unit(unit.stats)
+	
+	unit.queue_free()
 
 
 func _on_unit_dropped(_starting_position: Vector2, unit: Unit) -> void:
 	if unit and unit == current_unit:
-		player_stats.gold += unit.stats.get_gold_value()
-		# TODO give items back
-		for i in unit.stats.get_combined_unit_count():
-			unit_pool.add_unit(unit.stats)
-		
-		current_unit.queue_free()
+		_sell_unit(unit)
 
 
 func _on_area_entered(unit: Unit) -> void:
