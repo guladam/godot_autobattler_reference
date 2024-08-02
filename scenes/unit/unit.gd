@@ -68,6 +68,7 @@ func play_combine_animation(target_position: Vector2) -> void:
 	tween.tween_property(self, "global_position", target_position, UnitCombiner.COMBINE_ANIM_LENGTH)
 	tween.parallel().tween_property(self, "scale", Vector2(0.5, 0.5), UnitCombiner.COMBINE_ANIM_LENGTH)
 	tween.parallel().tween_property(self, "modulate:a", 0.5, UnitCombiner.COMBINE_ANIM_LENGTH)
+	# TODO this unit should be dereferenced in its Grid!
 	tween.tween_callback(queue_free)
 
 

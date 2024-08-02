@@ -34,8 +34,14 @@ func _get_play_area_for_position(global: Vector2) -> int:
 	return dropped_area_index
 
 
-func _on_unit_drag_started(_unit: Unit) -> void:
+func _on_unit_drag_started(unit: Unit) -> void:
 	_set_highlighters(true)
+	
+	var index := _get_play_area_for_position(unit.global_position)
+	if index > -1:
+		var tile := play_areas[index].get_tile_from_global(unit.global_position)
+		var grid_coord := play_areas[index].get_grid_coordinate(tile)
+		play_areas[index].unit_grid.set_cell_unit(grid_coord, null)
 
 
 func _on_unit_drag_canceled() -> void:
@@ -44,6 +50,11 @@ func _on_unit_drag_canceled() -> void:
 
 func _on_unit_dropped(starting_position: Vector2, unit: Unit) -> void:
 	_set_highlighters(false)
+	
+	# unit is sold to the portal and about to be deleted,
+	# we can return immediately
+	if unit.is_queued_for_deletion():
+		return
 	
 	var original_index := _get_play_area_for_position(starting_position)
 	var original_tile := play_areas[original_index].get_tile_from_global(starting_position)
@@ -54,10 +65,6 @@ func _on_unit_dropped(starting_position: Vector2, unit: Unit) -> void:
 		unit.reset_after_dragging(starting_position)
 		play_areas[original_index].unit_grid.set_cell_unit(original_grid, unit)
 		return
-	# we dropped it somewhere new, so we delete the
-	# original entry
-	else:
-		play_areas[original_index].unit_grid.set_cell_unit(original_grid, null)
 
 	var new_area := play_areas[dropped_area_index]
 	var hovered_tile := new_area.get_hovered_tile()

@@ -16,6 +16,7 @@ func _ready() -> void:
 
 func set_cell_unit(tile: Vector2i, unit: Node) -> void:
 	units[tile] = unit
+	print(units.values())
 	unit_grid_changed.emit()
 
 
@@ -51,9 +52,13 @@ func get_all_units() -> Array[Unit]:
 
 func get_all_unit_stats() -> Array[UnitStats]:
 	var unit_stats: Array[UnitStats] = []
+	print(units.values())
 	
-	for unit: Unit in units.values():
-		if unit and is_instance_valid(unit):
+	# NOTE interesting bug here:
+	# for unit: Unit results in a runtime error if you sell a unit
+	# because you can't case a freed object... :( 
+	for unit in units.values():
+		if unit != null and is_instance_valid(unit):
 			unit_stats.append(unit.stats)
 	
 	return unit_stats

@@ -7,7 +7,10 @@ extends Node2D
 @onready var unit_combiner: UnitCombiner = $UnitCombiner
 @onready var shop: Shop = %Shop
 
-
+# TODO questions:
+# how do we make sure that we only have ONE place
+# where we can query for a unit's current grid?
+# either based on the unit Node or a global position
 func _ready() -> void:
 	unit_adder.unit_added.connect(sell_portal.setup_unit)
 	unit_adder.unit_added.connect(unit_mover.setup_unit)
