@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=20 format=3 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="Script" path="res://scenes/arena/arena.gd" id="1_a1ak0"]
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
@@ -15,6 +15,7 @@
 [ext_resource type="Resource" uid="uid://dlnsfkjue2dlt" path="res://data/player/player_stats.tres" id="10_n3gg6"]
 [ext_resource type="Script" path="res://components/unit_combiner.gd" id="11_ex2js"]
 [ext_resource type="PackedScene" uid="uid://bhhtibvtken5o" path="res://scenes/shop/shop.tscn" id="13_256pg"]
+[ext_resource type="PackedScene" uid="uid://cxgnlha7i81v2" path="res://scenes/traits/traits.tscn" id="16_uy14c"]
 
 [sub_resource type="Curve" id="Curve_kxla4"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.227273, 1), 0.0, 0.0, 0, 0, Vector2(0.791667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -145,3 +146,6 @@ one_shot = true
 
 [node name="Shop" parent="UI" instance=ExtResource("13_256pg")]
 unique_name_in_owner = true
+
+[node name="Traits" parent="UI" node_paths=PackedStringArray("arena_grid") instance=ExtResource("16_uy14c")]
+arena_grid = NodePath("../../GameTiles/ArenaUnitGrid")

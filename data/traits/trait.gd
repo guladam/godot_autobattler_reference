@@ -16,14 +16,11 @@ func get_unique_unit_count(units: Array[UnitStats]) -> int:
 			return unit.traits.has(self)
 	)
 	
-	print("before removing duplicates: ", units)
 	var unique_units: Array[String] = []
 	
 	for unit: UnitStats in units:
 		if not unique_units.has(unit.name):
 			unique_units.append(unit.name)
-			
-	print("no duplicates: ", unique_units)
 	
 	return unique_units.size()
 
@@ -42,3 +39,18 @@ func get_levels_bbcode(unit_count: int) -> String:
 			code.append(str(unit_requirements[i]))
 		
 	return "/".join(code)
+
+
+func is_active(unique_unit_count: int) -> bool:
+	return unique_unit_count >= unit_requirements[0]
+
+
+static func get_unique_traits(units: Array[UnitStats]) -> Array[Trait]:
+	var traits: Array[Trait] = []
+	
+	for unit_stats: UnitStats in units:
+		for trait_data: Trait in unit_stats.traits:
+			if not traits.has(trait_data):
+				traits.append(trait_data)
+	
+	return traits

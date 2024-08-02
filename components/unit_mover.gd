@@ -34,16 +34,8 @@ func _get_play_area_for_position(global: Vector2) -> int:
 	return dropped_area_index
 
 
-func _on_unit_drag_started(unit: Unit) -> void:
+func _on_unit_drag_started(_unit: Unit) -> void:
 	_set_highlighters(true)
-	
-	for i in play_areas.size():
-		var tile := play_areas[i].get_tile_from_global(unit.global_position)
-		
-		if play_areas[i].is_tile_in_bounds(tile):
-			var grid := play_areas[i].get_grid_coordinate(tile)
-			play_areas[i].unit_grid.set_cell_unit(grid, null)
-			return
 
 
 func _on_unit_drag_canceled() -> void:
@@ -62,6 +54,10 @@ func _on_unit_dropped(starting_position: Vector2, unit: Unit) -> void:
 		unit.reset_after_dragging(starting_position)
 		play_areas[original_index].unit_grid.set_cell_unit(original_grid, unit)
 		return
+	# we dropped it somewhere new, so we delete the
+	# original entry
+	else:
+		play_areas[original_index].unit_grid.set_cell_unit(original_grid, null)
 
 	var new_area := play_areas[dropped_area_index]
 	var hovered_tile := new_area.get_hovered_tile()
@@ -75,6 +71,6 @@ func _on_unit_dropped(starting_position: Vector2, unit: Unit) -> void:
 		old_unit.global_position = starting_position
 		old_unit.reparent(play_areas[original_index].unit_grid)
 	
-	unit.global_position = new_area.to_global(final_local_position)
 	new_area.unit_grid.set_cell_unit(grid, unit)
+	unit.global_position = new_area.to_global(final_local_position)
 	unit.reparent(new_area.unit_grid)

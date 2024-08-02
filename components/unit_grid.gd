@@ -39,6 +39,26 @@ func get_first_empty_tile() -> Vector2i:
 	# no empty tile
 	return Vector2i(-1, -1)
 
+
+func get_all_units() -> Array[Unit]:
+	var unit_array: Array[Unit] = []
+	
+	for unit: Unit in units.values():
+		if unit and is_instance_valid(unit):
+			unit_array.append(unit)
+	
+	return unit_array
+
+
+func get_all_unit_stats() -> Array[UnitStats]:
+	var unit_stats: Array[UnitStats] = []
+	
+	for unit: Unit in units.values():
+		if unit and is_instance_valid(unit):
+			unit_stats.append(unit.stats)
+	
+	return unit_stats
+
 # NOTE might need these in the future
 #func is_tile_in_bounds(tile: Vector2i) -> bool:
 	#return tile.x >= 0 and tile.x < size.x and tile.y >= 0 and tile.y < size.y
