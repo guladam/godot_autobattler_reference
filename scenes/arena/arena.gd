@@ -12,6 +12,10 @@ extends Node2D
 # where we can query for a unit's current grid?
 # either based on the unit Node or a global position
 # similar to the two new static functions we have
+# ANOTHER IDEA:
+# instead of calling UnitGrid.remove_unit_from_grid() which might be expensive
+# UnitGrid could have a method for deleting which both
+# sets the dict value to null AND queues_free the node after
 func _ready() -> void:
 	unit_adder.unit_added.connect(sell_portal.setup_unit)
 	unit_adder.unit_added.connect(unit_mover.setup_unit)

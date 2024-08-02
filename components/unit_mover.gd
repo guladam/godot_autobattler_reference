@@ -14,7 +14,7 @@ func _ready() -> void:
 
 func setup_unit(unit: Unit) -> void:
 	unit.drag_and_drop.drag_started.connect(_on_unit_drag_started.bind(unit))
-	unit.drag_and_drop.drag_canceled.connect(_on_unit_drag_canceled.unbind(1))
+	unit.drag_and_drop.drag_canceled.connect(_on_unit_drag_canceled.bind(unit))
 	unit.drag_and_drop.dropped.connect(_on_unit_dropped.bind(unit))
 
 
@@ -44,8 +44,17 @@ func _on_unit_drag_started(unit: Unit) -> void:
 		play_areas[index].unit_grid.set_cell_unit(grid_coord, null)
 
 
-func _on_unit_drag_canceled() -> void:
+# FIXME this violates DRY, we do virtually the same thing
+# in _on_unit_dropped() when we drop to an invalid position
+func _on_unit_drag_canceled(starting_position: Vector2, unit: Unit) -> void:
 	_set_highlighters(false)
+	
+	var original_index := _get_play_area_for_position(starting_position)
+	var original_tile := play_areas[original_index].get_tile_from_global(starting_position)
+	var original_grid := play_areas[original_index].get_grid_coordinate(original_tile)
+
+	unit.reset_after_dragging(starting_position)
+	play_areas[original_index].unit_grid.set_cell_unit(original_grid, unit)
 
 
 func _on_unit_dropped(starting_position: Vector2, unit: Unit) -> void:

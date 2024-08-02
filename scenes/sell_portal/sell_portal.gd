@@ -30,6 +30,7 @@ func _sell_unit(unit: Unit) -> void:
 	for i in combined_units:
 		unit_pool.add_unit(unit.stats)
 	
+	UnitGrid.remove_unit_from_grid(unit)
 	unit.queue_free()
 
 

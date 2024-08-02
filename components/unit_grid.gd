@@ -49,13 +49,9 @@ func get_all_units() -> Array[Unit]:
 
 func get_all_unit_stats() -> Array[UnitStats]:
 	var unit_stats: Array[UnitStats] = []
-	print(units.values())
 	
-	# NOTE interesting bug here:
-	# for unit: Unit results in a runtime error if you sell a unit
-	# because you can't case a freed object... :( 
-	for unit in units.values():
-		if unit != null and is_instance_valid(unit):
+	for unit: Unit in units.values():
+		if unit:
 			unit_stats.append(unit.stats)
 	
 	return unit_stats
