@@ -80,17 +80,22 @@ func _on_drag_canceled(starting_position: Vector2) -> void:
 
 
 func _on_mouse_entered() -> void:
+	if drag_and_drop.dragging:
+		return
+	
 	is_hovered = true
 	outline_highlighter.highlight()
-	z_index = 99
+	z_index = 1
 
 
 func _on_mouse_exited() -> void:
+	if drag_and_drop.dragging:
+		return
+	
 	is_hovered = false
 	outline_highlighter.clear_highlight()
 	z_index = 0
 
 
 func _on_stats_changed() -> void:
-	print("yoooo")
 	tier_icon.texture = TIER_ICONS[stats.tier]
