@@ -16,7 +16,6 @@ func _ready() -> void:
 
 func set_cell_unit(tile: Vector2i, unit: Node) -> void:
 	units[tile] = unit
-	print(units.values())
 	unit_grid_changed.emit()
 
 
