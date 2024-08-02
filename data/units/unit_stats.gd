@@ -1,8 +1,6 @@
 class_name UnitStats
 extends Resource
 
-signal stats_changed
-
 enum Rarity {COMMON, UNCOMMON, RARE, LEGENDARY}
 
 const RARITY_COLORS := {
@@ -44,7 +42,7 @@ func get_trait_names() -> PackedStringArray:
 
 func set_tier(value: int) -> void:
 	tier = value
-	stats_changed.emit()
+	changed.emit()
 
 
 func _to_string() -> String:

@@ -4,11 +4,18 @@ extends Area2D
 
 signal quick_sell_pressed
 
+const TIER_ICONS := {
+	1: preload("res://assets/sprites/level1.png"),
+	2: preload("res://assets/sprites/level2.png"),
+	3: preload("res://assets/sprites/level3.png"),
+}
+
 @export var stats: UnitStats : set = set_stats
 
 @onready var skin: Sprite2D = $Visuals/Skin
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var mana_bar: ProgressBar = $ManaBar
+@onready var tier_icon: TextureRect = $TierIcon
 @onready var drag_and_drop: DragAndDrop = $DragAndDrop
 @onready var velocity_based_rotation: VelocityBasedRotation = $VelocityBasedRotation
 @onready var outline_highlighter: OutlineHighlighter = $OutlineHighlighter
@@ -40,6 +47,7 @@ func set_stats(value: UnitStats) -> void:
 	# without duplicate() the tier of units would be shared
 	if not Engine.is_editor_hint():
 		stats = value.duplicate()
+		stats.changed.connect(_on_stats_changed)
 	
 	if not skin:
 		await ready
@@ -56,6 +64,7 @@ func play_combine_animation(target_position: Vector2) -> void:
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	health_bar.hide()
 	mana_bar.hide()
+	tier_icon.hide()
 	tween.tween_property(self, "global_position", target_position, UnitCombiner.COMBINE_ANIM_LENGTH)
 	tween.parallel().tween_property(self, "scale", Vector2(0.5, 0.5), UnitCombiner.COMBINE_ANIM_LENGTH)
 	tween.parallel().tween_property(self, "modulate:a", 0.5, UnitCombiner.COMBINE_ANIM_LENGTH)
@@ -80,3 +89,8 @@ func _on_mouse_exited() -> void:
 	is_hovered = false
 	outline_highlighter.clear_highlight()
 	z_index = 0
+
+
+func _on_stats_changed() -> void:
+	print("yoooo")
+	tier_icon.texture = TIER_ICONS[stats.tier]

@@ -27,7 +27,6 @@ func is_tile_occupied(tile: Vector2i) -> bool:
 
 
 func is_grid_full() -> bool:
-	#print(units.values())
 	return units.keys().all(is_tile_occupied)
 
 

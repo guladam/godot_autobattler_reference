@@ -121,7 +121,11 @@ size = Vector2i(10, 1)
 metadata/_edit_lock_ = true
 
 [node name="Unit" parent="Bench/BenchUnitGrid" instance=ExtResource("4_nenrg")]
-position = Vector2(192, 320)
+position = Vector2(96, 0)
+stats = ExtResource("8_63mi8")
+
+[node name="Unit2" parent="Bench/BenchUnitGrid" instance=ExtResource("4_nenrg")]
+position = Vector2(128, 0)
 stats = ExtResource("8_63mi8")
 
 [node name="SellPortal" parent="." instance=ExtResource("8_4fftf")]

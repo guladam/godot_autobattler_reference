@@ -1,3 +1,4 @@
+# TODO sold units get stuck in the unitgrid!
 class_name SellPortal
 extends Area2D
 
