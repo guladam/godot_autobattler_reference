@@ -21,10 +21,7 @@ func set_cell_unit(tile: Vector2i, unit: Node) -> void:
 
 
 func is_tile_occupied(tile: Vector2i) -> bool:
-	# we need is instance valid, because when we sell a unit
-	# it won't be null but a "freed object" instead!
-	# see is_grid_full() print message!
-	return units[tile] != null and is_instance_valid(units[tile])
+	return units[tile] != null
 
 
 func is_grid_full() -> bool:
@@ -44,7 +41,7 @@ func get_all_units() -> Array[Unit]:
 	var unit_array: Array[Unit] = []
 	
 	for unit: Unit in units.values():
-		if unit and is_instance_valid(unit):
+		if unit:
 			unit_array.append(unit)
 	
 	return unit_array
@@ -62,6 +59,26 @@ func get_all_unit_stats() -> Array[UnitStats]:
 			unit_stats.append(unit.stats)
 	
 	return unit_stats
+
+
+static func get_unit_grid_for_unit(unit: Unit) -> UnitGrid:
+	var unit_grids := unit.get_tree().get_nodes_in_group("unit_grids")
+	for unit_grid: UnitGrid in unit_grids:
+		if unit_grid.units.values().has(unit):
+			return unit_grid
+	
+	return null
+
+
+static func remove_unit_from_grid(unit: Unit) -> void:
+	var grid := get_unit_grid_for_unit(unit)
+	if not grid:
+		return
+		
+	for tile: Vector2i in grid.units.keys():
+		if grid.units[tile] == unit:
+			grid.set_cell_unit(tile, null)
+			return
 
 # NOTE might need these in the future
 #func is_tile_in_bounds(tile: Vector2i) -> bool:

@@ -48,9 +48,10 @@ func _combine_units(unit1: Unit, unit2: Unit, unit3: Unit) -> void:
 	unit1.stats.tier += 1
 	unit2.remove_from_group("units")
 	unit3.remove_from_group("units")
+	UnitGrid.remove_unit_from_grid(unit2)
+	UnitGrid.remove_unit_from_grid(unit3)
 	unit2.play_combine_animation(unit1.global_position + Vector2(8, 8))
 	unit3.play_combine_animation(unit1.global_position + Vector2(8, 8))
-
 
 func _group_units_by_name_and_tier(units: Array[Node], tier: int) -> Dictionary:
 	var filtered_units := units.filter(

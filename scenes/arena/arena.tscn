@@ -88,7 +88,7 @@ play_area = NodePath("..")
 layer = 2
 tile = Vector2i(3, 0)
 
-[node name="ArenaUnitGrid" type="Node2D" parent="GameTiles"]
+[node name="ArenaUnitGrid" type="Node2D" parent="GameTiles" groups=["unit_grids"]]
 y_sort_enabled = true
 script = ExtResource("4_m7ydk")
 size = Vector2i(4, 7)
@@ -115,7 +115,7 @@ play_area = NodePath("..")
 layer = 1
 tile = Vector2i(3, 0)
 
-[node name="BenchUnitGrid" type="Node2D" parent="Bench"]
+[node name="BenchUnitGrid" type="Node2D" parent="Bench" groups=["unit_grids"]]
 script = ExtResource("4_m7ydk")
 size = Vector2i(10, 1)
 metadata/_edit_lock_ = true

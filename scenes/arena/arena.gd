@@ -11,6 +11,7 @@ extends Node2D
 # how do we make sure that we only have ONE place
 # where we can query for a unit's current grid?
 # either based on the unit Node or a global position
+# similar to the two new static functions we have
 func _ready() -> void:
 	unit_adder.unit_added.connect(sell_portal.setup_unit)
 	unit_adder.unit_added.connect(unit_mover.setup_unit)
