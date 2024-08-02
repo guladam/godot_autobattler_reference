@@ -1,5 +1,5 @@
 class_name UnitGrid
-extends Node
+extends Node2D
 
 signal unit_grid_changed
 

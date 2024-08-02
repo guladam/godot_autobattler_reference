@@ -14,6 +14,7 @@ name = "Bjorn"
 rarity = 0
 gold_cost = 1
 tier = 1
+traits = Array[Resource("res://data/traits/trait.gd")]([])
 pool_count = 15
 skin_coordinates = Vector2i(1, 3)
 

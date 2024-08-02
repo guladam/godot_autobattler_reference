@@ -88,9 +88,11 @@ play_area = NodePath("..")
 layer = 2
 tile = Vector2i(3, 0)
 
-[node name="ArenaUnitGrid" type="Node" parent="GameTiles"]
+[node name="ArenaUnitGrid" type="Node2D" parent="GameTiles"]
+y_sort_enabled = true
 script = ExtResource("4_m7ydk")
 size = Vector2i(4, 7)
+metadata/_edit_lock_ = true
 
 [node name="Bench" type="TileMap" parent="." node_paths=PackedStringArray("unit_grid", "tile_highlighter")]
 position = Vector2(128, 320)
@@ -113,9 +115,10 @@ play_area = NodePath("..")
 layer = 1
 tile = Vector2i(3, 0)
 
-[node name="BenchUnitGrid" type="Node" parent="Bench"]
+[node name="BenchUnitGrid" type="Node2D" parent="Bench"]
 script = ExtResource("4_m7ydk")
 size = Vector2i(10, 1)
+metadata/_edit_lock_ = true
 
 [node name="Unit" parent="Bench/BenchUnitGrid" instance=ExtResource("4_nenrg")]
 position = Vector2(192, 320)

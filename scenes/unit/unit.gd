@@ -73,8 +73,10 @@ func _on_drag_canceled(starting_position: Vector2) -> void:
 func _on_mouse_entered() -> void:
 	is_hovered = true
 	outline_highlighter.highlight()
+	z_index = 99
 
 
 func _on_mouse_exited() -> void:
 	is_hovered = false
 	outline_highlighter.clear_highlight()
+	z_index = 0
