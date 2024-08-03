@@ -1,10 +1,6 @@
-# STILL TODO!
-# remake tiles so they start from 0,0
-# splitting the fences/suuroundings to two
 class_name PlayArea
 extends TileMap
 
-@export var starting_coordinate: Vector2i
 @export var unit_grid: UnitGrid
 @export var tile_highlighter: TileHighlighter
 
@@ -12,15 +8,7 @@ var bounds: Rect2i
 
 
 func _ready() -> void:
-	bounds = Rect2i(starting_coordinate, unit_grid.size)
-
-# TODO check where and how we need this
-func get_grid_coordinate_from_tile(tile: Vector2i) -> Vector2i:
-	return tile - starting_coordinate
-
-
-func get_tile_from_grid_coordinate(grid: Vector2i) -> Vector2i:
-	return grid + starting_coordinate
+	bounds = Rect2i(Vector2.ZERO, unit_grid.size)
 
 
 func get_tile_from_local(local: Vector2) -> Vector2i:

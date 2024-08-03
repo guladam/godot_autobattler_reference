@@ -24,11 +24,10 @@ func add_unit(unit: UnitStats) -> void:
 	assert(area, "No available space to add unit to!")
 	
 	var new_unit := UNIT.instantiate()
-	var grid := area.unit_grid.get_first_empty_tile()    # TODO this might change if I refactor it
-	var tile := area.get_tile_from_grid_coordinate(grid) # TODO this might change if I refactor it
+	var tile := area.unit_grid.get_first_empty_tile()
 	area.unit_grid.add_child(new_unit)
-	area.unit_grid.set_cell_unit(grid, new_unit)
-	new_unit.global_position = area.get_global_from_tile(tile) - Arena.HALF_CELL_SIZE # TODO this might change if I refactor it
+	area.unit_grid.add_unit(tile, new_unit)
+	new_unit.global_position = area.get_global_from_tile(tile) - Arena.HALF_CELL_SIZE
 	new_unit.stats = unit
 	unit_added.emit(new_unit)
 	

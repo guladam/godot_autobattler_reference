@@ -1,4 +1,3 @@
-# STILL TODO!
 class_name UnitGrid
 extends Node2D
 
@@ -15,9 +14,20 @@ func _ready() -> void:
 			units[Vector2i(i, j)] = null
 
 
-func set_cell_unit(tile: Vector2i, unit: Node) -> void:
+func add_unit(tile: Vector2i, unit: Node) -> void:
 	units[tile] = unit
 	unit_grid_changed.emit()
+	unit.tree_exited.connect(_on_unit_tree_exited.bind(unit, tile))
+
+
+func remove_unit(tile: Vector2i) -> void:
+	var unit := units[tile] as Node
+	
+	if not unit:
+		return
+	
+	unit.tree_exited.disconnect(_on_unit_tree_exited)
+	units[tile] = null
 
 
 func is_tile_occupied(tile: Vector2i) -> bool:
@@ -47,21 +57,6 @@ func get_all_units() -> Array[Unit]:
 	return unit_array
 
 
-static func get_unit_grid_for_unit(unit: Unit) -> UnitGrid:
-	var unit_grids := unit.get_tree().get_nodes_in_group("unit_grids")
-	for unit_grid: UnitGrid in unit_grids:
-		if unit_grid.units.values().has(unit):
-			return unit_grid
-	
-	return null
-
-
-static func remove_unit_from_grid(unit: Unit) -> void:
-	var grid := get_unit_grid_for_unit(unit)
-	if not grid:
-		return
-		
-	for tile: Vector2i in grid.units.keys():
-		if grid.units[tile] == unit:
-			grid.set_cell_unit(tile, null)
-			return
+func _on_unit_tree_exited(unit: Unit, tile: Vector2i) -> void:
+	if unit.is_queued_for_deletion():
+		units[tile] = null

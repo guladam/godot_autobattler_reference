@@ -38,9 +38,8 @@ func _on_unit_drag_started(unit: Unit) -> void:
 	
 	var index := _get_play_area_for_position(unit.global_position)
 	if index > -1:
-		var tile := play_areas[index].get_tile_from_global(unit.global_position) # TODO simplify this somehow
-		var grid_coord := play_areas[index].get_grid_coordinate_from_tile(tile)  # TODO simplify this somehow
-		play_areas[index].unit_grid.set_cell_unit(grid_coord, null)
+		var tile := play_areas[index].get_tile_from_global(unit.global_position)
+		play_areas[index].unit_grid.remove_unit(tile)
 
 
 # FIXME this violates DRY, we do virtually the same thing
@@ -50,10 +49,9 @@ func _on_unit_drag_canceled(starting_position: Vector2, unit: Unit) -> void:
 	
 	var original_index := _get_play_area_for_position(starting_position)
 	var original_tile := play_areas[original_index].get_tile_from_global(starting_position)
-	var original_grid := play_areas[original_index].get_grid_coordinate_from_tile(original_tile)
 
 	unit.reset_after_dragging(starting_position)
-	play_areas[original_index].unit_grid.set_cell_unit(original_grid, unit)
+	play_areas[original_index].unit_grid.add_unit(original_tile, unit)
 
 
 func _on_unit_dropped(starting_position: Vector2, unit: Unit) -> void:
@@ -66,26 +64,25 @@ func _on_unit_dropped(starting_position: Vector2, unit: Unit) -> void:
 	
 	var original_index := _get_play_area_for_position(starting_position)
 	var original_tile := play_areas[original_index].get_tile_from_global(starting_position)
-	var original_grid := play_areas[original_index].get_grid_coordinate_from_tile(original_tile)
 	var dropped_area_index := _get_play_area_for_position(unit.get_global_mouse_position())
 	
 	if dropped_area_index == -1:
 		unit.reset_after_dragging(starting_position)
-		play_areas[original_index].unit_grid.set_cell_unit(original_grid, unit)
+		play_areas[original_index].unit_grid.add_unit(original_tile, unit)
 		return
 
 	var new_area := play_areas[dropped_area_index]
 	var hovered_tile := new_area.get_hovered_tile()
-	var grid := new_area.get_grid_coordinate_from_tile(hovered_tile)
 	var final_local_position := new_area.map_to_local(hovered_tile) - Arena.HALF_CELL_SIZE
 	
 	# swap units if we have to
-	if new_area.unit_grid.is_tile_occupied(grid):
-		var old_unit: Unit = new_area.unit_grid.units[grid]
-		play_areas[original_index].unit_grid.set_cell_unit(original_grid, new_area.unit_grid.units[grid])
+	if new_area.unit_grid.is_tile_occupied(hovered_tile):
+		var old_unit: Unit = new_area.unit_grid.units[hovered_tile]
+		new_area.unit_grid.remove_unit(hovered_tile)
+		play_areas[original_index].unit_grid.add_unit(original_tile, old_unit)
 		old_unit.global_position = starting_position
 		old_unit.reparent(play_areas[original_index].unit_grid)
 	
-	new_area.unit_grid.set_cell_unit(grid, unit)
+	new_area.unit_grid.add_unit(hovered_tile, unit)
 	unit.global_position = new_area.to_global(final_local_position)
 	unit.reparent(new_area.unit_grid)

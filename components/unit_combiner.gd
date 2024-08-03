@@ -37,8 +37,6 @@ func _combine_units(unit1: Unit, unit2: Unit, unit3: Unit) -> void:
 	unit1.stats.tier += 1
 	unit2.remove_from_group("units")
 	unit3.remove_from_group("units")
-	UnitGrid.remove_unit_from_grid(unit2) # TODO this might change if I refactor it
-	UnitGrid.remove_unit_from_grid(unit3) # TODO this might change if I refactor it
 	unit2.play_combine_animation(unit1.global_position + Arena.QUARTER_CELL_SIZE)
 	unit3.play_combine_animation(unit1.global_position + Arena.QUARTER_CELL_SIZE)
 
