@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://components/drag_and_drop.gd" id="3_dhhtl"]
 [ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/sprites/rogues.png" id="3_sepav"]
 [ext_resource type="Script" path="res://components/velocity_based_rotation.gd" id="4_j53m8"]
-[ext_resource type="Texture2D" uid="uid://cj1cl8jdui60n" path="res://assets/sprites/level1.png" id="5_k0834"]
+[ext_resource type="PackedScene" uid="uid://cuqct6gepc6dy" path="res://scenes/tier_icon/tier_icon.tscn" id="5_g2aj7"]
 [ext_resource type="Script" path="res://components/outline_highlighter.gd" id="6_mu807"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0qp17"]
@@ -71,15 +71,10 @@ theme_override_styles/background = SubResource("StyleBoxFlat_i1sdb")
 theme_override_styles/fill = SubResource("StyleBoxFlat_kodbq")
 show_percentage = false
 
-[node name="TierIcon" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(10, 10)
-offset_left = 1.0
+[node name="TierIcon" parent="." instance=ExtResource("5_g2aj7")]
 offset_top = -13.0
-offset_right = 11.0
+offset_right = 10.0
 offset_bottom = -3.0
-texture = ExtResource("5_k0834")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="DragAndDrop" type="Node" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("3_dhhtl")

@@ -4,18 +4,15 @@ extends Area2D
 
 signal quick_sell_pressed
 
-const TIER_ICONS := {
-	1: preload("res://assets/sprites/level1.png"),
-	2: preload("res://assets/sprites/level2.png"),
-	3: preload("res://assets/sprites/level3.png"),
-}
+const COMBINE_ANIM_LENGTH := 0.6
+const COMBINE_ANIM_SCALE := Vector2(0.7, 0.7)
 
 @export var stats: UnitStats : set = set_stats
 
 @onready var skin: Sprite2D = $Visuals/Skin
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var mana_bar: ProgressBar = $ManaBar
-@onready var tier_icon: TextureRect = $TierIcon
+@onready var tier_icon: TierIcon = $TierIcon
 @onready var drag_and_drop: DragAndDrop = $DragAndDrop
 @onready var velocity_based_rotation: VelocityBasedRotation = $VelocityBasedRotation
 @onready var outline_highlighter: OutlineHighlighter = $OutlineHighlighter
@@ -47,12 +44,12 @@ func set_stats(value: UnitStats) -> void:
 	# without duplicate() the tier of units would be shared
 	if not Engine.is_editor_hint():
 		stats = value.duplicate()
-		stats.changed.connect(_on_stats_changed)
 	
-	if not skin:
+	if not is_node_ready():
 		await ready
 	
-	skin.region_rect.position = Vector2(stats.skin_coordinates * Vector2i(32, 32))
+	skin.region_rect.position = Vector2(stats.skin_coordinates) * Arena.CELL_SIZE
+	tier_icon.stats = stats
 
 
 func reset_after_dragging(starting_position: Vector2) -> void:
@@ -65,10 +62,9 @@ func play_combine_animation(target_position: Vector2) -> void:
 	health_bar.hide()
 	mana_bar.hide()
 	tier_icon.hide()
-	tween.tween_property(self, "global_position", target_position, UnitCombiner.COMBINE_ANIM_LENGTH)
-	tween.parallel().tween_property(self, "scale", Vector2(0.5, 0.5), UnitCombiner.COMBINE_ANIM_LENGTH)
-	tween.parallel().tween_property(self, "modulate:a", 0.5, UnitCombiner.COMBINE_ANIM_LENGTH)
-	# TODO this unit should be dereferenced in its Grid!
+	tween.tween_property(self, "global_position", target_position, COMBINE_ANIM_LENGTH)
+	tween.parallel().tween_property(self, "scale", COMBINE_ANIM_SCALE, COMBINE_ANIM_LENGTH)
+	tween.parallel().tween_property(self, "modulate:a", 0.5, COMBINE_ANIM_LENGTH)
 	tween.tween_callback(queue_free)
 
 
@@ -96,7 +92,3 @@ func _on_mouse_exited() -> void:
 	is_hovered = false
 	outline_highlighter.clear_highlight()
 	z_index = 0
-
-
-func _on_stats_changed() -> void:
-	tier_icon.texture = TIER_ICONS[stats.tier]

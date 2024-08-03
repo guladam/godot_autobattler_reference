@@ -1,9 +1,7 @@
 class_name UnitCombiner
 extends Node
 
-const COMBINE_ANIM_LENGTH := 0.6
 const COMBINE_BUFFER := 1.0
-const COMBINE_ANIM_SCALE := Vector2(0.7, 0.7)
 
 @export var buffer_timer: Timer
 
@@ -40,7 +38,7 @@ func _update_unit_combinations(tier: int) -> void:
 	
 	for combination in tier_upgrades:
 		tween.tween_callback(_combine_units.bind(combination[0], combination[1], combination[2]))
-		tween.tween_interval(COMBINE_ANIM_LENGTH)
+		tween.tween_interval(Unit.COMBINE_ANIM_LENGTH)
 		
 	tween.finished.connect(_on_units_combined.bind(tier), CONNECT_ONE_SHOT)
 
