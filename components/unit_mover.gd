@@ -1,4 +1,3 @@
-# STILL TODO!
 class_name UnitMover
 extends Node
 
@@ -26,32 +25,39 @@ func _get_play_area_for_position(global: Vector2) -> int:
 	var dropped_area_index := -1
 	
 	for i in play_areas.size():
-		var tile := play_areas[i].local_to_map(play_areas[i].to_local(global))
+		var tile := play_areas[i].get_tile_from_global(global)
 		if play_areas[i].is_tile_in_bounds(tile):
 			dropped_area_index = i
 	
 	return dropped_area_index
 
 
+func _reset_unit_to_starting_position(starting_position: Vector2, unit: Unit) -> void:
+	var i := _get_play_area_for_position(starting_position)
+	var tile := play_areas[i].get_tile_from_global(starting_position)
+	
+	unit.reset_after_dragging(starting_position)
+	play_areas[i].unit_grid.add_unit(tile, unit)
+
+
+func _move_unit(unit: Unit, play_area: PlayArea, tile: Vector2i) -> void:
+	play_area.unit_grid.add_unit(tile, unit)
+	unit.global_position = play_area.get_global_from_tile(tile) - Arena.HALF_CELL_SIZE
+	unit.reparent(play_area.unit_grid)
+
+
 func _on_unit_drag_started(unit: Unit) -> void:
 	_set_highlighters(true)
 	
-	var index := _get_play_area_for_position(unit.global_position)
-	if index > -1:
-		var tile := play_areas[index].get_tile_from_global(unit.global_position)
-		play_areas[index].unit_grid.remove_unit(tile)
+	var i := _get_play_area_for_position(unit.global_position)
+	if i > -1:
+		var tile := play_areas[i].get_tile_from_global(unit.global_position)
+		play_areas[i].unit_grid.remove_unit(tile)
 
 
-# FIXME this violates DRY, we do virtually the same thing
-# in _on_unit_dropped() when we drop to an invalid position
 func _on_unit_drag_canceled(starting_position: Vector2, unit: Unit) -> void:
 	_set_highlighters(false)
-	
-	var original_index := _get_play_area_for_position(starting_position)
-	var original_tile := play_areas[original_index].get_tile_from_global(starting_position)
-
-	unit.reset_after_dragging(starting_position)
-	play_areas[original_index].unit_grid.add_unit(original_tile, unit)
+	_reset_unit_to_starting_position(starting_position, unit)
 
 
 func _on_unit_dropped(starting_position: Vector2, unit: Unit) -> void:
@@ -61,28 +67,23 @@ func _on_unit_dropped(starting_position: Vector2, unit: Unit) -> void:
 	# we can return immediately
 	if unit.is_queued_for_deletion():
 		return
+
+	var old_area_index := _get_play_area_for_position(starting_position)
+	var drop_area_index := _get_play_area_for_position(unit.get_global_mouse_position())
 	
-	var original_index := _get_play_area_for_position(starting_position)
-	var original_tile := play_areas[original_index].get_tile_from_global(starting_position)
-	var dropped_area_index := _get_play_area_for_position(unit.get_global_mouse_position())
-	
-	if dropped_area_index == -1:
-		unit.reset_after_dragging(starting_position)
-		play_areas[original_index].unit_grid.add_unit(original_tile, unit)
+	if drop_area_index == -1:
+		_reset_unit_to_starting_position(starting_position, unit)
 		return
 
-	var new_area := play_areas[dropped_area_index]
-	var hovered_tile := new_area.get_hovered_tile()
-	var final_local_position := new_area.map_to_local(hovered_tile) - Arena.HALF_CELL_SIZE
+	var old_area := play_areas[old_area_index]
+	var old_tile := old_area.get_tile_from_global(starting_position)
+	var new_area := play_areas[drop_area_index]
+	var new_tile := new_area.get_hovered_tile()
 	
 	# swap units if we have to
-	if new_area.unit_grid.is_tile_occupied(hovered_tile):
-		var old_unit: Unit = new_area.unit_grid.units[hovered_tile]
-		new_area.unit_grid.remove_unit(hovered_tile)
-		play_areas[original_index].unit_grid.add_unit(original_tile, old_unit)
-		old_unit.global_position = starting_position
-		old_unit.reparent(play_areas[original_index].unit_grid)
+	if new_area.unit_grid.is_tile_occupied(new_tile):
+		var old_unit: Unit = new_area.unit_grid.units[new_tile]
+		new_area.unit_grid.remove_unit(new_tile)
+		_move_unit(old_unit, old_area, old_tile)
 	
-	new_area.unit_grid.add_unit(hovered_tile, unit)
-	unit.global_position = new_area.to_global(final_local_position)
-	unit.reparent(new_area.unit_grid)
+	_move_unit(unit, new_area, new_tile)

@@ -28,7 +28,7 @@ func _update_unit_combinations(tier: int) -> void:
 	
 	for combination in tier_upgrades:
 		tween.tween_callback(_combine_units.bind(combination[0], combination[1], combination[2]))
-		tween.tween_interval(Unit.COMBINE_ANIM_LENGTH)
+		tween.tween_interval(UnitAnimations.COMBINE_ANIM_LENGTH)
 		
 	tween.finished.connect(_on_units_combined.bind(tier), CONNECT_ONE_SHOT)
 
@@ -37,8 +37,8 @@ func _combine_units(unit1: Unit, unit2: Unit, unit3: Unit) -> void:
 	unit1.stats.tier += 1
 	unit2.remove_from_group("units")
 	unit3.remove_from_group("units")
-	unit2.play_combine_animation(unit1.global_position + Arena.QUARTER_CELL_SIZE)
-	unit3.play_combine_animation(unit1.global_position + Arena.QUARTER_CELL_SIZE)
+	unit2.animations.play_combine_animation(unit1.global_position + Arena.QUARTER_CELL_SIZE)
+	unit3.animations.play_combine_animation(unit1.global_position + Arena.QUARTER_CELL_SIZE)
 
 
 # Returns a dictionary of units grouped by name and tier where

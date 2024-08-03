@@ -1,12 +1,8 @@
-# STILL TODO!
 @tool
 class_name Unit
 extends Area2D
 
 signal quick_sell_pressed
-
-const COMBINE_ANIM_LENGTH := 0.6
-const COMBINE_ANIM_SCALE := Vector2(0.7, 0.7)
 
 @export var stats: UnitStats : set = set_stats
 
@@ -17,6 +13,7 @@ const COMBINE_ANIM_SCALE := Vector2(0.7, 0.7)
 @onready var drag_and_drop: DragAndDrop = $DragAndDrop
 @onready var velocity_based_rotation: VelocityBasedRotation = $VelocityBasedRotation
 @onready var outline_highlighter: OutlineHighlighter = $OutlineHighlighter
+@onready var animations: UnitAnimations = $Animations
 
 var is_hovered := false
 
@@ -56,17 +53,6 @@ func set_stats(value: UnitStats) -> void:
 func reset_after_dragging(starting_position: Vector2) -> void:
 	velocity_based_rotation.enabled = false
 	global_position = starting_position
-
-# NOTE might need to create a separate component for this
-func play_combine_animation(target_position: Vector2) -> void:
-	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	health_bar.hide()
-	mana_bar.hide()
-	tier_icon.hide()
-	tween.tween_property(self, "global_position", target_position, COMBINE_ANIM_LENGTH)
-	tween.parallel().tween_property(self, "scale", COMBINE_ANIM_SCALE, COMBINE_ANIM_LENGTH)
-	tween.parallel().tween_property(self, "modulate:a", 0.5, COMBINE_ANIM_LENGTH)
-	tween.tween_callback(queue_free)
 
 
 func _on_drag_started() -> void:

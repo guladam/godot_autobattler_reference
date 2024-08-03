@@ -30,4 +30,3 @@ func add_unit(unit: UnitStats) -> void:
 	new_unit.global_position = area.get_global_from_tile(tile) - Arena.HALF_CELL_SIZE
 	new_unit.stats = unit
 	unit_added.emit(new_unit)
-	
