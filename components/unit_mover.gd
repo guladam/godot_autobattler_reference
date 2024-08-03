@@ -1,3 +1,4 @@
+# STILL TODO!
 class_name UnitMover
 extends Node
 
@@ -37,8 +38,8 @@ func _on_unit_drag_started(unit: Unit) -> void:
 	
 	var index := _get_play_area_for_position(unit.global_position)
 	if index > -1:
-		var tile := play_areas[index].get_tile_from_global(unit.global_position)
-		var grid_coord := play_areas[index].get_grid_coordinate_from_tile(tile)
+		var tile := play_areas[index].get_tile_from_global(unit.global_position) # TODO simplify this somehow
+		var grid_coord := play_areas[index].get_grid_coordinate_from_tile(tile)  # TODO simplify this somehow
 		play_areas[index].unit_grid.set_cell_unit(grid_coord, null)
 
 
