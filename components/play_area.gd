@@ -1,4 +1,6 @@
 # STILL TODO!
+# remake tiles so they start from 0,0
+# splitting the fences/suuroundings to two
 class_name PlayArea
 extends TileMap
 
