@@ -30,4 +30,6 @@ func get_random_unit_by_rarity(rarity: UnitStats.Rarity) -> UnitStats:
 
 
 func add_unit(unit: UnitStats) -> void:
+	unit = unit.duplicate()
+	unit.tier = 1
 	unit_pool.append(unit)

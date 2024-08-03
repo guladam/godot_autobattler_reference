@@ -26,10 +26,10 @@ func _sell_unit(unit: Unit) -> void:
 	player_stats.gold += unit.stats.get_gold_value()
 	var combined_units = unit.stats.get_combined_unit_count()
 	# TODO give items back to item pool
-	unit.stats.tier = 1
 	for i in combined_units:
 		unit_pool.add_unit(unit.stats)
 	
+	# TODO this might change if I refactor it
 	UnitGrid.remove_unit_from_grid(unit)
 	unit.queue_free()
 
