@@ -23,18 +23,18 @@ func _ready() -> void:
 func _update_traits() -> void:
 	var traits_to_update := current_traits.keys()
 	var active_traits: Array[Trait] = []
-	var unit_stats := arena_grid.get_all_unit_stats()
-	var traits := Trait.get_unique_traits(unit_stats)
+	var units := arena_grid.get_all_units()
+	var traits := Trait.get_unique_traits_for_units(units)
 	
 	for trait_data: Trait in traits:
 		# Update trait
 		if current_traits.has(trait_data):
 			var trait_ui := current_traits[trait_data] as TraitUI
-			trait_ui.update(unit_stats)
+			trait_ui.update(units)
 			traits_to_update.erase(trait_data)
 		# Create new trait
 		else:
-			_create_trait_ui(trait_data, unit_stats)
+			_create_trait_ui(trait_data, units)
 		# Active traits should be first
 		if (current_traits[trait_data] as TraitUI).active:
 			active_traits.append(trait_data)
@@ -49,7 +49,7 @@ func _update_traits() -> void:
 		current_traits.erase(orphan_trait)
 
 
-func _create_trait_ui(trait_data: Trait, units: Array[UnitStats]) -> void:
+func _create_trait_ui(trait_data: Trait, units: Array[Unit]) -> void:
 	var trait_ui := TRAIT_UI.instantiate() as TraitUI
 	trait_container.add_child(trait_ui)
 	trait_ui.trait_data = trait_data

@@ -11,12 +11,12 @@ var bounds: Rect2i
 func _ready() -> void:
 	bounds = Rect2i(starting_coordinate, unit_grid.size)
 
-
-func get_grid_coordinate(tile: Vector2i) -> Vector2i:
+# TODO check where and how we need this
+func get_grid_coordinate_from_tile(tile: Vector2i) -> Vector2i:
 	return tile - starting_coordinate
 
 
-func get_tile_from_grid(grid: Vector2i) -> Vector2i:
+func get_tile_from_grid_coordinate(grid: Vector2i) -> Vector2i:
 	return grid + starting_coordinate
 
 

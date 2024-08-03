@@ -1,8 +1,6 @@
 class_name UnitMover
 extends Node
 
-const HALF_CELL_SIZE := Vector2(16, 16)
-
 @export var play_areas: Array[PlayArea]
 
 
@@ -40,7 +38,7 @@ func _on_unit_drag_started(unit: Unit) -> void:
 	var index := _get_play_area_for_position(unit.global_position)
 	if index > -1:
 		var tile := play_areas[index].get_tile_from_global(unit.global_position)
-		var grid_coord := play_areas[index].get_grid_coordinate(tile)
+		var grid_coord := play_areas[index].get_grid_coordinate_from_tile(tile)
 		play_areas[index].unit_grid.set_cell_unit(grid_coord, null)
 
 
@@ -51,7 +49,7 @@ func _on_unit_drag_canceled(starting_position: Vector2, unit: Unit) -> void:
 	
 	var original_index := _get_play_area_for_position(starting_position)
 	var original_tile := play_areas[original_index].get_tile_from_global(starting_position)
-	var original_grid := play_areas[original_index].get_grid_coordinate(original_tile)
+	var original_grid := play_areas[original_index].get_grid_coordinate_from_tile(original_tile)
 
 	unit.reset_after_dragging(starting_position)
 	play_areas[original_index].unit_grid.set_cell_unit(original_grid, unit)
@@ -67,7 +65,7 @@ func _on_unit_dropped(starting_position: Vector2, unit: Unit) -> void:
 	
 	var original_index := _get_play_area_for_position(starting_position)
 	var original_tile := play_areas[original_index].get_tile_from_global(starting_position)
-	var original_grid := play_areas[original_index].get_grid_coordinate(original_tile)
+	var original_grid := play_areas[original_index].get_grid_coordinate_from_tile(original_tile)
 	var dropped_area_index := _get_play_area_for_position(unit.get_global_mouse_position())
 	
 	if dropped_area_index == -1:
@@ -77,8 +75,8 @@ func _on_unit_dropped(starting_position: Vector2, unit: Unit) -> void:
 
 	var new_area := play_areas[dropped_area_index]
 	var hovered_tile := new_area.get_hovered_tile()
-	var grid := new_area.get_grid_coordinate(hovered_tile)
-	var final_local_position := new_area.map_to_local(hovered_tile) - HALF_CELL_SIZE
+	var grid := new_area.get_grid_coordinate_from_tile(hovered_tile)
+	var final_local_position := new_area.map_to_local(hovered_tile) - Arena.HALF_CELL_SIZE
 	
 	# swap units if we have to
 	if new_area.unit_grid.is_tile_occupied(grid):

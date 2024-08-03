@@ -10,17 +10,17 @@ extends Resource
 @export var unit_modifiers: Array[PackedScene]
 
 
-func get_unique_unit_count(units: Array[UnitStats]) -> int:
+func get_unique_unit_count(units: Array[Unit]) -> int:
 	units = units.filter(
-		func(unit: UnitStats):
-			return unit.traits.has(self)
+		func(unit: Unit):
+			return unit.stats.traits.has(self)
 	)
 	
 	var unique_units: Array[String] = []
 	
-	for unit: UnitStats in units:
-		if not unique_units.has(unit.name):
-			unique_units.append(unit.name)
+	for unit: Unit in units:
+		if not unique_units.has(unit.stats.name):
+			unique_units.append(unit.stats.name)
 	
 	return unique_units.size()
 
@@ -45,11 +45,11 @@ func is_active(unique_unit_count: int) -> bool:
 	return unique_unit_count >= unit_requirements[0]
 
 
-static func get_unique_traits(units: Array[UnitStats]) -> Array[Trait]:
+static func get_unique_traits_for_units(units: Array[Unit]) -> Array[Trait]:
 	var traits: Array[Trait] = []
 	
-	for unit_stats: UnitStats in units:
-		for trait_data: Trait in unit_stats.traits:
+	for unit: Unit in units:
+		for trait_data: Trait in unit.stats.traits:
 			if not traits.has(trait_data):
 				traits.append(trait_data)
 	

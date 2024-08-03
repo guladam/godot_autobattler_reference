@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuqct6gepc6dy"]
+
+[ext_resource type="Script" path="res://scenes/tier_icon/tier_icon.gd" id="2_lkh04"]
+[ext_resource type="Texture2D" uid="uid://cj1cl8jdui60n" path="res://assets/sprites/level1.png" id="5_j5wch"]
+
+[node name="TierIcon" type="TextureRect"]
+custom_minimum_size = Vector2(10, 10)
+texture = ExtResource("5_j5wch")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("2_lkh04")

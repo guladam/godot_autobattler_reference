@@ -1,7 +1,7 @@
 class_name TileHighlighter
 extends Node
 
-@export var enabled: bool = true : set = set_enabled
+@export var enabled: bool = true : set = _set_enabled
 @export var play_area: PlayArea
 @export var layer: int
 @export var tile: Vector2i
@@ -22,7 +22,7 @@ func _process(_delta: float) -> void:
 	_update_tile(selected_tile)
 
 
-func set_enabled(new_value: bool) -> void:
+func _set_enabled(new_value: bool) -> void:
 	enabled = new_value
 	
 	if not enabled and play_area:

@@ -46,16 +46,6 @@ func get_all_units() -> Array[Unit]:
 	return unit_array
 
 
-func get_all_unit_stats() -> Array[UnitStats]:
-	var unit_stats: Array[UnitStats] = []
-	
-	for unit: Unit in units.values():
-		if unit:
-			unit_stats.append(unit.stats)
-	
-	return unit_stats
-
-
 static func get_unit_grid_for_unit(unit: Unit) -> UnitGrid:
 	var unit_grids := unit.get_tree().get_nodes_in_group("unit_grids")
 	for unit_grid: UnitGrid in unit_grids:
@@ -74,28 +64,3 @@ static func remove_unit_from_grid(unit: Unit) -> void:
 		if grid.units[tile] == unit:
 			grid.set_cell_unit(tile, null)
 			return
-
-# NOTE might need these in the future
-#func is_tile_in_bounds(tile: Vector2i) -> bool:
-	#return tile.x >= 0 and tile.x < size.x and tile.y >= 0 and tile.y < size.y
-#
-#
-#func is_tile_type(tile: Vector2i, group: StringName) -> bool:
-	#return units[tile] and units[tile].is_in_group(group)
-#
-#
-#func get_tiles_by_type(group: StringName) -> Array:
-	#return units.keys().filter(is_tile_type.bind(group))
-#
-#
-#func get_random_tile() -> Vector2i:
-	#return Vector2i(randi() % size.x, randi() % size.y)
-#
-#
-#func get_random_unoccupied_tile() -> Vector2i:
-	#var tile := get_random_tile()
-	#
-	#while is_tile_occupied(tile):
-		#tile = get_random_tile()
-		#
-	#return tile

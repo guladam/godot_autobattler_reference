@@ -1,8 +1,9 @@
 class_name UnitCombiner
 extends Node
 
-const COMBINE_ANIM_LENGTH := 1.0
+const COMBINE_ANIM_LENGTH := 0.6
 const COMBINE_BUFFER := 1.0
+const COMBINE_ANIM_SCALE := Vector2(0.7, 0.7)
 
 @export var buffer_timer: Timer
 
@@ -50,8 +51,9 @@ func _combine_units(unit1: Unit, unit2: Unit, unit3: Unit) -> void:
 	unit3.remove_from_group("units")
 	UnitGrid.remove_unit_from_grid(unit2)
 	UnitGrid.remove_unit_from_grid(unit3)
-	unit2.play_combine_animation(unit1.global_position + Vector2(8, 8))
-	unit3.play_combine_animation(unit1.global_position + Vector2(8, 8))
+	unit2.play_combine_animation(unit1.global_position + Arena.QUARTER_CELL_SIZE)
+	unit3.play_combine_animation(unit1.global_position + Arena.QUARTER_CELL_SIZE)
+
 
 func _group_units_by_name_and_tier(units: Array[Node], tier: int) -> Dictionary:
 	var filtered_units := units.filter(

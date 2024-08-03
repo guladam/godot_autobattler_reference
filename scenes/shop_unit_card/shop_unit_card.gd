@@ -6,7 +6,7 @@ signal unit_bought(unit: UnitStats)
 const HOVER_BORDER_COLOR := Color("fafa82")
 
 @export var player_stats: PlayerStats
-@export var unit_stats: UnitStats : set = set_unit_stats
+@export var unit_stats: UnitStats : set = _set_unit_stats
 
 @onready var traits: Label = %Traits
 @onready var bottom: Panel = %Bottom
@@ -27,7 +27,7 @@ func _ready() -> void:
 	_on_player_stats_changed()
 
 
-func set_unit_stats(value: UnitStats) -> void:
+func _set_unit_stats(value: UnitStats) -> void:
 	unit_stats = value
 	
 	if not is_node_ready():
@@ -45,7 +45,7 @@ func set_unit_stats(value: UnitStats) -> void:
 	bottom_sb.bg_color = border_color
 	unit_name.text = unit_stats.name
 	gold_cost.text = str(unit_stats.gold_cost)
-	unit_icon.texture.region.position = Vector2(unit_stats.skin_coordinates * Vector2i(32, 32)) # FIXME ugly code plus redundant
+	unit_icon.texture.region.position = Vector2(unit_stats.skin_coordinates) * Arena.CELL_SIZE
 
 
 func _on_mouse_entered() -> void:

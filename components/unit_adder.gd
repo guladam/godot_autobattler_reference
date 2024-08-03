@@ -3,7 +3,6 @@ extends Node
 
 signal unit_added(unit: Unit)
 
-const HALF_CELL_SIZE := Vector2(16, 16) # TODO duplicate in UnitMover
 const UNIT = preload("res://scenes/unit/unit.tscn")
 
 @export var bench: PlayArea
@@ -31,9 +30,9 @@ func add_unit(unit: UnitStats) -> void:
 	
 	var new_unit := UNIT.instantiate()
 	var grid := area.unit_grid.get_first_empty_tile()
-	var tile := area.get_tile_from_grid(grid)
+	var tile := area.get_tile_from_grid_coordinate(grid)
 	area.unit_grid.add_child(new_unit)
 	area.unit_grid.set_cell_unit(grid, new_unit)
-	new_unit.global_position = area.get_global_from_tile(tile) - HALF_CELL_SIZE
+	new_unit.global_position = area.get_global_from_tile(tile) - Arena.HALF_CELL_SIZE
 	new_unit.stats = unit
 	unit_added.emit(new_unit)
