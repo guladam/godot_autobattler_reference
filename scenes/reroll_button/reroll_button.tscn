@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://2fft4iykjm1b"]
+[gd_scene load_steps=12 format=3 uid="uid://2fft4iykjm1b"]
 
 [ext_resource type="FontFile" uid="uid://8di0jvr25vat" path="res://assets/font/m5x7.ttf" id="1_2rube"]
 [ext_resource type="Texture2D" uid="uid://c4awhqfup7o2k" path="res://assets/sprites/gold.png" id="1_tgfs3"]
@@ -8,6 +8,7 @@
 [ext_resource type="StyleBox" uid="uid://mgcn15cjl08u" path="res://assets/theme/shop_button_pressed.tres" id="3_qc641"]
 [ext_resource type="Script" path="res://scenes/reroll_button/reroll_button.gd" id="4_dnwq0"]
 [ext_resource type="Resource" uid="uid://dlnsfkjue2dlt" path="res://data/player/player_stats.tres" id="5_ggxxf"]
+[ext_resource type="AudioStream" uid="uid://cjrjne6mkcml3" path="res://assets/sfx/reroll.ogg" id="6_r86jc"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_swyy2"]
 
@@ -26,6 +27,7 @@ theme_override_styles/pressed = ExtResource("3_qc641")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_swyy2")
 script = ExtResource("4_dnwq0")
 player_stats = ExtResource("5_ggxxf")
+reroll_sound = ExtResource("6_r86jc")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(80, 0)

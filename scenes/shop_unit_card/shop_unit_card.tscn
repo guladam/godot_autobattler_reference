@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://otxvh4f85gni"]
+[gd_scene load_steps=14 format=3 uid="uid://otxvh4f85gni"]
 
 [ext_resource type="StyleBox" uid="uid://cfbqjkjc3qola" path="res://scenes/shop_unit_card/shop_unit_card_border.tres" id="1_8pgg2"]
 [ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/sprites/rogues.png" id="1_gljwm"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://dlnsfkjue2dlt" path="res://data/player/player_stats.tres" id="2_u1704"]
 [ext_resource type="StyleBox" uid="uid://ka3ji8mat7ni" path="res://scenes/shop_unit_card/shop_unit_card_bottom.tres" id="2_vpmtq"]
 [ext_resource type="Texture2D" uid="uid://c4awhqfup7o2k" path="res://assets/sprites/gold.png" id="3_5y0ne"]
+[ext_resource type="AudioStream" uid="uid://05sgyew2ynsi" path="res://assets/sfx/buy.ogg" id="4_g5gos"]
 [ext_resource type="FontFile" uid="uid://8di0jvr25vat" path="res://assets/font/m5x7.ttf" id="4_y3dwx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_elt36"]
@@ -37,6 +38,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_elt36")
 script = ExtResource("1_n540f")
 player_stats = ExtResource("2_u1704")
 unit_stats = ExtResource("2_254fy")
+buy_sound = ExtResource("4_g5gos")
 
 [node name="Content" type="ColorRect" parent="."]
 layout_mode = 1

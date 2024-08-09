@@ -15,6 +15,15 @@ run/main_scene="res://scenes/arena/arena.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://assets/default_bus_layout.tres"
+
+[autoload]
+
+MusicPlayer="*res://scenes/audio_player/music_player.tscn"
+SFXPlayer="*res://scenes/audio_player/sfx_player.tscn"
+
 [display]
 
 window/size/viewport_width=640
