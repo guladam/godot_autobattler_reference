@@ -43,6 +43,14 @@ const ROLL_CHANCES := {
 @export_range(1, 10) var level: int : set = _set_level
 
 
+func get_random_rarity_for_level() -> UnitStats.Rarity:
+	var rng = RandomNumberGenerator.new()
+	var array: Array = ROLL_RARITIES[level]
+	var weights: PackedFloat32Array = PackedFloat32Array(ROLL_CHANCES[level])
+
+	return array[rng.rand_weighted(weights)]
+
+
 func get_current_xp_requirement() -> int:
 	return XP_REQUIREMENTS[level+1]
 

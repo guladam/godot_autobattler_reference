@@ -21,19 +21,3 @@ func _ready() -> void:
 	shop.unit_bought.connect(unit_adder.add_unit)
 	
 	MusicPlayer.play(arena_music_stream)
-
-
-# FIXME rand_weighted will be added in Godot 4.3 
-# so this won't be needed
-static func get_random_rarity_for_level(level: int) -> int:
-	var weight_sum := 0.0
-	for weight in PlayerStats.ROLL_CHANCES[level]:
-		weight_sum += weight
-	
-	var dist := randf() * weight_sum
-	for i in PlayerStats.ROLL_CHANCES[level].size():
-		dist -= PlayerStats.ROLL_CHANCES[level][i]
-		if dist < 0:
-			return PlayerStats.ROLL_RARITIES[level][i]
-			
-	return -1

@@ -22,8 +22,7 @@ func _ready() -> void:
 
 func _roll_units() -> void:
 	for i in 5:
-		# FIXME first line can be replaced in Godot 4.3
-		var rarity := Arena.get_random_rarity_for_level(player_stats.level)
+		var rarity := player_stats.get_random_rarity_for_level()
 		var new_card := SHOP_UNIT_CARD.instantiate() as ShopUnitCard
 		new_card.unit_stats = unit_pool.get_random_unit_by_rarity(rarity)
 		new_card.unit_bought.connect(_on_unit_bought)

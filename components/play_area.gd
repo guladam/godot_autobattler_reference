@@ -1,5 +1,5 @@
 class_name PlayArea
-extends TileMap
+extends TileMapLayer
 
 @export var unit_grid: UnitGrid
 @export var tile_highlighter: TileHighlighter
