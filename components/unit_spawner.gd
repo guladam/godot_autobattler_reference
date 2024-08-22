@@ -1,7 +1,7 @@
-class_name UnitAdder
+class_name UnitSpawner
 extends Node
 
-signal unit_added(unit: Unit)
+signal unit_spawned(unit: Unit)
 
 const UNIT = preload("res://scenes/unit/unit.tscn")
 
@@ -18,7 +18,7 @@ func _get_first_available_area() -> PlayArea:
 	return null
 
 
-func add_unit(unit: UnitStats) -> void:
+func spawn_unit(unit: UnitStats) -> void:
 	var area := _get_first_available_area()
 	# TODO in the future, throw a popup error message here!
 	assert(area, "No available space to add unit to!")
@@ -29,4 +29,4 @@ func add_unit(unit: UnitStats) -> void:
 	area.unit_grid.add_unit(tile, new_unit)
 	new_unit.global_position = area.get_global_from_tile(tile) - Arena.HALF_CELL_SIZE
 	new_unit.stats = unit
-	unit_added.emit(new_unit)
+	unit_spawned.emit(new_unit)
