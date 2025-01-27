@@ -1,12 +1,9 @@
-@tool
 class_name Unit
 extends Area2D
 
-signal quick_sell_pressed
-
 @export var stats: UnitStats : set = set_stats
 
-@onready var skin: Sprite2D = $Visuals/Skin
+@onready var skin: CustomSkin = $Visuals/Skin
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var mana_bar: ProgressBar = $ManaBar
 @onready var tier_icon: TierIcon = $TierIcon
@@ -14,37 +11,23 @@ signal quick_sell_pressed
 @onready var velocity_based_rotation: VelocityBasedRotation = $VelocityBasedRotation
 @onready var outline_highlighter: OutlineHighlighter = $OutlineHighlighter
 @onready var animations: UnitAnimations = $Animations
+@onready var quick_sell: QuickSell = $QuickSell
 
 var is_hovered := false
 
 
 func _ready() -> void:
-	if not Engine.is_editor_hint():
-		drag_and_drop.drag_started.connect(_on_drag_started)
-		drag_and_drop.drag_canceled.connect(_on_drag_canceled)
-
-
-func _input(event: InputEvent) -> void:
-	if not is_hovered:
-		return
-	
-	if event.is_action_pressed("quick_sell"):
-		quick_sell_pressed.emit()
+	drag_and_drop.drag_started.connect(_on_drag_started)
+	drag_and_drop.drag_canceled.connect(_on_drag_canceled)
 
 
 func set_stats(value: UnitStats) -> void:
-	stats = value
-	
-	if value == null:
-		return
-	
-	if not Engine.is_editor_hint():
-		stats = value.duplicate()
+	stats = value.duplicate()
 	
 	if not is_node_ready():
 		await ready
 	
-	skin.region_rect.position = Vector2(stats.skin_coordinates) * Arena.CELL_SIZE
+	skin.stats = stats
 	tier_icon.stats = stats
 
 

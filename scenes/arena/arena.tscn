@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=24 format=4 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="Script" path="res://scenes/arena/arena.gd" id="1_a1ak0"]
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
@@ -16,7 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://bhhtibvtken5o" path="res://scenes/shop/shop.tscn" id="13_256pg"]
 [ext_resource type="Script" path="res://components/unit_spawner.gd" id="13_elhf4"]
 [ext_resource type="AudioStream" uid="uid://dubwbrp3e8hg3" path="res://assets/sfx/combine.ogg" id="15_2p0aq"]
+[ext_resource type="Script" path="res://components/battle_handler.gd" id="16_kcd4n"]
 [ext_resource type="PackedScene" uid="uid://cxgnlha7i81v2" path="res://scenes/traits/traits.tscn" id="16_uy14c"]
+[ext_resource type="Resource" uid="uid://colcuq2f1xv6x" path="res://data/game_state/game_state.tres" id="17_5rf3s"]
 [ext_resource type="PackedScene" uid="uid://cvarsvlo70pgx" path="res://scenes/team_size_ui/team_size_ui.tscn" id="17_gxlm5"]
 
 [sub_resource type="Curve" id="Curve_kxla4"]
@@ -156,6 +158,11 @@ combine_sound = ExtResource("15_2p0aq")
 
 [node name="BufferTimer" type="Timer" parent="UnitCombiner"]
 one_shot = true
+
+[node name="BattleHandler" type="Node" parent="." node_paths=PackedStringArray("arena_unit_grid")]
+script = ExtResource("16_kcd4n")
+game_state = ExtResource("17_5rf3s")
+arena_unit_grid = NodePath("../GameArea/ArenaUnitGrid")
 
 [node name="UI" type="CanvasLayer" parent="."]
 

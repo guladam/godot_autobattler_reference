@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bd6jhfp83q1rv"]
+[gd_scene load_steps=15 format=3 uid="uid://bd6jhfp83q1rv"]
 
 [ext_resource type="Script" path="res://scenes/unit/unit.gd" id="1_v6qje"]
 [ext_resource type="Resource" uid="uid://xjus2xsvdrxh" path="res://data/units/bjorn.tres" id="2_3ccms"]
@@ -6,31 +6,16 @@
 [ext_resource type="Script" path="res://components/drag_and_drop.gd" id="3_dhhtl"]
 [ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/sprites/rogues.png" id="3_sepav"]
 [ext_resource type="Script" path="res://components/velocity_based_rotation.gd" id="4_j53m8"]
+[ext_resource type="Script" path="res://components/skin.gd" id="5_cbo41"]
 [ext_resource type="PackedScene" uid="uid://cuqct6gepc6dy" path="res://scenes/tier_icon/tier_icon.tscn" id="5_g2aj7"]
 [ext_resource type="Script" path="res://components/outline_highlighter.gd" id="6_mu807"]
+[ext_resource type="PackedScene" uid="uid://6t7poyqji4dh" path="res://scenes/health_bar/health_bar.tscn" id="6_w8051"]
+[ext_resource type="PackedScene" uid="uid://r6i2ug5jon3k" path="res://scenes/mana_bar/mana_bar.tscn" id="7_3k3he"]
 [ext_resource type="Script" path="res://components/unit_animations.gd" id="9_tr4ow"]
+[ext_resource type="Script" path="res://components/quick_sell.gd" id="10_jih4l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0qp17"]
 size = Vector2(36, 36)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i1sdb"]
-bg_color = Color(0.231879, 0.11297, 0.0973542, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hn534"]
-bg_color = Color(2.16588e-06, 0.732302, 0.314512, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.231373, 0.113725, 0.0980392, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kodbq"]
-bg_color = Color(2.17551e-05, 0.653185, 0.937792, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.231373, 0.113725, 0.0980392, 1)
 
 [node name="Unit" type="Area2D" groups=["units"]]
 script = ExtResource("1_v6qje")
@@ -45,47 +30,29 @@ position = Vector2(16, 8)
 texture = ExtResource("3_sepav")
 flip_h = true
 region_enabled = true
-region_rect = Rect2(32, 96, 32, 32)
+region_rect = Rect2(128, 64, 32, 32)
+script = ExtResource("5_cbo41")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(16, 8)
 shape = SubResource("RectangleShape2D_0qp17")
 
-[node name="HealthBar" type="ProgressBar" parent="."]
-offset_left = 1.0
-offset_top = -20.0
-offset_right = 31.0
-offset_bottom = -14.0
-mouse_filter = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_i1sdb")
-theme_override_styles/fill = SubResource("StyleBoxFlat_hn534")
-value = 100.0
-show_percentage = false
+[node name="HealthBar" parent="." instance=ExtResource("6_w8051")]
 
-[node name="ManaBar" type="ProgressBar" parent="."]
-offset_left = 1.0
-offset_top = -15.0
-offset_right = 31.0
-offset_bottom = -11.0
-mouse_filter = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_i1sdb")
-theme_override_styles/fill = SubResource("StyleBoxFlat_kodbq")
-show_percentage = false
+[node name="ManaBar" parent="." instance=ExtResource("7_3k3he")]
 
 [node name="TierIcon" parent="." instance=ExtResource("5_g2aj7")]
 offset_top = -13.0
 offset_right = 10.0
 offset_bottom = -3.0
-stats = ExtResource("2_3ccms")
 
 [node name="DragAndDrop" type="Node" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("3_dhhtl")
 target = NodePath("..")
 
-[node name="VelocityBasedRotation" type="Node" parent="." node_paths=PackedStringArray("target")]
+[node name="VelocityBasedRotation" type="Node" parent="."]
 script = ExtResource("4_j53m8")
 enabled = false
-target = NodePath("../Visuals/Skin")
 rotation_multiplier = 70
 
 [node name="OutlineHighlighter" type="Node" parent="." node_paths=PackedStringArray("visuals")]
@@ -96,6 +63,10 @@ outline_thickness = 2
 
 [node name="Animations" type="Node" parent="." node_paths=PackedStringArray("unit")]
 script = ExtResource("9_tr4ow")
+unit = NodePath("..")
+
+[node name="QuickSell" type="Node" parent="." node_paths=PackedStringArray("unit")]
+script = ExtResource("10_jih4l")
 unit = NodePath("..")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

@@ -20,7 +20,7 @@ func _ready() -> void:
 
 func setup_unit(unit: Unit) -> void:
 	unit.drag_and_drop.dropped.connect(_on_unit_dropped.bind(unit))
-	unit.quick_sell_pressed.connect(_sell_unit.bind(unit))
+	unit.quick_sell.quick_sell_pressed.connect(_sell_unit.bind(unit))
 
 
 func _sell_unit(unit: Unit) -> void:

@@ -16,6 +16,7 @@ func _set_stats(value: UnitStats) -> void:
 
 	stats = value
 	stats.changed.connect(_on_stats_changed)
+	_on_stats_changed()
 
 
 func _on_stats_changed() -> void:
