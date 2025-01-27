@@ -144,12 +144,14 @@ metadata/_edit_lock_ = true
 [node name="UnitMover" type="Node" parent="." node_paths=PackedStringArray("play_areas")]
 script = ExtResource("9_snp81")
 play_areas = [NodePath("../GameArea"), NodePath("../Bench")]
+game_state = ExtResource("17_5rf3s")
 unit_place_sound = ExtResource("12_niusb")
 
 [node name="UnitSpawner" type="Node" parent="." node_paths=PackedStringArray("bench", "game_area")]
 script = ExtResource("13_elhf4")
 bench = NodePath("../Bench")
 game_area = NodePath("../GameArea")
+game_state = ExtResource("17_5rf3s")
 
 [node name="UnitCombiner" type="Node" parent="." node_paths=PackedStringArray("buffer_timer")]
 script = ExtResource("11_ex2js")
@@ -159,10 +161,11 @@ combine_sound = ExtResource("15_2p0aq")
 [node name="BufferTimer" type="Timer" parent="UnitCombiner"]
 one_shot = true
 
-[node name="BattleHandler" type="Node" parent="." node_paths=PackedStringArray("arena_unit_grid")]
+[node name="BattleHandler" type="Node" parent="." node_paths=PackedStringArray("game_area_unit_grid", "game_area_tile_highlighter")]
 script = ExtResource("16_kcd4n")
 game_state = ExtResource("17_5rf3s")
-arena_unit_grid = NodePath("../GameArea/ArenaUnitGrid")
+game_area_unit_grid = NodePath("../GameArea/ArenaUnitGrid")
+game_area_tile_highlighter = NodePath("../GameArea/TileHighlighter")
 
 [node name="UI" type="CanvasLayer" parent="."]
 

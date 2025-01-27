@@ -7,12 +7,17 @@ const UNIT = preload("res://scenes/unit/unit.tscn")
 
 @export var bench: PlayArea
 @export var game_area: PlayArea
+@export var game_state: GameState
 
 
 func _get_first_available_area() -> PlayArea:
-	if not bench.unit_grid.is_grid_full():
+	var bench_full := bench.unit_grid.is_grid_full()
+	var game_area_full := game_area.unit_grid.is_grid_full()
+	var is_battling := game_state.current_phase == GameState.Phase.BATTLE
+	
+	if not bench_full:
 		return bench
-	elif not game_area.unit_grid.is_grid_full():
+	elif not game_area_full and not is_battling:
 		return game_area
 	
 	return null

@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_wnleo")
-gold = 50
+gold = 99
 xp = 0
 level = 1

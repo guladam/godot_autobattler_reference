@@ -50,7 +50,7 @@ func _group_units_by_name_and_tier(tier: int) -> Dictionary:
 	var units := get_tree().get_nodes_in_group("units")
 	var filtered_units := units.filter(
 		func(unit: Unit): 
-			return unit.stats.tier == tier
+			return unit.visible and unit.stats.tier == tier
 	)
 	var unit_groups := {}
 	

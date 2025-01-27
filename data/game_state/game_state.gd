@@ -3,7 +3,7 @@ extends Resource
 
 enum Phase {
 	PREPARATION, 
-	FIGHT
+	BATTLE
 }
 
 @export var current_phase: Phase: 
