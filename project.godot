@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Godot Autobattler Reference"
+config/tags=PackedStringArray("gamelab")
 run/main_scene="res://scenes/arena/arena.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
@@ -30,7 +31,7 @@ window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/resizable=false
 window/size/window_width_override=1300
-window/size/window_height_override=800
+window/size/window_height_override=750
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 mouse_cursor/custom_image="res://assets/sprites/cursor.png"

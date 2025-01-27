@@ -38,8 +38,6 @@ func set_stats(value: UnitStats) -> void:
 	if value == null:
 		return
 	
-	# NOTE point this out in the tutorial
-	# without duplicate() the tier of units would be shared
 	if not Engine.is_editor_hint():
 		stats = value.duplicate()
 	
