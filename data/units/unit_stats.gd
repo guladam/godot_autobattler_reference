@@ -2,6 +2,7 @@ class_name UnitStats
 extends Resource
 
 enum Rarity {COMMON, UNCOMMON, RARE, LEGENDARY}
+enum Team {PLAYER, ENEMY}
 
 const RARITY_COLORS := {
 	Rarity.COMMON: Color("124a2e"),
@@ -10,17 +11,25 @@ const RARITY_COLORS := {
 	Rarity.LEGENDARY: Color("ea940b"),
 }
 
-@export var name: String
+const TARGET := {
+	Team.PLAYER: "enemy_units",
+	Team.ENEMY: "player_units"
+}
 
-@export_category("Data")
-@export var rarity: Rarity 
-@export var gold_cost := 1
+@export var name: String
 @export_range(1, 3) var tier := 1 : set = _set_tier
 @export var traits: Array[Trait]
+
+@export_category("Shop")
+@export var rarity: Rarity 
+@export var gold_cost := 1
 @export var pool_count := 15
 
 @export_category("Visuals")
 @export var skin_coordinates: Vector2i
+
+@export_category("Battle")
+@export var team: Team
 
 
 func get_combined_unit_count() -> int:

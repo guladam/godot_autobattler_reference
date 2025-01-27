@@ -17,16 +17,12 @@ func _input(event: InputEvent) -> void:
 
 
 func _clean_up_fight() -> void:
-	print("fight cleanup")
-	
 	get_tree().call_group("player_units", "queue_free")
 	get_tree().call_group("enemy_units", "queue_free")
 	get_tree().call_group("units", "show")
 
 
 func _prepare_fight() -> void:
-	print("fight prep")
-	
 	for unit: Unit in arena_unit_grid.get_all_units():
 		var new_unit: Unit = UnitSpawner.UNIT.instantiate()
 		new_unit.remove_from_group("units")
