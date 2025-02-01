@@ -6,7 +6,13 @@ var actor_unit: BattleUnit
 
 
 func physics_process(delta: float) -> void:
-	var movement_vector := (actor_unit.target_finder.target.global_position - actor_unit.global_position)
+	var target := actor_unit.target_finder.target
+	
+	if not target or target.is_queued_for_deletion():
+		_on_target_reached()
+		return
+
+	var movement_vector := (target.global_position - actor_unit.global_position)
 	actor_unit.global_position += movement_vector.normalized() * delta * actor_unit.stats.movement_speed
 
 
@@ -19,7 +25,11 @@ func exit() -> void:
 	actor_unit.area_exited.disconnect(_on_area_entered)
 
 
+func _on_target_reached() -> void:
+	in_range = true
+	print("%s reached its target!" % actor_unit.name)
+
+
 func _on_area_entered(area: BattleUnit) -> void:
 	if area == actor_unit.target_finder.target:
-		in_range = true
-		print("%s reached its target!" % actor_unit.name)
+		_on_target_reached()
