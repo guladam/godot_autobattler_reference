@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bg1r2rkbd021"]
+[gd_scene load_steps=11 format=3 uid="uid://bg1r2rkbd021"]
 
 [ext_resource type="Script" path="res://scenes/battle_unit/battle_unit.gd" id="1_664hq"]
 [ext_resource type="Texture2D" uid="uid://ct4xk88g67xlv" path="res://assets/sprites/monsters.png" id="1_k0une"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://r6i2ug5jon3k" path="res://scenes/mana_bar/mana_bar.tscn" id="4_03pgi"]
 [ext_resource type="PackedScene" uid="uid://cuqct6gepc6dy" path="res://scenes/tier_icon/tier_icon.tscn" id="5_8ow3a"]
 [ext_resource type="Script" path="res://components/finite_state_machine.gd" id="7_e7yjp"]
+[ext_resource type="Script" path="res://components/target_finder.gd" id="7_xsykw"]
 [ext_resource type="Script" path="res://components/unit_ai.gd" id="8_2mupp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6qoms"]
@@ -44,11 +45,16 @@ offset_right = 61.0
 offset_bottom = -21.0
 horizontal_alignment = 1
 
+[node name="TargetFinder" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("7_xsykw")
+actor = NodePath("..")
+
 [node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("debug_label")]
 script = ExtResource("7_e7yjp")
 debug_label = NodePath("../FSMDebug")
 
-[node name="UnitAI" type="Node" parent="." node_paths=PackedStringArray("actor", "fsm")]
+[node name="UnitAI" type="Node" parent="." node_paths=PackedStringArray("actor", "fsm", "target_finder")]
 script = ExtResource("8_2mupp")
 actor = NodePath("..")
 fsm = NodePath("../FiniteStateMachine")
+target_finder = NodePath("../TargetFinder")

@@ -5,6 +5,7 @@ extends Area2D
 
 @onready var custom_skin: CustomSkin = $CustomSkin
 @onready var tier_icon: TierIcon = $TierIcon
+@onready var target_finder: TargetFinder = $TargetFinder
 @onready var unit_ai: UnitAI = $UnitAI
 
 

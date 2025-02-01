@@ -4,6 +4,7 @@ extends Node
 @export var enabled: bool: set = set_enabled
 @export var actor: BattleUnit
 @export var fsm: FiniteStateMachine
+@export var target_finder: TargetFinder
 
 
 func _input(event: InputEvent) -> void:
@@ -15,7 +16,8 @@ func set_enabled(value: bool) -> void:
 	enabled = value
 	
 	if enabled:
-		fsm.change_state(SearchTargetState.new(actor))
+		target_finder.find_target()
+		fsm.change_state(ChaseState.new(actor))
 	else:
 		fsm.change_state(null)
 
