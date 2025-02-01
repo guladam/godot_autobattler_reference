@@ -13,11 +13,13 @@ func _ready() -> void:
 
 
 # NOTE testing code
-#func _input(event: InputEvent) -> void:
-	#if event.is_action_pressed("test1"):
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("test1"):
+		get_tree().call_group("player_units", "queue_free")
 		#game_state.current_phase = GameState.Phase.PREPARATION
 		#battle_ended.emit()
-	#if event.is_action_pressed("test2"):
+	if event.is_action_pressed("test2"):
+		get_tree().call_group("enemy_units", "queue_free")
 		#game_state.current_phase = GameState.Phase.BATTLE
 
 
@@ -38,7 +40,26 @@ func _prepare_fight() -> void:
 		new_unit.drag_and_drop.enabled = false
 		new_unit.global_position = unit.global_position
 		new_unit.modulate = Color.GREEN_YELLOW
+		new_unit.tree_exited.connect(_on_battle_unit_died)
 		unit.hide()
+	
+	for enemy: Enemy in get_tree().get_nodes_in_group("enemy_units"):
+		enemy.tree_exited.connect(_on_battle_unit_died)
+
+
+func _on_battle_unit_died() -> void:
+	# We already concluded the battle!
+	if game_state.current_phase == GameState.Phase.PREPARATION:
+		return
+
+	if get_tree().get_node_count_in_group("enemy_units") == 0:
+		game_state.current_phase = GameState.Phase.PREPARATION
+		battle_ended.emit()
+		print("player won!")
+	if get_tree().get_node_count_in_group("player_units") == 0:
+		game_state.current_phase = GameState.Phase.PREPARATION
+		battle_ended.emit()
+		print("enemy won!")
 
 
 func _on_game_state_changed() -> void:
