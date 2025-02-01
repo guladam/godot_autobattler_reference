@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="UnitStats" load_steps=3 format=3 uid="uid://rmwigglnsa4k"]
+
+[ext_resource type="Script" path="res://data/units/unit_stats.gd" id="1_c1wf3"]
+[ext_resource type="Script" path="res://data/traits/trait.gd" id="2_e3ske"]
+
+[resource]
+script = ExtResource("1_c1wf3")
+name = "Zombie"
+tier = 1
+traits = Array[ExtResource("2_e3ske")]([])
+rarity = 0
+gold_cost = 1
+pool_count = 15
+skin_coordinates = Vector2i(0, 0)
+team = 1
+max_health = Array[int]([])
+max_mana = 0
+starting_mana = 0
+attack_damage = Array[int]([])
+ability_power = 0
+attack_speed = 0.0
+armor = 0
+magic_resist = 0
+movement_speed = 0
+attack_range = 0

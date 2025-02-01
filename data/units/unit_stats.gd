@@ -38,11 +38,11 @@ const TARGET := {
 @export var attack_speed: float
 @export var armor: int
 @export var magic_resist: int
+@export var movement_speed: int
 @export_range(1, 5) var attack_range: int
 
 var health: int
 var mana: int
-var damage: int
 
 
 func get_combined_unit_count() -> int:

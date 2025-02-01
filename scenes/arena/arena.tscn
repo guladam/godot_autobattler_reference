@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=27 format=4 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="Script" path="res://scenes/arena/arena.gd" id="1_a1ak0"]
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
@@ -8,7 +8,8 @@
 [ext_resource type="Script" path="res://components/unit_grid.gd" id="4_m7ydk"]
 [ext_resource type="Script" path="res://components/play_area.gd" id="6_73s8l"]
 [ext_resource type="PackedScene" uid="uid://dk0bcfpbo130r" path="res://scenes/sell_portal/sell_portal.tscn" id="8_4fftf"]
-[ext_resource type="PackedScene" uid="uid://bg1r2rkbd021" path="res://scenes/enemy/enemy.tscn" id="8_o7ur7"]
+[ext_resource type="PackedScene" uid="uid://bg1r2rkbd021" path="res://scenes/battle_unit/battle_unit.tscn" id="8_o7ur7"]
+[ext_resource type="Resource" uid="uid://rmwigglnsa4k" path="res://data/enemies/zombie.tres" id="9_k78nh"]
 [ext_resource type="Script" path="res://components/unit_mover.gd" id="9_snp81"]
 [ext_resource type="Resource" uid="uid://doebgx0llcf1o" path="res://data/unit_pool/unit_pool.tres" id="10_if8r1"]
 [ext_resource type="Resource" uid="uid://dlnsfkjue2dlt" path="res://data/player/player_stats.tres" id="10_n3gg6"]
@@ -140,14 +141,17 @@ size = Vector2i(10, 1)
 [node name="Enemies" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
 
-[node name="Enemy" parent="Enemies" instance=ExtResource("8_o7ur7")]
+[node name="Enemy" parent="Enemies" groups=["enemy_units"] instance=ExtResource("8_o7ur7")]
 position = Vector2(384, 96)
+stats = ExtResource("9_k78nh")
 
-[node name="Enemy2" parent="Enemies" instance=ExtResource("8_o7ur7")]
-position = Vector2(416, 192)
-
-[node name="Enemy3" parent="Enemies" instance=ExtResource("8_o7ur7")]
+[node name="Enemy2" parent="Enemies" groups=["enemy_units"] instance=ExtResource("8_o7ur7")]
 position = Vector2(384, 160)
+stats = ExtResource("9_k78nh")
+
+[node name="Enemy3" parent="Enemies" groups=["enemy_units"] instance=ExtResource("8_o7ur7")]
+position = Vector2(416, 192)
+stats = ExtResource("9_k78nh")
 
 [node name="SellPortal" parent="." instance=ExtResource("8_4fftf")]
 position = Vector2(80, 288)
