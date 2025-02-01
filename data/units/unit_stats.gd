@@ -30,6 +30,19 @@ const TARGET := {
 
 @export_category("Battle")
 @export var team: Team
+@export var max_health: Array[int]
+@export var max_mana: int
+@export var starting_mana: int
+@export var attack_damage: Array[int]
+@export var ability_power: int
+@export var attack_speed: float
+@export var armor: int
+@export var magic_resist: int
+@export_range(1, 5) var attack_range: int
+
+var health: int
+var mana: int
+var damage: int
 
 
 func get_combined_unit_count() -> int:
