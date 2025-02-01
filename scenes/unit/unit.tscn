@@ -18,6 +18,7 @@
 size = Vector2(36, 36)
 
 [node name="Unit" type="Area2D" groups=["units"]]
+collision_mask = 3
 script = ExtResource("1_v6qje")
 stats = ExtResource("2_3ccms")
 metadata/_edit_group_ = true

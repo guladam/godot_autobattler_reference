@@ -13,12 +13,12 @@ func _ready() -> void:
 
 
 # NOTE testing code
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("test1"):
-		game_state.current_phase = GameState.Phase.PREPARATION
-		battle_ended.emit()
-	if event.is_action_pressed("test2"):
-		game_state.current_phase = GameState.Phase.BATTLE
+#func _input(event: InputEvent) -> void:
+	#if event.is_action_pressed("test1"):
+		#game_state.current_phase = GameState.Phase.PREPARATION
+		#battle_ended.emit()
+	#if event.is_action_pressed("test2"):
+		#game_state.current_phase = GameState.Phase.BATTLE
 
 
 func _clean_up_fight() -> void:
