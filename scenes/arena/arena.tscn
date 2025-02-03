@@ -142,11 +142,11 @@ size = Vector2i(10, 1)
 metadata/_edit_lock_ = true
 
 [node name="Enemy" parent="Enemies" groups=["enemy_units"] instance=ExtResource("8_o7ur7")]
-position = Vector2(384, 96)
+position = Vector2(416, 64)
 stats = ExtResource("9_k78nh")
 
 [node name="Enemy2" parent="Enemies" groups=["enemy_units"] instance=ExtResource("8_o7ur7")]
-position = Vector2(384, 160)
+position = Vector2(384, 128)
 stats = ExtResource("9_k78nh")
 
 [node name="Enemy3" parent="Enemies" groups=["enemy_units"] instance=ExtResource("8_o7ur7")]

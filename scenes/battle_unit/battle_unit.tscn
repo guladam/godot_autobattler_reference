@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bg1r2rkbd021"]
+[gd_scene load_steps=13 format=3 uid="uid://bg1r2rkbd021"]
 
 [ext_resource type="Script" path="res://scenes/battle_unit/battle_unit.gd" id="1_664hq"]
 [ext_resource type="Texture2D" uid="uid://ct4xk88g67xlv" path="res://assets/sprites/monsters.png" id="1_k0une"]
@@ -9,40 +9,49 @@
 [ext_resource type="Script" path="res://components/finite_state_machine.gd" id="7_e7yjp"]
 [ext_resource type="Script" path="res://components/target_finder.gd" id="7_xsykw"]
 [ext_resource type="Script" path="res://components/unit_ai.gd" id="8_2mupp"]
+[ext_resource type="Script" path="res://components/context_based_steering.gd" id="10_6u8r1"]
+[ext_resource type="Script" path="res://scenes/debug_draw.gd" id="11_hb3ti"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6qoms"]
 size = Vector2(36, 36)
 
 [node name="BattleUnit" type="Area2D"]
-collision_layer = 2
+collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_664hq")
 
 [node name="CustomSkin" type="Sprite2D" parent="."]
-position = Vector2(16, 8)
 texture = ExtResource("1_k0une")
 region_enabled = true
 region_rect = Rect2(128, 128, 32, 32)
 script = ExtResource("2_4vo21")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(16, 8)
 shape = SubResource("RectangleShape2D_6qoms")
 
 [node name="HealthBar" parent="." instance=ExtResource("3_vhjnk")]
+offset_left = -15.0
+offset_top = -28.0
+offset_right = 15.0
+offset_bottom = -22.0
 
 [node name="ManaBar" parent="." instance=ExtResource("4_03pgi")]
+offset_left = -15.0
+offset_top = -23.0
+offset_right = 15.0
+offset_bottom = -19.0
 
 [node name="TierIcon" parent="." instance=ExtResource("5_8ow3a")]
-offset_top = -13.0
-offset_right = 10.0
-offset_bottom = -3.0
+offset_left = -16.0
+offset_top = -21.0
+offset_right = -6.0
+offset_bottom = -11.0
 
 [node name="FSMDebug" type="Label" parent="."]
-offset_left = -28.0
-offset_top = -39.0
-offset_right = 61.0
-offset_bottom = -21.0
+offset_left = -45.0
+offset_top = -47.0
+offset_right = 44.0
+offset_bottom = -29.0
 horizontal_alignment = 1
 
 [node name="TargetFinder" type="Node" parent="." node_paths=PackedStringArray("actor")]
@@ -58,3 +67,14 @@ script = ExtResource("8_2mupp")
 actor = NodePath("..")
 fsm = NodePath("../FiniteStateMachine")
 target_finder = NodePath("../TargetFinder")
+
+[node name="ContextBasedSteering" type="Node" parent="." node_paths=PackedStringArray("battle_unit")]
+script = ExtResource("10_6u8r1")
+battle_unit = NodePath("..")
+steer_force = 0.25
+look_ahead = 24
+rays = 16
+
+[node name="DebugDraw" type="Node2D" parent="." node_paths=PackedStringArray("cbs")]
+script = ExtResource("11_hb3ti")
+cbs = NodePath("../ContextBasedSteering")
