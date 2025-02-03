@@ -29,6 +29,7 @@ func _clean_up_fight() -> void:
 	get_tree().call_group("player_units", "queue_free")
 	get_tree().call_group("enemy_units", "queue_free")
 	get_tree().call_group("units", "show")
+	get_tree().call_group("units", "disable_collision", false)
 
 
 func _prepare_fight() -> void:
@@ -36,10 +37,13 @@ func _prepare_fight() -> void:
 		var new_unit: BattleUnit = BATTLE_UNIT.instantiate()
 		new_unit.add_to_group("player_units")
 		game_area_unit_grid.add_child(new_unit)
+		new_unit.collision_layer = 1
+		new_unit.collision_mask = 2
 		new_unit.stats = unit.stats
-		new_unit.global_position = unit.global_position
+		new_unit.global_position = unit.global_position + Vector2(Arena.HALF_CELL_SIZE.x, Arena.QUARTER_CELL_SIZE.y)
 		new_unit.modulate = Color.GREEN_YELLOW
 		new_unit.tree_exited.connect(_on_battle_unit_died)
+		unit.disable_collision(true)
 		unit.hide()
 	
 	for enemy: BattleUnit in get_tree().get_nodes_in_group("enemy_units"):

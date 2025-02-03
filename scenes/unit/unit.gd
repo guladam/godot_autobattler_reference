@@ -4,6 +4,7 @@ extends Area2D
 @export var stats: UnitStats : set = set_stats
 
 @onready var skin: CustomSkin = $Visuals/Skin
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var mana_bar: ProgressBar = $ManaBar
 @onready var tier_icon: TierIcon = $TierIcon
@@ -19,6 +20,10 @@ var is_hovered := false
 func _ready() -> void:
 	drag_and_drop.drag_started.connect(_on_drag_started)
 	drag_and_drop.drag_canceled.connect(_on_drag_canceled)
+
+
+func disable_collision(value: bool) -> void:
+	collision_shape_2d.set_deferred("disabled", value)
 
 
 func set_stats(value: UnitStats) -> void:

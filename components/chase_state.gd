@@ -24,5 +24,5 @@ func _on_target_reached() -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	if area == actor_unit.target_finder.target:
+	if area:
 		_on_target_reached()

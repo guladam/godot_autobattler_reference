@@ -3,9 +3,9 @@ extends Node
 
 @export var battle_unit: BattleUnit
 @export var enabled := false
-@export var steer_force := 0.1
-@export var look_ahead := 64
-@export var rays := 8
+@export var steer_force := 0.25
+@export var look_ahead := 32
+@export var rays := 16
 
 var ray_directions: Array[Vector2] = []
 var interest: Array[float] = []
@@ -28,8 +28,8 @@ func _physics_process(delta: float) -> void:
 	
 	_set_interest()
 	_set_danger()
-	var desired_velocity := _choose_direction()
-	battle_unit.global_position += desired_velocity.lerp(desired_velocity, steer_force) * delta * 80
+	var desired_velocity := _choose_direction() * battle_unit.stats.movement_speed * delta
+	battle_unit.global_position += Vector2.ZERO.lerp(desired_velocity, steer_force)
 
 
 func _set_interest() -> void:
@@ -54,14 +54,12 @@ func _set_danger() -> void:
 		var query := PhysicsRayQueryParameters2D.create(
 			battle_unit.global_position,
 			battle_unit.global_position + ray_directions[i] * look_ahead,
-			3,
+			battle_unit.stats.team + 1,
 			[battle_unit.get_rid()]
 		)
 		query.collide_with_areas = true
 		query.collide_with_bodies = false
 		var result := space_state.intersect_ray(query)
-		if result:
-			print(result)
 		danger[i] = 1.0 if result else 0.0
 
 

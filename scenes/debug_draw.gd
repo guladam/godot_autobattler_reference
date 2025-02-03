@@ -3,15 +3,6 @@ extends Node2D
 @export var cbs: ContextBasedSteering
 
 
-func _ready() -> void:
-	Engine.time_scale = 0.05
-
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
-		get_tree().get_first_node_in_group("player_units").get_node("DebugDraw").visible = true
-
-
 func _draw() -> void:
 	if not cbs.enabled:
 		return
