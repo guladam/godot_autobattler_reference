@@ -14,8 +14,6 @@ const BATTLE_UNIT = preload("res://scenes/battle_unit/battle_unit.tscn")
 @export var game_area_unit_grid: UnitGrid
 @export var battle_unit_grid: UnitGrid
 
-@onready var debug_draw: DebugDraw = $DebugDraw
-
 
 func _ready() -> void:
 	game_state.changed.connect(_on_game_state_changed)
