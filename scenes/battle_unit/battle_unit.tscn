@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bg1r2rkbd021"]
+[gd_scene load_steps=11 format=3 uid="uid://bg1r2rkbd021"]
 
 [ext_resource type="Script" path="res://scenes/battle_unit/battle_unit.gd" id="1_664hq"]
 [ext_resource type="Texture2D" uid="uid://ct4xk88g67xlv" path="res://assets/sprites/monsters.png" id="1_k0une"]
@@ -9,8 +9,6 @@
 [ext_resource type="Script" path="res://components/finite_state_machine.gd" id="7_e7yjp"]
 [ext_resource type="Script" path="res://components/target_finder.gd" id="7_xsykw"]
 [ext_resource type="Script" path="res://components/unit_ai.gd" id="8_2mupp"]
-[ext_resource type="Script" path="res://components/context_based_steering.gd" id="10_6u8r1"]
-[ext_resource type="Script" path="res://scenes/debug_draw.gd" id="11_hb3ti"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6qoms"]
 size = Vector2(36, 36)
@@ -48,7 +46,6 @@ offset_right = -6.0
 offset_bottom = -11.0
 
 [node name="FSMDebug" type="Label" parent="."]
-visible = false
 offset_left = -45.0
 offset_top = -47.0
 offset_right = 44.0
@@ -68,13 +65,3 @@ script = ExtResource("8_2mupp")
 actor = NodePath("..")
 fsm = NodePath("../FiniteStateMachine")
 target_finder = NodePath("../TargetFinder")
-
-[node name="ContextBasedSteering" type="Node" parent="." node_paths=PackedStringArray("battle_unit")]
-script = ExtResource("10_6u8r1")
-battle_unit = NodePath("..")
-look_ahead = 24
-rays = 12
-
-[node name="DebugDraw" type="Node2D" parent="." node_paths=PackedStringArray("cbs")]
-script = ExtResource("11_hb3ti")
-cbs = NodePath("../ContextBasedSteering")

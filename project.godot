@@ -24,6 +24,7 @@ buses/default_bus_layout="res://assets/default_bus_layout.tres"
 
 MusicPlayer="*res://scenes/audio_player/music_player.tscn"
 SFXPlayer="*res://scenes/audio_player/sfx_player.tscn"
+UnitNavigation="*res://components/unit_navigation.gd"
 
 [display]
 

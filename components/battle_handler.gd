@@ -1,3 +1,7 @@
+# NOTE this class could be cleaned up a lot because right now it does quite a bit of everything
+# maybe a BattleUnitSpawner component could be used separately to handle that functionality
+# or event a PackedSceneSpawner component which returns the newly spawned node -->
+# then, the unit_spawner and battle_unit_spawner components would share some code
 class_name BattleHandler
 extends Node
 
@@ -6,8 +10,11 @@ signal battle_ended
 const BATTLE_UNIT = preload("res://scenes/battle_unit/battle_unit.tscn")
 
 @export var game_state: GameState
+@export var game_area: PlayArea
 @export var game_area_unit_grid: UnitGrid
-@export var game_area_tile_highlighter: TileHighlighter
+@export var battle_unit_grid: UnitGrid
+
+@onready var debug_draw: DebugDraw = $DebugDraw
 
 
 func _ready() -> void:
@@ -33,27 +40,42 @@ func _clean_up_fight() -> void:
 
 
 func _prepare_fight() -> void:
-	for unit: Unit in game_area_unit_grid.get_all_units():
+	for unit_coord: Vector2i in game_area_unit_grid.get_all_occupied_tiles():
+		var unit: Unit = game_area_unit_grid.units[unit_coord]
 		var new_unit: BattleUnit = BATTLE_UNIT.instantiate()
 		new_unit.add_to_group("player_units")
-		game_area_unit_grid.add_child(new_unit)
+		battle_unit_grid.add_child(new_unit)
 		new_unit.collision_layer = 1
 		new_unit.collision_mask = 2
 		new_unit.stats = unit.stats
-		new_unit.global_position = unit.global_position + Vector2(Arena.HALF_CELL_SIZE.x, Arena.QUARTER_CELL_SIZE.y)
+		new_unit.global_position = game_area.get_global_from_tile(unit_coord) + Vector2(0, -Arena.QUARTER_CELL_SIZE.y)
 		new_unit.modulate = Color.GREEN_YELLOW
 		new_unit.tree_exited.connect(_on_battle_unit_died)
+		battle_unit_grid.add_unit(unit_coord, new_unit)
 		unit.disable_collision(true)
 		unit.hide()
 	
-	for enemy: BattleUnit in get_tree().get_nodes_in_group("enemy_units"):
-		enemy.stats.team = UnitStats.Team.ENEMY
-		enemy.tree_exited.connect(_on_battle_unit_died)
-
+	for tile: Vector2i in [Vector2i(8, 1), Vector2i(7, 4), Vector2i(9, 6)]:
+		var new_unit: BattleUnit = BATTLE_UNIT.instantiate()
+		new_unit.add_to_group("enemy_units")
+		battle_unit_grid.add_child(new_unit)
+		new_unit.collision_layer = 2
+		new_unit.collision_mask = 1
+		new_unit.stats = preload("res://data/enemies/zombie.tres")
+		new_unit.global_position = game_area.get_global_from_tile(tile) + Vector2(0, -Arena.QUARTER_CELL_SIZE.y)
+		battle_unit_grid.add_unit(tile, new_unit)
+		new_unit.stats.team = UnitStats.Team.ENEMY
+		new_unit.tree_exited.connect(_on_battle_unit_died)
+	
+	UnitNavigation.setup()
+	
+	var player_unit := battle_unit_grid.get_all_occupied_tiles()[0]
+	var enemy_unit := battle_unit_grid.get_all_occupied_tiles()[-1]
+	debug_draw.path = UnitNavigation.astar_grid.get_point_path(player_unit, battle_unit_grid.get_adjacent_empty_tile(enemy_unit))
 
 func _on_battle_unit_died() -> void:
 	# We already concluded the battle!
-	# or we quitting the game
+	# or we are quitting the game
 	if not get_tree() or game_state.current_phase == GameState.Phase.PREPARATION:
 		return
 	

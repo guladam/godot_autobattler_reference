@@ -7,7 +7,6 @@ extends Area2D
 @onready var tier_icon: TierIcon = $TierIcon
 @onready var target_finder: TargetFinder = $TargetFinder
 @onready var unit_ai: UnitAI = $UnitAI
-@onready var context_based_steering: ContextBasedSteering = $ContextBasedSteering
 
 
 func set_stats(value: UnitStats) -> void:

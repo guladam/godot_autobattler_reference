@@ -16,8 +16,10 @@ const TARGET := {
 	Team.ENEMY: "player_units"
 }
 
+const MAX_ATTACK_RANGE := 5
+
 @export var name: String
-@export_range(1, 3) var tier := 1 : set = _set_tier
+@export_range(1, 3) var tier := 1 : set = set_tier
 @export var traits: Array[Trait]
 
 @export_category("Shop")
@@ -38,11 +40,11 @@ const TARGET := {
 @export var attack_speed: float
 @export var armor: int
 @export var magic_resist: int
-@export var movement_speed: int
-@export_range(1, 5) var attack_range: int
+@export_range(1, MAX_ATTACK_RANGE) var attack_range: int: set = set_attack_range
 
 var health: int
 var mana: int
+var movement_priority: int
 
 
 func get_combined_unit_count() -> int:
@@ -62,9 +64,14 @@ func get_trait_names() -> PackedStringArray:
 	return trait_names
 
 
-func _set_tier(value: int) -> void:
+func set_tier(value: int) -> void:
 	tier = value
 	changed.emit()
+
+
+func set_attack_range(value: int) -> void:
+	attack_range = value
+	movement_priority = MAX_ATTACK_RANGE - attack_range
 
 
 func _to_string() -> String:

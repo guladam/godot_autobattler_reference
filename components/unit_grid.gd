@@ -6,12 +6,16 @@ signal unit_grid_changed
 @export var size: Vector2i
 
 var units: Dictionary
+var bounds: Rect2i
 
 
 func _ready() -> void:
 	for i in size.x:
 		for j in size.y:
 			units[Vector2i(i, j)] = null
+	
+	# TODO kinda dirty, because we already have this in play_area
+	bounds = Rect2i(Vector2.ZERO, size)
 
 
 func add_unit(tile: Vector2i, unit: Node) -> void:
@@ -57,6 +61,34 @@ func get_all_units() -> Array[Unit]:
 	
 	return unit_array
 
+
+func get_all_occupied_tiles() -> Array[Vector2i]:
+	var tile_array: Array[Vector2i]
+	
+	for tile: Vector2i in units.keys():
+		if units[tile]:
+			tile_array.append(tile)
+	
+	return tile_array
+
+
+func get_adjacent_empty_tile(tile: Vector2i) -> Vector2i:
+	var adjacent_tiles: Array[Vector2i] = [
+		Vector2i.LEFT,
+		Vector2i.RIGHT,
+		Vector2i.UP,
+		Vector2i.DOWN
+	]
+	
+	for adj_tile: Vector2i in adjacent_tiles:
+		var free := not is_tile_occupied(tile + adj_tile)
+		var in_bounds := bounds.has_point(tile + adj_tile)
+		
+		if free and in_bounds:
+			return tile + adj_tile
+
+	# no free adjacent tile
+	return Vector2i(-1, -1)
 
 func _on_unit_tree_exited(unit: Unit, tile: Vector2i) -> void:
 	if unit.is_queued_for_deletion():

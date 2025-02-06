@@ -7,6 +7,7 @@ const QUARTER_CELL_SIZE := Vector2(8, 8)
 
 @export var arena_music_stream: AudioStream
 
+@onready var battle_grid: UnitGrid = $BattleGrid
 @onready var sell_portal: SellPortal = $SellPortal
 @onready var unit_mover: UnitMover = $UnitMover
 @onready var unit_spawner: UnitSpawner = $UnitSpawner
@@ -16,6 +17,7 @@ const QUARTER_CELL_SIZE := Vector2(8, 8)
 
 
 func _ready() -> void:
+	UnitNavigation.initialize(battle_grid)
 	unit_spawner.unit_spawned.connect(sell_portal.setup_unit)
 	unit_spawner.unit_spawned.connect(unit_mover.setup_unit)
 	unit_spawner.unit_spawned.connect(unit_combiner.queue_unit_combination_update.unbind(1))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=26 format=4 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="Script" path="res://scenes/arena/arena.gd" id="1_a1ak0"]
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
@@ -8,8 +8,6 @@
 [ext_resource type="Script" path="res://components/unit_grid.gd" id="4_m7ydk"]
 [ext_resource type="Script" path="res://components/play_area.gd" id="6_73s8l"]
 [ext_resource type="PackedScene" uid="uid://dk0bcfpbo130r" path="res://scenes/sell_portal/sell_portal.tscn" id="8_4fftf"]
-[ext_resource type="PackedScene" uid="uid://bg1r2rkbd021" path="res://scenes/battle_unit/battle_unit.tscn" id="8_o7ur7"]
-[ext_resource type="Resource" uid="uid://rmwigglnsa4k" path="res://data/enemies/zombie.tres" id="9_k78nh"]
 [ext_resource type="Script" path="res://components/unit_mover.gd" id="9_snp81"]
 [ext_resource type="Resource" uid="uid://doebgx0llcf1o" path="res://data/unit_pool/unit_pool.tres" id="10_if8r1"]
 [ext_resource type="Resource" uid="uid://dlnsfkjue2dlt" path="res://data/player/player_stats.tres" id="10_n3gg6"]
@@ -22,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://cxgnlha7i81v2" path="res://scenes/traits/traits.tscn" id="16_uy14c"]
 [ext_resource type="Resource" uid="uid://colcuq2f1xv6x" path="res://data/game_state/game_state.tres" id="17_5rf3s"]
 [ext_resource type="PackedScene" uid="uid://cvarsvlo70pgx" path="res://scenes/team_size_ui/team_size_ui.tscn" id="17_gxlm5"]
+[ext_resource type="Script" path="res://components/debug_draw.gd" id="18_alc7u"]
 [ext_resource type="PackedScene" uid="uid://chkfh7chgsbwk" path="res://scenes/start_battle_button/start_battle_button.tscn" id="22_opmde"]
 
 [sub_resource type="Curve" id="Curve_kxla4"]
@@ -100,7 +99,7 @@ tile_set = ExtResource("1_hreld")
 use_parent_material = true
 tile_set = ExtResource("1_hreld")
 
-[node name="ArenaUnitGrid" type="Node2D" parent="GameArea" groups=["unit_grids"]]
+[node name="ArenaUnitGrid" type="Node2D" parent="GameArea"]
 y_sort_enabled = true
 script = ExtResource("4_m7ydk")
 size = Vector2i(4, 7)
@@ -134,30 +133,13 @@ play_area = NodePath("..")
 highlight_layer = NodePath("../Highlight")
 tile = Vector2i(3, 0)
 
-[node name="BenchUnitGrid" type="Node2D" parent="Bench" groups=["unit_grids"]]
+[node name="BenchUnitGrid" type="Node2D" parent="Bench"]
 script = ExtResource("4_m7ydk")
 size = Vector2i(10, 1)
 
-[node name="Enemies" type="Node2D" parent="."]
-metadata/_edit_lock_ = true
-
-[node name="Enemy" parent="Enemies" groups=["enemy_units"] instance=ExtResource("8_o7ur7")]
-position = Vector2(432, 72)
-collision_layer = 2
-collision_mask = 1
-stats = ExtResource("9_k78nh")
-
-[node name="Enemy2" parent="Enemies" groups=["enemy_units"] instance=ExtResource("8_o7ur7")]
-position = Vector2(400, 136)
-collision_layer = 2
-collision_mask = 1
-stats = ExtResource("9_k78nh")
-
-[node name="Enemy3" parent="Enemies" groups=["enemy_units"] instance=ExtResource("8_o7ur7")]
-position = Vector2(432, 200)
-collision_layer = 2
-collision_mask = 1
-stats = ExtResource("9_k78nh")
+[node name="BattleGrid" type="Node2D" parent="."]
+script = ExtResource("4_m7ydk")
+size = Vector2i(10, 7)
 
 [node name="SellPortal" parent="." instance=ExtResource("8_4fftf")]
 position = Vector2(80, 288)
@@ -185,11 +167,18 @@ combine_sound = ExtResource("15_2p0aq")
 [node name="BufferTimer" type="Timer" parent="UnitCombiner"]
 one_shot = true
 
-[node name="BattleHandler" type="Node" parent="." node_paths=PackedStringArray("game_area_unit_grid", "game_area_tile_highlighter")]
+[node name="BattleHandler" type="Node" parent="." node_paths=PackedStringArray("game_area", "game_area_unit_grid", "battle_unit_grid")]
 script = ExtResource("16_kcd4n")
 game_state = ExtResource("17_5rf3s")
+game_area = NodePath("../GameArea")
 game_area_unit_grid = NodePath("../GameArea/ArenaUnitGrid")
-game_area_tile_highlighter = NodePath("../GameArea/TileHighlighter")
+battle_unit_grid = NodePath("../BattleGrid")
+
+[node name="DebugDraw" type="Node2D" parent="BattleHandler"]
+position = Vector2(160, 32)
+script = ExtResource("18_alc7u")
+color = Color(0.521569, 0.443137, 0.0431373, 0.654902)
+metadata/_edit_lock_ = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 
