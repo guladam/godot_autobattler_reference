@@ -8,7 +8,7 @@ func _draw() -> void:
 		return
 
 	for i in cbs.rays:
-		var mul = 1.0 if cbs.danger[i] > 0.0 else cbs.interest[i]
+		var mul = cbs.danger[i] if cbs.danger[i] > 0.0 else cbs.interest[i]
 		var color = Color.RED if cbs.danger[i] > 0.0 else Color.GREEN
 		draw_line(position, position + cbs.ray_directions[i] * cbs.look_ahead * mul, color, 1)
 

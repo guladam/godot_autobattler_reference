@@ -11,6 +11,14 @@ var ray_directions: Array[Vector2] = []
 var interest: Array[float] = []
 var danger: Array[float] = []
 
+# Note: https://andrewfray.wordpress.com/2013/03/26/context-behaviours-know-how-to-share/
+# Possible algorithm fix
+# make rays bigger
+# interest: find all enemies, fill in interest based on distance
+# danger: find all nearby colliding rays, fill in danger based on distance
+
+# or ignore this solution and go with the reddit thread
+# or with gemini
 
 func _ready() -> void:
 	interest.resize(rays)
