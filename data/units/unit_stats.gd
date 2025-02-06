@@ -40,11 +40,10 @@ const MAX_ATTACK_RANGE := 5
 @export var attack_speed: float
 @export var armor: int
 @export var magic_resist: int
-@export_range(1, MAX_ATTACK_RANGE) var attack_range: int: set = set_attack_range
+@export_range(1, MAX_ATTACK_RANGE) var attack_range: int
 
 var health: int
 var mana: int
-var movement_priority: int
 
 
 func get_combined_unit_count() -> int:
@@ -53,6 +52,10 @@ func get_combined_unit_count() -> int:
 
 func get_gold_value() -> int:
 	return gold_cost * get_combined_unit_count()
+
+
+func get_movement_priority() -> int:
+	return MAX_ATTACK_RANGE - attack_range
 
 
 func get_trait_names() -> PackedStringArray:
@@ -67,11 +70,6 @@ func get_trait_names() -> PackedStringArray:
 func set_tier(value: int) -> void:
 	tier = value
 	changed.emit()
-
-
-func set_attack_range(value: int) -> void:
-	attack_range = value
-	movement_priority = MAX_ATTACK_RANGE - attack_range
 
 
 func _to_string() -> String:

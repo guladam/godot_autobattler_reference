@@ -90,6 +90,7 @@ func get_adjacent_empty_tile(tile: Vector2i) -> Vector2i:
 	# no free adjacent tile
 	return Vector2i(-1, -1)
 
+
 func _on_unit_tree_exited(unit: Unit, tile: Vector2i) -> void:
 	if unit.is_queued_for_deletion():
 		units[tile] = null

@@ -8,9 +8,19 @@
 [resource]
 script = ExtResource("1_1qyg8")
 name = "Arthur"
-rarity = 3
-gold_cost = 4
 tier = 1
 traits = Array[ExtResource("2_yhxm4")]([ExtResource("2_kgrds"), ExtResource("3_q35h6")])
+rarity = 3
+gold_cost = 4
 pool_count = 5
 skin_coordinates = Vector2i(4, 2)
+team = 0
+max_health = Array[int]([])
+max_mana = 0
+starting_mana = 0
+attack_damage = Array[int]([])
+ability_power = 0
+attack_speed = 0.0
+armor = 0
+magic_resist = 0
+attack_range = 1

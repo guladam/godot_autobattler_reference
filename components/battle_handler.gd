@@ -68,10 +68,12 @@ func _prepare_fight() -> void:
 		new_unit.tree_exited.connect(_on_battle_unit_died)
 	
 	UnitNavigation.setup()
+	var battle_units := get_tree().get_nodes_in_group("player_units") + get_tree().get_nodes_in_group("enemy_units")
+	for i in range(UnitStats.MAX_ATTACK_RANGE, 0, -1):
+		var units := battle_units.filter(func(battle_unit: BattleUnit): return battle_unit.stats.get_movement_priority() == i)
+		for battle_unit: BattleUnit in units:
+			battle_unit.unit_ai.enabled = true
 	
-	var player_unit := battle_unit_grid.get_all_occupied_tiles()[0]
-	var enemy_unit := battle_unit_grid.get_all_occupied_tiles()[-1]
-	debug_draw.path = UnitNavigation.astar_grid.get_point_path(player_unit, battle_unit_grid.get_adjacent_empty_tile(enemy_unit))
 
 func _on_battle_unit_died() -> void:
 	# We already concluded the battle!

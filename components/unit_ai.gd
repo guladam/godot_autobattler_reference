@@ -7,9 +7,9 @@ extends Node
 @export var target_finder: TargetFinder
 
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("quick_sell"):
-		enabled = not enabled
+#func _input(event: InputEvent) -> void:
+	#if event.is_action_pressed("quick_sell"):
+		#enabled = not enabled
 
 
 func set_enabled(value: bool) -> void:
