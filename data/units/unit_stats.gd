@@ -16,6 +16,11 @@ const TARGET := {
 	Team.ENEMY: "player_units"
 }
 
+const TEAM_SPRITESHEET := {
+	Team.PLAYER: preload("res://assets/sprites/rogues.png"),
+	Team.ENEMY: preload("res://assets/sprites/monsters.png")
+}
+
 const MAX_ATTACK_RANGE := 5
 
 @export var name: String

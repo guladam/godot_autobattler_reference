@@ -34,3 +34,10 @@ func _process(delta: float) -> void:
 		return
 
 	fsm.state.process(delta)
+
+
+func perform_step() -> void:
+	if not enabled:
+		return
+	
+	fsm.state.step()

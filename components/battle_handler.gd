@@ -1,6 +1,6 @@
 # NOTE this class could be cleaned up a lot because right now it does quite a bit of everything
 # maybe a BattleUnitSpawner component could be used separately to handle that functionality
-# or event a PackedSceneSpawner component which returns the newly spawned node -->
+# or even a PackedSceneSpawner component which returns the newly spawned node -->
 # then, the unit_spawner and battle_unit_spawner components would share some code
 class_name BattleHandler
 extends Node
@@ -13,10 +13,12 @@ const BATTLE_UNIT = preload("res://scenes/battle_unit/battle_unit.tscn")
 @export var game_area: PlayArea
 @export var game_area_unit_grid: UnitGrid
 @export var battle_unit_grid: UnitGrid
+@export var step_timer: Timer
 
 
 func _ready() -> void:
 	game_state.changed.connect(_on_game_state_changed)
+	step_timer.timeout.connect(_on_step_timer_timeout)
 
 
 # NOTE testing code
@@ -35,6 +37,7 @@ func _clean_up_fight() -> void:
 	get_tree().call_group("enemy_units", "queue_free")
 	get_tree().call_group("units", "show")
 	get_tree().call_group("units", "disable_collision", false)
+	step_timer.stop()
 
 
 func _prepare_fight() -> void:
@@ -43,11 +46,8 @@ func _prepare_fight() -> void:
 		var new_unit: BattleUnit = BATTLE_UNIT.instantiate()
 		new_unit.add_to_group("player_units")
 		battle_unit_grid.add_child(new_unit)
-		new_unit.collision_layer = 1
-		new_unit.collision_mask = 2
 		new_unit.stats = unit.stats
 		new_unit.global_position = game_area.get_global_from_tile(unit_coord) + Vector2(0, -Arena.QUARTER_CELL_SIZE.y)
-		new_unit.modulate = Color.GREEN_YELLOW
 		new_unit.tree_exited.connect(_on_battle_unit_died)
 		battle_unit_grid.add_unit(unit_coord, new_unit)
 		unit.disable_collision(true)
@@ -57,8 +57,6 @@ func _prepare_fight() -> void:
 		var new_unit: BattleUnit = BATTLE_UNIT.instantiate()
 		new_unit.add_to_group("enemy_units")
 		battle_unit_grid.add_child(new_unit)
-		new_unit.collision_layer = 2
-		new_unit.collision_mask = 1
 		new_unit.stats = preload("res://data/enemies/zombie.tres")
 		new_unit.global_position = game_area.get_global_from_tile(tile) + Vector2(0, -Arena.QUARTER_CELL_SIZE.y)
 		battle_unit_grid.add_unit(tile, new_unit)
@@ -71,7 +69,8 @@ func _prepare_fight() -> void:
 		var units := battle_units.filter(func(battle_unit: BattleUnit): return battle_unit.stats.get_movement_priority() == i)
 		for battle_unit: BattleUnit in units:
 			battle_unit.unit_ai.enabled = true
-	
+	step_timer.start()
+
 
 func _on_battle_unit_died() -> void:
 	# We already concluded the battle!
@@ -95,3 +94,12 @@ func _on_game_state_changed() -> void:
 			_clean_up_fight()
 		GameState.Phase.BATTLE:
 			_prepare_fight()
+
+
+func _on_step_timer_timeout() -> void:
+	# TODO repeating, ugly-ass code with unnecessary requerying
+	var battle_units := get_tree().get_nodes_in_group("player_units") + get_tree().get_nodes_in_group("enemy_units")
+	for i in range(UnitStats.MAX_ATTACK_RANGE, 0, -1):
+		var units := battle_units.filter(func(battle_unit: BattleUnit): return battle_unit.stats.get_movement_priority() == i)
+		for battle_unit: BattleUnit in units:
+			battle_unit.unit_ai.perform_step()

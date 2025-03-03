@@ -33,6 +33,8 @@ func get_next_position(moving_unit: BattleUnit, target_unit: BattleUnit) -> Vect
 	if target_tile == Vector2i(-1, -1):
 		return Vector2(-1, -1)
 	
+	# TODO this should be the closest adjacent empty, because
+	# otherwise units might go to weird places sometimes :D
 	target_tile = battle_grid.get_adjacent_empty_tile(target_tile)
 	battle_grid.remove_unit(unit_tile)
 	astar_grid.set_point_solid(unit_tile, false)

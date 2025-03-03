@@ -14,4 +14,5 @@ func set_stats(value: UnitStats) -> void:
 	if not is_node_ready():
 		await ready
 	
+	texture = UnitStats.TEAM_SPRITESHEET[stats.team]
 	region_rect.position = Vector2(stats.skin_coordinates) * Arena.CELL_SIZE

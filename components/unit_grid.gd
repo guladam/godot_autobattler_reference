@@ -81,10 +81,10 @@ func get_adjacent_empty_tile(tile: Vector2i) -> Vector2i:
 	]
 	
 	for adj_tile: Vector2i in adjacent_tiles:
-		var free := not is_tile_occupied(tile + adj_tile)
 		var in_bounds := bounds.has_point(tile + adj_tile)
+		var free := in_bounds and not is_tile_occupied(tile + adj_tile)
 		
-		if free and in_bounds:
+		if free:
 			return tile + adj_tile
 
 	# no free adjacent tile
