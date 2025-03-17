@@ -72,25 +72,6 @@ func get_all_occupied_tiles() -> Array[Vector2i]:
 	return tile_array
 
 
-func get_adjacent_empty_tile(tile: Vector2i) -> Vector2i:
-	var adjacent_tiles: Array[Vector2i] = [
-		Vector2i.LEFT,
-		Vector2i.RIGHT,
-		Vector2i.UP,
-		Vector2i.DOWN
-	]
-	
-	for adj_tile: Vector2i in adjacent_tiles:
-		var in_bounds := bounds.has_point(tile + adj_tile)
-		var free := in_bounds and not is_tile_occupied(tile + adj_tile)
-		
-		if free:
-			return tile + adj_tile
-
-	# no free adjacent tile
-	return Vector2i(-1, -1)
-
-
 func _on_unit_tree_exited(unit: Unit, tile: Vector2i) -> void:
 	if unit.is_queued_for_deletion():
 		units[tile] = null

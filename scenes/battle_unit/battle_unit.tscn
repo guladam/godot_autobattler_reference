@@ -62,11 +62,10 @@ offset_right = -6.0
 offset_bottom = -11.0
 
 [node name="FSMDebug" type="Label" parent="."]
-offset_left = -21.0
-offset_top = -38.0
-offset_right = 68.0
-offset_bottom = -20.0
-scale = Vector2(0.5, 0.5)
+offset_left = -43.0
+offset_top = -44.0
+offset_right = 46.0
+offset_bottom = -26.0
 text = "ChaseState"
 horizontal_alignment = 1
 

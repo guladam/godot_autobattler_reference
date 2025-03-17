@@ -174,10 +174,11 @@ game_area = NodePath("../GameArea")
 game_area_unit_grid = NodePath("../GameArea/ArenaUnitGrid")
 battle_unit_grid = NodePath("../BattleGrid")
 
-[node name="DebugDraw" type="Node2D" parent="."]
+[node name="DebugDraw" type="Node2D" parent="." node_paths=PackedStringArray("game_area")]
 position = Vector2(160, 32)
 script = ExtResource("18_alc7u")
 color = Color(0.521569, 0.443137, 0.0431373, 0.654902)
+game_area = NodePath("../GameArea")
 metadata/_edit_lock_ = true
 
 [node name="UI" type="CanvasLayer" parent="."]

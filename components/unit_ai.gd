@@ -36,7 +36,6 @@ func _process(delta: float) -> void:
 
 
 func _start_chasing() -> void:
-	target_finder.find_target()
 	var chase_state := ChaseState.new(actor)
 	chase_state.stuck.connect(_on_chase_state_stuck, CONNECT_ONE_SHOT)
 	chase_state.target_reached.connect(_on_chase_state_target_reached, CONNECT_ONE_SHOT)

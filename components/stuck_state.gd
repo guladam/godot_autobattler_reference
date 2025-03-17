@@ -3,7 +3,7 @@ extends State
 
 signal timeout
 
-const STUCK_WAIT_TIME := 2
+const STUCK_WAIT_TIME := 0.5
 
 var elapsed := 0.0
 

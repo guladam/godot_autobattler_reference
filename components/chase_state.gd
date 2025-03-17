@@ -6,15 +6,12 @@ signal stuck
 
 var in_range := false
 var actor_unit: BattleUnit
-var target: BattleUnit
 var tween: Tween
 
 
 func enter() -> void:
 	actor_unit = actor as BattleUnit
-	# TODO target should be set from outside, so its 
-	# reusable, probably (but only if needed)!
-	target = actor_unit.target_finder.target
+	actor_unit.target_finder.find_target()
 	actor_unit.detect_range.area_entered.connect(_on_area_entered)
 
 
@@ -29,7 +26,8 @@ func chase() -> void:
 	if in_range:
 		return
 
-	var new_pos: Vector2 = UnitNavigation.get_next_position(actor_unit, target)
+	actor_unit.target_finder.find_target()
+	var new_pos: Vector2 = UnitNavigation.get_next_position(actor_unit, actor_unit.target_finder.target)
 	
 	# nowhere to go this frame so stop
 	if new_pos == Vector2(-1, -1):
