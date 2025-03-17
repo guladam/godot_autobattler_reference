@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Trait" load_steps=3 format=3 uid="uid://d3ebasaaar8eq"]
 
-[ext_resource type="Script" path="res://data/traits/trait.gd" id="1_0db5l"]
+[ext_resource type="Script" uid="uid://cr1e2i2xqb3sv" path="res://data/traits/trait.gd" id="1_0db5l"]
 [ext_resource type="Texture2D" uid="uid://cmjp32ur0thqa" path="res://assets/sprites/traits/viking.png" id="1_brctw"]
 
 [resource]

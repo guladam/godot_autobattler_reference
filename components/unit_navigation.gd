@@ -29,16 +29,23 @@ func get_next_position(moving_unit: BattleUnit, target_unit: BattleUnit) -> Vect
 	var unit_tile := game_area.get_tile_from_global(moving_unit.global_position)
 	var target_tile := game_area.get_tile_from_global(target_unit.global_position)
 	
-	# nowhere to go this time
-	if target_tile == Vector2i(-1, -1):
-		return Vector2(-1, -1)
-	
 	# TODO this should be the closest adjacent empty, because
 	# otherwise units might go to weird places sometimes :D
 	target_tile = battle_grid.get_adjacent_empty_tile(target_tile)
+	
+	# there is no adjacent tile empty before target
+	if target_tile == Vector2i(-1, -1):
+		return Vector2(-1, -1)
+	
 	battle_grid.remove_unit(unit_tile)
 	astar_grid.set_point_solid(unit_tile, false)
-	var next_tile := astar_grid.get_id_path(unit_tile, target_tile)[1]
+	var path := astar_grid.get_id_path(unit_tile, target_tile)
+	
+	# there is no adjacent tile next to the moving unit
+	if path.is_empty():
+		return Vector2(-1, -1)
+	
+	var next_tile := path[1]
 	battle_grid.add_unit(next_tile, moving_unit)
 	astar_grid.set_point_solid(next_tile, true)
 	

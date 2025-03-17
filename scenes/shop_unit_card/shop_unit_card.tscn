@@ -2,7 +2,7 @@
 
 [ext_resource type="StyleBox" uid="uid://cfbqjkjc3qola" path="res://scenes/shop_unit_card/shop_unit_card_border.tres" id="1_8pgg2"]
 [ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/sprites/rogues.png" id="1_gljwm"]
-[ext_resource type="Script" path="res://scenes/shop_unit_card/shop_unit_card.gd" id="1_n540f"]
+[ext_resource type="Script" uid="uid://cm75yi2ymoc07" path="res://scenes/shop_unit_card/shop_unit_card.gd" id="1_n540f"]
 [ext_resource type="Resource" uid="uid://xjus2xsvdrxh" path="res://data/units/bjorn.tres" id="2_254fy"]
 [ext_resource type="Resource" uid="uid://dlnsfkjue2dlt" path="res://data/player/player_stats.tres" id="2_u1704"]
 [ext_resource type="StyleBox" uid="uid://ka3ji8mat7ni" path="res://scenes/shop_unit_card/shop_unit_card_bottom.tres" id="2_vpmtq"]

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Trait" load_steps=3 format=3 uid="uid://fl754vquuaex"]
 
 [ext_resource type="Texture2D" uid="uid://wxshjtwjoc31" path="res://assets/sprites/traits/human.png" id="1_ifun1"]
-[ext_resource type="Script" path="res://data/traits/trait.gd" id="1_tm5qx"]
+[ext_resource type="Script" uid="uid://cr1e2i2xqb3sv" path="res://data/traits/trait.gd" id="1_tm5qx"]
 
 [resource]
 script = ExtResource("1_tm5qx")

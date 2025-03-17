@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://l1jq47dgo2n1" path="res://assets/sprites/trait_background.png" id="1_tqml2"]
 [ext_resource type="Texture2D" uid="uid://bqakm8biv7pa" path="res://assets/sprites/traits/wizard.png" id="2_jpxwe"]
-[ext_resource type="Script" path="res://scenes/trait_icon/trait_icon.gd" id="2_xvdx2"]
+[ext_resource type="Script" uid="uid://c08mhinc6vplp" path="res://scenes/trait_icon/trait_icon.gd" id="2_xvdx2"]
 [ext_resource type="Resource" uid="uid://cse4d6ci0do3j" path="res://data/traits/elf.tres" id="3_68e5j"]
 
 [node name="TraitIcon" type="TextureRect"]

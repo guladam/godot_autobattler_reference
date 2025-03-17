@@ -1,15 +1,15 @@
 [gd_scene load_steps=14 format=3 uid="uid://bg1r2rkbd021"]
 
-[ext_resource type="Script" path="res://scenes/battle_unit/battle_unit.gd" id="1_664hq"]
+[ext_resource type="Script" uid="uid://c47egeha30o6m" path="res://scenes/battle_unit/battle_unit.gd" id="1_664hq"]
 [ext_resource type="Texture2D" uid="uid://ct4xk88g67xlv" path="res://assets/sprites/monsters.png" id="1_k0une"]
-[ext_resource type="Script" path="res://components/skin.gd" id="2_4vo21"]
+[ext_resource type="Script" uid="uid://cyq0wicrleovi" path="res://components/skin.gd" id="2_4vo21"]
 [ext_resource type="PackedScene" uid="uid://6t7poyqji4dh" path="res://scenes/health_bar/health_bar.tscn" id="3_vhjnk"]
 [ext_resource type="PackedScene" uid="uid://r6i2ug5jon3k" path="res://scenes/mana_bar/mana_bar.tscn" id="4_03pgi"]
-[ext_resource type="Script" path="res://components/detect_range.gd" id="4_tlu18"]
+[ext_resource type="Script" uid="uid://bwfnub5gou4wx" path="res://components/detect_range.gd" id="4_tlu18"]
 [ext_resource type="PackedScene" uid="uid://cuqct6gepc6dy" path="res://scenes/tier_icon/tier_icon.tscn" id="5_8ow3a"]
-[ext_resource type="Script" path="res://components/finite_state_machine.gd" id="7_e7yjp"]
-[ext_resource type="Script" path="res://components/target_finder.gd" id="7_xsykw"]
-[ext_resource type="Script" path="res://components/unit_ai.gd" id="8_2mupp"]
+[ext_resource type="Script" uid="uid://gq73rk4qbpwn" path="res://components/finite_state_machine.gd" id="7_e7yjp"]
+[ext_resource type="Script" uid="uid://8aihm5ucjwun" path="res://components/target_finder.gd" id="7_xsykw"]
+[ext_resource type="Script" uid="uid://cjktex1wj8q5d" path="res://components/unit_ai.gd" id="8_2mupp"]
 [ext_resource type="AnimationLibrary" uid="uid://cb5e07mpc7mf1" path="res://assets/animations/battleunit_animations.res" id="10_4m1os"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6qoms"]
@@ -86,5 +86,5 @@ target_finder = NodePath("../TargetFinder")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": ExtResource("10_4m1os")
+&"": ExtResource("10_4m1os")
 }

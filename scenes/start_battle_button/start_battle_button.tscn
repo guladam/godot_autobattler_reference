@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://chkfh7chgsbwk"]
 
 [ext_resource type="Texture2D" uid="uid://toyq2kbgpeut" path="res://assets/sprites/start_battle.png" id="1_2ev87"]
-[ext_resource type="Script" path="res://scenes/start_battle_button/start_battle_button.gd" id="1_nu8n7"]
+[ext_resource type="Script" uid="uid://cp4s2v64d5eek" path="res://scenes/start_battle_button/start_battle_button.gd" id="1_nu8n7"]
 
 [node name="StartBattleButton" type="Button"]
 custom_minimum_size = Vector2(32, 24)

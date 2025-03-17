@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ch2lduhujm43e"]
 
-[ext_resource type="Script" path="res://scenes/xp_tracker/xp_tracker.gd" id="1_r01c5"]
+[ext_resource type="Script" uid="uid://d165ar178a2jk" path="res://scenes/xp_tracker/xp_tracker.gd" id="1_r01c5"]
 [ext_resource type="FontFile" uid="uid://8di0jvr25vat" path="res://assets/font/m5x7.ttf" id="1_vydxg"]
 [ext_resource type="Resource" uid="uid://dlnsfkjue2dlt" path="res://data/player/player_stats.tres" id="2_1dv14"]
 

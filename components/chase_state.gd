@@ -2,6 +2,7 @@ class_name ChaseState
 extends State
 
 signal target_reached
+signal stuck
 
 var in_range := false
 var actor_unit: BattleUnit
@@ -15,28 +16,26 @@ func enter() -> void:
 	# reusable, probably (but only if needed)!
 	target = actor_unit.target_finder.target
 	actor_unit.detect_range.area_entered.connect(_on_area_entered)
-	_tween_to_next_position()
-
-
-func step() -> void:
-	if tween and tween.is_running():
-		return
-	
-	if in_range:
-		return
-	
-	_tween_to_next_position()
 
 
 func exit() -> void:
 	actor_unit.detect_range.area_entered.disconnect(_on_area_entered)
 
 
-func _tween_to_next_position() -> void:
+func chase() -> void:
 	if tween and tween.is_running():
 		return
 
+	if in_range:
+		return
+
 	var new_pos: Vector2 = UnitNavigation.get_next_position(actor_unit, target)
+	
+	# nowhere to go this frame so stop
+	if new_pos == Vector2(-1, -1):
+		actor_unit.animation_player.play("RESET")
+		stuck.emit()
+		return
 	
 	# TODO this might not belong here
 	var new_dir: Vector2 = actor_unit.global_position.direction_to(new_pos)
@@ -44,11 +43,6 @@ func _tween_to_next_position() -> void:
 		actor_unit.custom_skin.flip_h = true
 	if sign(new_dir.x) == -1:
 		actor_unit.custom_skin.flip_h = false
-	
-	# nowhere to go this frame so stop
-	if new_pos == Vector2(-1, -1):
-		actor_unit.animation_player.play("RESET")
-		return
 	
 	tween = actor_unit.create_tween()
 	tween.tween_callback(actor_unit.animation_player.play.bind("move"))
@@ -60,6 +54,8 @@ func _tween_to_next_position() -> void:
 			
 			if in_range:
 				target_reached.emit()
+			else:
+				chase()
 	)
 
 

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UnitStats" load_steps=3 format=3 uid="uid://rmwigglnsa4k"]
 
-[ext_resource type="Script" path="res://data/units/unit_stats.gd" id="1_c1wf3"]
-[ext_resource type="Script" path="res://data/traits/trait.gd" id="2_e3ske"]
+[ext_resource type="Script" uid="uid://qtb5h4gbrm1s" path="res://data/units/unit_stats.gd" id="1_c1wf3"]
+[ext_resource type="Script" uid="uid://cr1e2i2xqb3sv" path="res://data/traits/trait.gd" id="2_e3ske"]
 
 [resource]
 script = ExtResource("1_c1wf3")

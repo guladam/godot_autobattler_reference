@@ -13,12 +13,10 @@ const BATTLE_UNIT = preload("res://scenes/battle_unit/battle_unit.tscn")
 @export var game_area: PlayArea
 @export var game_area_unit_grid: UnitGrid
 @export var battle_unit_grid: UnitGrid
-@export var step_timer: Timer
 
 
 func _ready() -> void:
 	game_state.changed.connect(_on_game_state_changed)
-	step_timer.timeout.connect(_on_step_timer_timeout)
 
 
 # NOTE testing code
@@ -37,7 +35,6 @@ func _clean_up_fight() -> void:
 	get_tree().call_group("enemy_units", "queue_free")
 	get_tree().call_group("units", "show")
 	get_tree().call_group("units", "disable_collision", false)
-	step_timer.stop()
 
 
 func _prepare_fight() -> void:
@@ -65,11 +62,10 @@ func _prepare_fight() -> void:
 	
 	UnitNavigation.setup()
 	var battle_units := get_tree().get_nodes_in_group("player_units") + get_tree().get_nodes_in_group("enemy_units")
-	for i in range(UnitStats.MAX_ATTACK_RANGE, 0, -1):
-		var units := battle_units.filter(func(battle_unit: BattleUnit): return battle_unit.stats.get_movement_priority() == i)
-		for battle_unit: BattleUnit in units:
-			battle_unit.unit_ai.enabled = true
-	step_timer.start()
+	battle_units.shuffle()
+	
+	for battle_unit: BattleUnit in battle_units:
+		battle_unit.unit_ai.enabled = true
 
 
 func _on_battle_unit_died() -> void:
@@ -94,12 +90,3 @@ func _on_game_state_changed() -> void:
 			_clean_up_fight()
 		GameState.Phase.BATTLE:
 			_prepare_fight()
-
-
-func _on_step_timer_timeout() -> void:
-	# TODO repeating, ugly-ass code with unnecessary requerying
-	var battle_units := get_tree().get_nodes_in_group("player_units") + get_tree().get_nodes_in_group("enemy_units")
-	for i in range(UnitStats.MAX_ATTACK_RANGE, 0, -1):
-		var units := battle_units.filter(func(battle_unit: BattleUnit): return battle_unit.stats.get_movement_priority() == i)
-		for battle_unit: BattleUnit in units:
-			battle_unit.unit_ai.perform_step()

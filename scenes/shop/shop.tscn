@@ -1,27 +1,38 @@
-[gd_scene load_steps=13 format=3 uid="uid://bhhtibvtken5o"]
+[gd_scene load_steps=14 format=3 uid="uid://bhhtibvtken5o"]
 
 [ext_resource type="PackedScene" uid="uid://h35dg0gwcdag" path="res://scenes/gold_display/gold_display.tscn" id="1_otctg"]
-[ext_resource type="Script" path="res://scenes/shop/shop.gd" id="1_w5f7r"]
+[ext_resource type="Script" uid="uid://edvw1ix68i2i" path="res://scenes/shop/shop.gd" id="1_w5f7r"]
 [ext_resource type="PackedScene" uid="uid://otxvh4f85gni" path="res://scenes/shop_unit_card/shop_unit_card.tscn" id="2_eydp6"]
 [ext_resource type="Resource" uid="uid://doebgx0llcf1o" path="res://data/unit_pool/unit_pool.tres" id="2_u2n7j"]
-[ext_resource type="Script" path="res://data/units/unit_stats.gd" id="3_qpg5i"]
+[ext_resource type="Script" uid="uid://qtb5h4gbrm1s" path="res://data/units/unit_stats.gd" id="3_qpg5i"]
 [ext_resource type="Resource" uid="uid://dlnsfkjue2dlt" path="res://data/player/player_stats.tres" id="3_uknfj"]
 [ext_resource type="Resource" uid="uid://d1opxbi6ouvxn" path="res://data/units/harry.tres" id="4_7ji4f"]
 [ext_resource type="Resource" uid="uid://1b645f77jlhi" path="res://data/units/robin.tres" id="5_knwln"]
 [ext_resource type="PackedScene" uid="uid://2fft4iykjm1b" path="res://scenes/reroll_button/reroll_button.tscn" id="6_iivgf"]
 [ext_resource type="PackedScene" uid="uid://ch2lduhujm43e" path="res://scenes/xp_tracker/xp_tracker.tscn" id="7_cmru2"]
+[ext_resource type="Script" uid="uid://cr1e2i2xqb3sv" path="res://data/traits/trait.gd" id="7_dww4p"]
 [ext_resource type="PackedScene" uid="uid://da0ap0qtkwrcq" path="res://scenes/xp_button/xp_button.tscn" id="8_epkkf"]
 
 [sub_resource type="Resource" id="Resource_gs8ul"]
 resource_local_to_scene = true
 script = ExtResource("3_qpg5i")
 name = "Bjorn"
+tier = 1
+traits = Array[ExtResource("7_dww4p")]([])
 rarity = 0
 gold_cost = 1
-tier = 1
-traits = Array[Resource("res://data/traits/trait.gd")]([])
 pool_count = 15
 skin_coordinates = Vector2i(1, 3)
+team = 0
+max_health = Array[int]([])
+max_mana = 0
+starting_mana = 0
+attack_damage = Array[int]([])
+ability_power = 0
+attack_speed = 0.0
+armor = 0
+magic_resist = 0
+attack_range = 0
 
 [node name="Shop" type="Control"]
 layout_mode = 3

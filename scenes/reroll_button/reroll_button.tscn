@@ -6,7 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://5qdjlavnhcfk" path="res://assets/theme/shop_button_hover.tres" id="2_cm5xd"]
 [ext_resource type="Texture2D" uid="uid://b8ht5o2amn6iw" path="res://assets/sprites/refresh.png" id="2_lar6g"]
 [ext_resource type="StyleBox" uid="uid://mgcn15cjl08u" path="res://assets/theme/shop_button_pressed.tres" id="3_qc641"]
-[ext_resource type="Script" path="res://scenes/reroll_button/reroll_button.gd" id="4_dnwq0"]
+[ext_resource type="Script" uid="uid://deq4jqes15ksd" path="res://scenes/reroll_button/reroll_button.gd" id="4_dnwq0"]
 [ext_resource type="Resource" uid="uid://dlnsfkjue2dlt" path="res://data/player/player_stats.tres" id="5_ggxxf"]
 [ext_resource type="AudioStream" uid="uid://cjrjne6mkcml3" path="res://assets/sfx/reroll.ogg" id="6_r86jc"]
 

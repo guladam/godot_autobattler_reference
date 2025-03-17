@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cuqct6gepc6dy"]
 
-[ext_resource type="Script" path="res://scenes/tier_icon/tier_icon.gd" id="2_lkh04"]
+[ext_resource type="Script" uid="uid://bwdlcgg1ndw88" path="res://scenes/tier_icon/tier_icon.gd" id="2_lkh04"]
 [ext_resource type="Texture2D" uid="uid://cj1cl8jdui60n" path="res://assets/sprites/level1.png" id="5_j5wch"]
 
 [node name="TierIcon" type="TextureRect"]

@@ -59,10 +59,6 @@ func get_gold_value() -> int:
 	return gold_cost * get_combined_unit_count()
 
 
-func get_movement_priority() -> int:
-	return MAX_ATTACK_RANGE - attack_range
-
-
 func get_trait_names() -> PackedStringArray:
 	var trait_names: PackedStringArray = []
 	

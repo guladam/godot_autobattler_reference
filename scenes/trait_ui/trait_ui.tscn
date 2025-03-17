@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://20elxpwlmntd"]
 
-[ext_resource type="Script" path="res://scenes/trait_ui/trait_ui.gd" id="1_3h43f"]
+[ext_resource type="Script" uid="uid://cpyjlvra1nr6r" path="res://scenes/trait_ui/trait_ui.gd" id="1_3h43f"]
 [ext_resource type="PackedScene" uid="uid://dcqq1jeo1w2wf" path="res://scenes/trait_icon/trait_icon.tscn" id="1_v5jhs"]
 [ext_resource type="FontFile" uid="uid://wqfms7k4ykv2" path="res://assets/font/abaddon_bold.ttf" id="2_lvfxq"]
 [ext_resource type="Resource" uid="uid://cse4d6ci0do3j" path="res://data/traits/elf.tres" id="2_ty8yd"]

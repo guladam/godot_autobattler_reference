@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="UnitPool" load_steps=6 format=3 uid="uid://doebgx0llcf1o"]
+[gd_resource type="Resource" script_class="UnitPool" load_steps=7 format=3 uid="uid://doebgx0llcf1o"]
 
-[ext_resource type="Script" path="res://data/unit_pool/unit_pool.gd" id="1_50ghd"]
+[ext_resource type="Script" uid="uid://boc3o3f6ig4xf" path="res://data/unit_pool/unit_pool.gd" id="1_50ghd"]
+[ext_resource type="Script" uid="uid://qtb5h4gbrm1s" path="res://data/units/unit_stats.gd" id="1_l4vv1"]
 [ext_resource type="Resource" uid="uid://xjus2xsvdrxh" path="res://data/units/bjorn.tres" id="1_rkide"]
 [ext_resource type="Resource" uid="uid://d1opxbi6ouvxn" path="res://data/units/harry.tres" id="2_k0sm6"]
 [ext_resource type="Resource" uid="uid://1b645f77jlhi" path="res://data/units/robin.tres" id="3_7cjvn"]
@@ -8,4 +9,4 @@
 
 [resource]
 script = ExtResource("1_50ghd")
-available_units = Array[Resource("res://data/units/unit_stats.gd")]([ExtResource("1_rkide"), ExtResource("2_k0sm6"), ExtResource("3_7cjvn"), ExtResource("4_7srn6")])
+available_units = Array[ExtResource("1_l4vv1")]([ExtResource("1_rkide"), ExtResource("2_k0sm6"), ExtResource("3_7cjvn"), ExtResource("4_7srn6")])

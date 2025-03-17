@@ -16,8 +16,7 @@ func set_enabled(value: bool) -> void:
 	enabled = value
 	
 	if enabled:
-		target_finder.find_target()
-		fsm.change_state(ChaseState.new(actor))
+		_start_chasing()
 	else:
 		fsm.change_state(null)
 
@@ -36,8 +35,26 @@ func _process(delta: float) -> void:
 	fsm.state.process(delta)
 
 
-func perform_step() -> void:
-	if not enabled:
-		return
-	
-	fsm.state.step()
+func _start_chasing() -> void:
+	target_finder.find_target()
+	var chase_state := ChaseState.new(actor)
+	chase_state.stuck.connect(_on_chase_state_stuck, CONNECT_ONE_SHOT)
+	chase_state.target_reached.connect(_on_chase_state_target_reached, CONNECT_ONE_SHOT)
+	fsm.change_state(chase_state)
+	# NOTE 
+	# this was previously at the end of the chase_state's enter() method
+	# BUT we need this here because otherwise the stuck state wouldn't work 
+	# because inside the FSM we only set the state to be equal to the new state AFTER we executed enter...
+	# and what happened is we wanted to change to stuck on the same frame, before the first change_state() call was concluded
+	chase_state.chase()
+
+
+func _on_chase_state_stuck() -> void:
+	var stuck_state := StuckState.new(actor)
+	stuck_state.timeout.connect(_start_chasing, CONNECT_ONE_SHOT)
+	fsm.change_state(stuck_state)
+
+
+func _on_chase_state_target_reached() -> void:
+	var aa_state := AutoAttackState.new(actor)
+	fsm.change_state(aa_state)
