@@ -83,6 +83,8 @@ actor = NodePath("..")
 fsm = NodePath("../FiniteStateMachine")
 target_finder = NodePath("../TargetFinder")
 
+[node name="AttackTimer" type="Timer" parent="."]
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": ExtResource("10_4m1os")

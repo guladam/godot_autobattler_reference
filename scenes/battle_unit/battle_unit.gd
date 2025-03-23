@@ -5,10 +5,12 @@ extends Area2D
 
 @onready var custom_skin: CustomSkin = $CustomSkin
 @onready var detect_range: DetectRange = $DetectRange
+@onready var health_bar: HealthBar = $HealthBar
 @onready var tier_icon: TierIcon = $TierIcon
 @onready var target_finder: TargetFinder = $TargetFinder
 @onready var unit_ai: UnitAI = $UnitAI
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var attack_timer: Timer = $AttackTimer
 
 
 func set_stats(value: UnitStats) -> void:
@@ -22,4 +24,5 @@ func set_stats(value: UnitStats) -> void:
 	collision_mask = 2 - stats.team
 	detect_range.stats = stats
 	custom_skin.stats = stats
+	health_bar.stats = stats
 	tier_icon.stats = stats

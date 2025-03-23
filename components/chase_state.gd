@@ -1,29 +1,32 @@
 class_name ChaseState
 extends State
 
-signal target_reached
+signal target_reached(target: BattleUnit)
 signal stuck
 
-var in_range := false
 var actor_unit: BattleUnit
 var tween: Tween
 
-
+# TODO fix chase state so units won't get stuck randomly
 func enter() -> void:
 	actor_unit = actor as BattleUnit
-	actor_unit.target_finder.find_target()
-	actor_unit.detect_range.area_entered.connect(_on_area_entered)
+	if actor_unit.target_finder.has_target_in_range():
+		target_reached.emit.call_deferred(actor_unit.target_finder.targets_in_range[0])
+	else:
+		actor_unit.target_finder.find_target()
+		actor_unit.target_finder.targets_in_range_changed.connect(_on_targets_in_range_changed)
 
 
 func exit() -> void:
-	actor_unit.detect_range.area_entered.disconnect(_on_area_entered)
+	if actor_unit.target_finder.targets_in_range_changed.is_connected(_on_targets_in_range_changed):
+		actor_unit.target_finder.targets_in_range_changed.disconnect(_on_targets_in_range_changed)
 
 
 func chase() -> void:
 	if tween and tween.is_running():
 		return
 
-	if in_range:
+	if actor_unit.target_finder.has_target_in_range():
 		return
 
 	actor_unit.target_finder.find_target()
@@ -48,18 +51,14 @@ func chase() -> void:
 	tween.finished.connect(
 		func():
 			tween.kill()
-			actor_unit.animation_player.play("RESET")
 			
-			if in_range:
-				target_reached.emit()
+			if actor_unit.target_finder.has_target_in_range():
+				target_reached.emit(actor_unit.target_finder.targets_in_range[0])
 			else:
 				chase()
 	)
 
 
-func _on_target_reached() -> void:
-	in_range = true
-
-
-func _on_area_entered(_area: Area2D) -> void:
-	_on_target_reached()
+func _on_targets_in_range_changed() -> void:
+	if not tween and actor_unit.target_finder.has_target_in_range():
+		target_reached.emit(actor_unit.target_finder.targets_in_range[0])

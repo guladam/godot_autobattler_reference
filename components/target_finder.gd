@@ -1,9 +1,21 @@
 class_name TargetFinder
 extends Node
 
+signal targets_in_range_changed
+
 @export var actor: BattleUnit
 
 var target: BattleUnit
+var targets_in_range: Array[BattleUnit]
+
+
+func _ready() -> void:
+	actor.ready.connect(
+		func():
+			actor.detect_range.area_entered.connect(_on_area_entered)
+			actor.detect_range.area_exited.connect(_on_area_exited)
+	, CONNECT_ONE_SHOT
+	)
 
 
 func find_target() -> void:
@@ -15,3 +27,17 @@ func find_target() -> void:
 	var idx := distances.find(distances.min())
 	
 	target = all_targets[idx]
+
+
+func has_target_in_range() -> bool:
+	return targets_in_range.size() > 0
+
+
+func _on_area_entered(area: BattleUnit) -> void:
+	targets_in_range.append(area)
+	targets_in_range_changed.emit()
+
+
+func _on_area_exited(area: BattleUnit) -> void:
+	targets_in_range.erase(area)
+	targets_in_range_changed.emit()

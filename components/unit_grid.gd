@@ -72,7 +72,9 @@ func get_all_occupied_tiles() -> Array[Vector2i]:
 	return tile_array
 
 
-func _on_unit_tree_exited(unit: Unit, tile: Vector2i) -> void:
+# NOTE I changed this to node from unit,
+# so it works with battleunits too!
+func _on_unit_tree_exited(unit: Node, tile: Vector2i) -> void:
 	if unit.is_queued_for_deletion():
 		units[tile] = null
 		unit_grid_changed.emit()

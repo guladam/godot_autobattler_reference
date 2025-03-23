@@ -47,8 +47,12 @@ const MAX_ATTACK_RANGE := 5
 @export var magic_resist: int
 @export_range(1, MAX_ATTACK_RANGE) var attack_range: int
 
-var health: int
+var health: int : set = set_health
 var mana: int
+
+
+func reset_health() -> void:
+	health = get_max_health()
 
 
 func get_combined_unit_count() -> int:
@@ -68,8 +72,21 @@ func get_trait_names() -> PackedStringArray:
 	return trait_names
 
 
+func get_max_health() -> int:
+	return max_health[tier-1]
+
+
+func get_attack_damage() -> int:
+	return attack_damage[tier-1]
+
+
 func set_tier(value: int) -> void:
 	tier = value
+	changed.emit()
+
+
+func set_health(value: int) -> void:
+	health = value
 	changed.emit()
 
 
