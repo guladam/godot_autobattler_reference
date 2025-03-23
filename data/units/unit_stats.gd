@@ -87,6 +87,10 @@ func get_attack_damage() -> int:
 	return attack_damage[tier-1]
 
 
+func is_melee() -> int:
+	return attack_range == 1
+
+
 func set_tier(value: int) -> void:
 	tier = value
 	changed.emit()

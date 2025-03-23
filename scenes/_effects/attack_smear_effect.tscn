@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdqiy3pdbendd"]
+
+[ext_resource type="Texture2D" uid="uid://uxhmkwfevpqt" path="res://assets/sprites/effects_projectiles/attack_smear.png" id="1_1ok65"]
+[ext_resource type="Script" uid="uid://gnvaulyhenwd" path="res://components/one_time_animation.gd" id="1_03hf7"]
+
+[sub_resource type="Animation" id="Animation_j0dwy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_tbddk"]
+resource_name = "smear"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6ga13"]
+_data = {
+&"RESET": SubResource("Animation_j0dwy"),
+&"smear": SubResource("Animation_tbddk")
+}
+
+[node name="AttackSmearEffect" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_1ok65")
+hframes = 5
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_6ga13")
+}
+autoplay = "smear"
+
+[node name="OneTimeAnimation" type="Node" parent="." node_paths=PackedStringArray("animation_player")]
+script = ExtResource("1_03hf7")
+animation_player = NodePath("../AnimationPlayer")
+metadata/_custom_type_script = "uid://gnvaulyhenwd"

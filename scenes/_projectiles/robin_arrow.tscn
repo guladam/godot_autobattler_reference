@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://nu6v4ec87yp5"]
+
+[ext_resource type="Texture2D" uid="uid://d2xdcfhp1xdvi" path="res://assets/sprites/effects_projectiles/arrow.png" id="1_jux0f"]
+[ext_resource type="Script" uid="uid://cfjvvctujfttw" path="res://components/projectile.gd" id="1_yanr4"]
+
+[sub_resource type="Animation" id="Animation_axj3s"]
+resource_name = "flying"
+length = 0.9
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_yanr4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g5syl"]
+_data = {
+&"RESET": SubResource("Animation_yanr4"),
+&"flying": SubResource("Animation_axj3s")
+}
+
+[node name="RobinArrow" type="Node2D"]
+script = ExtResource("1_yanr4")
+speed = 300
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_jux0f")
+hframes = 8
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_g5syl")
+}
+autoplay = "flying"

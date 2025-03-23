@@ -9,6 +9,8 @@ var actor_unit: BattleUnit
 var target: BattleUnit
 
 
+# TODO next 
+# - provide a barebones framework for abilities, and create a couple ones to test
 func _init(new_actor: Node, current_target: BattleUnit) -> void:
 	actor = new_actor
 	target = current_target
@@ -30,18 +32,26 @@ func exit() -> void:
 
 
 func _attack() -> void:
+	actor_unit.flip_sprite_to_direction.flip_sprite_to_dir(target.global_position)
 	actor_unit.animation_player.play("attack")
-	actor_unit.animation_player.animation_finished.connect(
-		func(_name):
-			if not target:
-				return
-			target.stats.health -= actor_unit.stats.get_attack_damage()
-			actor_unit.stats.mana += UnitStats.MANA_PER_ATTACK
-			if target.stats.health <= 0:
-				target.queue_free()
-				target_died.emit()
-	, CONNECT_ONE_SHOT
-	)
+	
+	if actor_unit.stats.is_melee():
+		actor_unit.spawn_melee_smear(target.global_position)
+		actor_unit.animation_player.animation_finished.connect(_perform_attack.unbind(1), CONNECT_ONE_SHOT)
+	else:
+		var projectile := actor_unit.spawn_projectile(target.global_position)
+		projectile.arrived.connect(_perform_attack)
+
+
+func _perform_attack() -> void:
+	if not target:
+		return
+	
+	target.stats.health -= actor_unit.stats.get_attack_damage()
+	actor_unit.stats.mana += UnitStats.MANA_PER_ATTACK
+	if target.stats.health <= 0:
+		target.queue_free() # TODO this shouldn't be handled here, should be part of the battle_unit class
+		target_died.emit()
 
 
 func _on_detect_range_exited(area: BattleUnit) -> void:

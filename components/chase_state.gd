@@ -42,13 +42,7 @@ func chase() -> void:
 			stuck.emit()
 		return
 	
-	# TODO this might not belong here
-	var new_dir: Vector2 = actor_unit.global_position.direction_to(new_pos)
-	if sign(new_dir.x) == 1:
-		actor_unit.custom_skin.flip_h = true
-	if sign(new_dir.x) == -1:
-		actor_unit.custom_skin.flip_h = false
-	
+	actor_unit.flip_sprite_to_direction.flip_sprite_to_dir(new_pos)
 	tween = actor_unit.create_tween()
 	tween.tween_callback(actor_unit.animation_player.play.bind("move"))
 	tween.tween_property(actor_unit, "global_position", new_pos, 1.5)
