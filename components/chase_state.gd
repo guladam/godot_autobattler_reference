@@ -7,7 +7,7 @@ signal stuck
 var actor_unit: BattleUnit
 var tween: Tween
 
-# TODO fix chase state so units won't get stuck randomly
+
 func enter() -> void:
 	actor_unit = actor as BattleUnit
 	if actor_unit.target_finder.has_target_in_range():
@@ -32,10 +32,14 @@ func chase() -> void:
 	actor_unit.target_finder.find_target()
 	var new_pos: Vector2 = UnitNavigation.get_next_position(actor_unit, actor_unit.target_finder.target)
 	
-	# nowhere to go this frame so stop
+	# nowhere to go this frame so either the unit is stuck or can hit someone in range
 	if new_pos == Vector2(-1, -1):
-		actor_unit.animation_player.play("RESET")
-		stuck.emit()
+		# we might already have a new target if a unit died or something?
+		if actor_unit.target_finder.has_target_in_range():
+			target_reached.emit(actor_unit.target_finder.targets_in_range[0])
+		else:
+			actor_unit.animation_player.play("RESET")
+			stuck.emit()
 		return
 	
 	# TODO this might not belong here

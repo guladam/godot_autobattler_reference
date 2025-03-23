@@ -33,6 +33,8 @@ func _attack() -> void:
 	actor_unit.animation_player.play("attack")
 	actor_unit.animation_player.animation_finished.connect(
 		func(_name):
+			if not target:
+				return
 			target.stats.health -= actor_unit.stats.get_attack_damage()
 			if target.stats.health <= 0:
 				target.queue_free()
