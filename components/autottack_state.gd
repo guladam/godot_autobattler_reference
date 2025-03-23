@@ -36,6 +36,7 @@ func _attack() -> void:
 			if not target:
 				return
 			target.stats.health -= actor_unit.stats.get_attack_damage()
+			actor_unit.stats.mana += UnitStats.MANA_PER_ATTACK
 			if target.stats.health <= 0:
 				target.queue_free()
 				target_died.emit()

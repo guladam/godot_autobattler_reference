@@ -1,6 +1,8 @@
 class_name UnitStats
 extends Resource
 
+signal mana_bar_filled
+
 enum Rarity {COMMON, UNCOMMON, RARE, LEGENDARY}
 enum Team {PLAYER, ENEMY}
 
@@ -22,6 +24,7 @@ const TEAM_SPRITESHEET := {
 }
 
 const MAX_ATTACK_RANGE := 5
+const MANA_PER_ATTACK := 10
 
 @export var name: String
 @export_range(1, 3) var tier := 1 : set = set_tier
@@ -48,11 +51,15 @@ const MAX_ATTACK_RANGE := 5
 @export_range(1, MAX_ATTACK_RANGE) var attack_range: int
 
 var health: int : set = set_health
-var mana: int
+var mana: int : set = set_mana
 
 
 func reset_health() -> void:
 	health = get_max_health()
+
+
+func reset_mana() -> void:
+	mana = starting_mana
 
 
 func get_combined_unit_count() -> int:
@@ -88,6 +95,14 @@ func set_tier(value: int) -> void:
 func set_health(value: int) -> void:
 	health = value
 	changed.emit()
+
+
+func set_mana(value: int) -> void:
+	mana = value
+	changed.emit()
+	
+	if mana >= max_mana and max_mana > 0:
+		mana_bar_filled.emit()
 
 
 func _to_string() -> String:

@@ -45,6 +45,7 @@ func _prepare_fight() -> void:
 		battle_unit_grid.add_child(new_unit)
 		new_unit.stats = unit.stats
 		new_unit.stats.reset_health()
+		new_unit.stats.reset_mana()
 		new_unit.global_position = game_area.get_global_from_tile(unit_coord) + Vector2(0, -Arena.QUARTER_CELL_SIZE.y)
 		new_unit.tree_exited.connect(_on_battle_unit_died)
 		battle_unit_grid.add_unit(unit_coord, new_unit)
@@ -57,6 +58,7 @@ func _prepare_fight() -> void:
 		battle_unit_grid.add_child(new_unit)
 		new_unit.stats = preload("res://data/enemies/zombie.tres")
 		new_unit.stats.reset_health()
+		new_unit.stats.reset_mana()
 		new_unit.global_position = game_area.get_global_from_tile(tile) + Vector2(0, -Arena.QUARTER_CELL_SIZE.y)
 		battle_unit_grid.add_unit(tile, new_unit)
 		new_unit.stats.team = UnitStats.Team.ENEMY

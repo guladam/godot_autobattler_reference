@@ -5,8 +5,8 @@ extends Area2D
 
 @onready var skin: CustomSkin = $Visuals/Skin
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
-@onready var health_bar: ProgressBar = $HealthBar
-@onready var mana_bar: ProgressBar = $ManaBar
+@onready var health_bar: HealthBar = $HealthBar
+@onready var mana_bar: ManaBar = $ManaBar
 @onready var tier_icon: TierIcon = $TierIcon
 @onready var drag_and_drop: DragAndDrop = $DragAndDrop
 @onready var velocity_based_rotation: VelocityBasedRotation = $VelocityBasedRotation
@@ -34,6 +34,8 @@ func set_stats(value: UnitStats) -> void:
 	
 	skin.stats = stats
 	tier_icon.stats = stats
+	mana_bar.stats = stats
+	stats.reset_mana()
 
 
 func reset_after_dragging(starting_position: Vector2) -> void:
