@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cdqiy3pdbendd"]
+[gd_scene load_steps=8 format=3 uid="uid://dv1kkndq38l6j"]
 
-[ext_resource type="Texture2D" uid="uid://uxhmkwfevpqt" path="res://assets/sprites/effects_projectiles/attack_smear.png" id="1_1ok65"]
-[ext_resource type="Script" uid="uid://gnvaulyhenwd" path="res://components/one_time_animation.gd" id="1_03hf7"]
-[ext_resource type="Script" uid="uid://bxvqgui2p32kq" path="res://components/hitbox.gd" id="1_tbddk"]
+[ext_resource type="Script" uid="uid://bxvqgui2p32kq" path="res://components/hitbox.gd" id="1_xkab6"]
+[ext_resource type="Texture2D" uid="uid://uxhmkwfevpqt" path="res://assets/sprites/effects_projectiles/attack_smear.png" id="2_v42ua"]
+[ext_resource type="Script" uid="uid://gnvaulyhenwd" path="res://components/one_time_animation.gd" id="3_cilc8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j0dwy"]
 size = Vector2(16, 16)
@@ -69,13 +69,13 @@ _data = {
 &"smear": SubResource("Animation_tbddk")
 }
 
-[node name="AttackSmearEffect" type="Area2D"]
-collision_mask = 2
-script = ExtResource("1_tbddk")
+[node name="EnemyAttackSmearEffect" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_xkab6")
 metadata/_custom_type_script = "uid://bxvqgui2p32kq"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_1ok65")
+texture = ExtResource("2_v42ua")
 hframes = 5
 frame = 1
 
@@ -91,6 +91,6 @@ libraries = {
 autoplay = "smear"
 
 [node name="OneTimeAnimation" type="Node" parent="." node_paths=PackedStringArray("animation_player")]
-script = ExtResource("1_03hf7")
+script = ExtResource("3_cilc8")
 animation_player = NodePath("../AnimationPlayer")
 metadata/_custom_type_script = "uid://gnvaulyhenwd"

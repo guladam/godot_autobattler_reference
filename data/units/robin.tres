@@ -1,6 +1,9 @@
-[gd_resource type="Resource" script_class="UnitStats" load_steps=5 format=3 uid="uid://1b645f77jlhi"]
+[gd_resource type="Resource" script_class="UnitStats" load_steps=8 format=3 uid="uid://1b645f77jlhi"]
 
+[ext_resource type="PackedScene" uid="uid://cpnhw60sd6p6q" path="res://scenes/_abilities/robin_hail_of_arrows.tscn" id="1_4y5el"]
+[ext_resource type="PackedScene" uid="uid://cdqiy3pdbendd" path="res://scenes/_effects/attack_smear_effect.tscn" id="1_ke7c6"]
 [ext_resource type="Script" uid="uid://qtb5h4gbrm1s" path="res://data/units/unit_stats.gd" id="1_nx33m"]
+[ext_resource type="PackedScene" uid="uid://nu6v4ec87yp5" path="res://scenes/_projectiles/robin_arrow.tscn" id="2_4y5el"]
 [ext_resource type="Resource" uid="uid://cse4d6ci0do3j" path="res://data/traits/elf.tres" id="2_a66ka"]
 [ext_resource type="Script" uid="uid://cr1e2i2xqb3sv" path="res://data/traits/trait.gd" id="2_e8w0x"]
 [ext_resource type="Resource" uid="uid://fvte7y24lpbw" path="res://data/traits/ranger.tres" id="3_45gwk"]
@@ -24,3 +27,6 @@ attack_speed = 1.0
 armor = 0
 magic_resist = 0
 attack_range = 3
+melee_attack = ExtResource("1_ke7c6")
+ranged_attack = ExtResource("2_4y5el")
+ability = ExtResource("1_4y5el")

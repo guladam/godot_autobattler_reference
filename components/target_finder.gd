@@ -32,12 +32,18 @@ func find_target() -> void:
 func has_target_in_range() -> bool:
 	return targets_in_range.size() > 0
 
-
-func _on_area_entered(area: BattleUnit) -> void:
+# TODO fix these errors
+func _on_area_entered(area: Area2D) -> void:
+	if not area is BattleUnit:
+		return
+	
 	targets_in_range.append(area)
 	targets_in_range_changed.emit()
 
 
-func _on_area_exited(area: BattleUnit) -> void:
+func _on_area_exited(area: Area2D) -> void:
+	if not area is BattleUnit:
+		return
+	
 	targets_in_range.erase(area)
 	targets_in_range_changed.emit()

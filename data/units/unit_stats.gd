@@ -1,6 +1,7 @@
 class_name UnitStats
 extends Resource
 
+signal health_reached_zero
 signal mana_bar_filled
 
 enum Rarity {COMMON, UNCOMMON, RARE, LEGENDARY}
@@ -49,6 +50,9 @@ const MANA_PER_ATTACK := 10
 @export var armor: int
 @export var magic_resist: int
 @export_range(1, MAX_ATTACK_RANGE) var attack_range: int
+@export var melee_attack: PackedScene = preload("res://scenes/_effects/attack_smear_effect.tscn")
+@export var ranged_attack: PackedScene
+@export var ability: PackedScene
 
 var health: int : set = set_health
 var mana: int : set = set_mana
@@ -99,6 +103,9 @@ func set_tier(value: int) -> void:
 func set_health(value: int) -> void:
 	health = value
 	changed.emit()
+	
+	if health <= 0:
+		health_reached_zero.emit()
 
 
 func set_mana(value: int) -> void:

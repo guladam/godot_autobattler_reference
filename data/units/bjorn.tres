@@ -1,6 +1,8 @@
-[gd_resource type="Resource" script_class="UnitStats" load_steps=5 format=3 uid="uid://xjus2xsvdrxh"]
+[gd_resource type="Resource" script_class="UnitStats" load_steps=7 format=3 uid="uid://xjus2xsvdrxh"]
 
 [ext_resource type="Script" uid="uid://qtb5h4gbrm1s" path="res://data/units/unit_stats.gd" id="1_n8exx"]
+[ext_resource type="PackedScene" uid="uid://bmpowihx7tk1v" path="res://scenes/_abilities/bjorn_swing.tscn" id="1_vqcxw"]
+[ext_resource type="PackedScene" uid="uid://cdqiy3pdbendd" path="res://scenes/_effects/attack_smear_effect.tscn" id="2_6xuql"]
 [ext_resource type="Resource" uid="uid://d3ebasaaar8eq" path="res://data/traits/viking.tres" id="2_n6hpm"]
 [ext_resource type="Script" uid="uid://cr1e2i2xqb3sv" path="res://data/traits/trait.gd" id="2_yadvf"]
 [ext_resource type="Resource" uid="uid://d1hsi8dqs1e1g" path="res://data/traits/fighter.tres" id="3_qp68a"]
@@ -18,9 +20,11 @@ team = 0
 max_health = Array[int]([40, 50, 60])
 max_mana = 50
 starting_mana = 15
-attack_damage = Array[int]([4, 10, 15])
+attack_damage = Array[int]([2, 5, 8])
 ability_power = 0
 attack_speed = 2.0
 armor = 0
 magic_resist = 0
 attack_range = 1
+melee_attack = ExtResource("2_6xuql")
+ability = ExtResource("1_vqcxw")

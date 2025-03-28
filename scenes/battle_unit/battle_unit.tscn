@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bg1r2rkbd021"]
+[gd_scene load_steps=21 format=3 uid="uid://bg1r2rkbd021"]
 
 [ext_resource type="Script" uid="uid://c47egeha30o6m" path="res://scenes/battle_unit/battle_unit.gd" id="1_664hq"]
 [ext_resource type="Texture2D" uid="uid://ct4xk88g67xlv" path="res://assets/sprites/monsters.png" id="1_k0une"]
@@ -7,12 +7,14 @@
 [ext_resource type="PackedScene" uid="uid://r6i2ug5jon3k" path="res://scenes/mana_bar/mana_bar.tscn" id="4_03pgi"]
 [ext_resource type="Script" uid="uid://bwfnub5gou4wx" path="res://components/detect_range.gd" id="4_tlu18"]
 [ext_resource type="PackedScene" uid="uid://cuqct6gepc6dy" path="res://scenes/tier_icon/tier_icon.tscn" id="5_8ow3a"]
+[ext_resource type="Script" uid="uid://cgc0myh6n7v0" path="res://components/hurtbox.gd" id="5_bi2u5"]
 [ext_resource type="Script" uid="uid://gq73rk4qbpwn" path="res://components/finite_state_machine.gd" id="7_e7yjp"]
 [ext_resource type="Script" uid="uid://8aihm5ucjwun" path="res://components/target_finder.gd" id="7_xsykw"]
 [ext_resource type="Script" uid="uid://cjktex1wj8q5d" path="res://components/unit_ai.gd" id="8_2mupp"]
 [ext_resource type="Script" uid="uid://u504uo8jeavd" path="res://components/flip_sprite_to_direction.gd" id="8_euuyt"]
 [ext_resource type="Script" uid="uid://crlwtnh8tx0mn" path="res://components/scene_spawner.gd" id="10_4i2cr"]
 [ext_resource type="AnimationLibrary" uid="uid://cb5e07mpc7mf1" path="res://assets/animations/battleunit_animations.res" id="10_4m1os"]
+[ext_resource type="Script" uid="uid://c6cvhumkp04vx" path="res://components/battle_unit_attack.gd" id="11_a0pnp"]
 [ext_resource type="PackedScene" uid="uid://cdqiy3pdbendd" path="res://scenes/_effects/attack_smear_effect.tscn" id="11_w8xno"]
 [ext_resource type="PackedScene" uid="uid://nu6v4ec87yp5" path="res://scenes/_projectiles/robin_arrow.tscn" id="12_w8xno"]
 
@@ -21,6 +23,9 @@ size = Vector2(36, 36)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2pg7"]
 size = Vector2(72, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a0pnp"]
+size = Vector2(36, 36)
 
 [node name="BattleUnit" type="Area2D"]
 collision_layer = 0
@@ -47,9 +52,17 @@ base_range_size = Vector2(36, 36)
 shape = SubResource("RectangleShape2D_h2pg7")
 debug_color = Color(0.854964, 0.640151, 0.976469, 0.42)
 
-[node name="AttackSmearAnchor" type="Node2D" parent="."]
+[node name="HurtBox" type="Area2D" parent="."]
+script = ExtResource("5_bi2u5")
+metadata/_custom_type_script = "uid://cgc0myh6n7v0"
 
-[node name="AttackSmearMarker" type="Marker2D" parent="AttackSmearAnchor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_a0pnp")
+debug_color = Color(0.976471, 0, 0.411765, 0.329412)
+
+[node name="WeaponAnchor" type="Node2D" parent="."]
+
+[node name="WeaponMarker" type="Marker2D" parent="WeaponAnchor"]
 position = Vector2(16, 0)
 
 [node name="HealthBar" parent="." instance=ExtResource("3_vhjnk")]
@@ -79,6 +92,10 @@ offset_bottom = -26.0
 text = "ChaseState"
 horizontal_alignment = 1
 
+[node name="AbilitySpawner" type="Node" parent="."]
+script = ExtResource("10_4i2cr")
+metadata/_custom_type_script = "uid://crlwtnh8tx0mn"
+
 [node name="FlipSpriteToDirection" type="Node" parent="." node_paths=PackedStringArray("sprite")]
 script = ExtResource("8_euuyt")
 sprite = NodePath("../CustomSkin")
@@ -88,12 +105,28 @@ metadata/_custom_type_script = "uid://u504uo8jeavd"
 script = ExtResource("7_e7yjp")
 debug_label = NodePath("../FSMDebug")
 
-[node name="AttackSmearSpawner" type="Node" parent="."]
+[node name="MeleeAttack" type="Node" parent="." node_paths=PackedStringArray("battle_unit", "anchor", "spawn_point", "spawner")]
+script = ExtResource("11_a0pnp")
+battle_unit = NodePath("..")
+anchor = NodePath("../WeaponAnchor")
+spawn_point = NodePath("../WeaponAnchor/WeaponMarker")
+spawner = NodePath("MeleeAttackSpawner")
+metadata/_custom_type_script = "uid://c6cvhumkp04vx"
+
+[node name="MeleeAttackSpawner" type="Node" parent="MeleeAttack"]
 script = ExtResource("10_4i2cr")
 scene = ExtResource("11_w8xno")
 metadata/_custom_type_script = "uid://crlwtnh8tx0mn"
 
-[node name="ProjectileSpawner" type="Node" parent="."]
+[node name="RangedAttack" type="Node" parent="." node_paths=PackedStringArray("battle_unit", "anchor", "spawn_point", "spawner")]
+script = ExtResource("11_a0pnp")
+battle_unit = NodePath("..")
+anchor = NodePath("../WeaponAnchor")
+spawn_point = NodePath("../WeaponAnchor/WeaponMarker")
+spawner = NodePath("ProjectileSpawner")
+metadata/_custom_type_script = "uid://c6cvhumkp04vx"
+
+[node name="ProjectileSpawner" type="Node" parent="RangedAttack"]
 script = ExtResource("10_4i2cr")
 scene = ExtResource("12_w8xno")
 metadata/_custom_type_script = "uid://crlwtnh8tx0mn"

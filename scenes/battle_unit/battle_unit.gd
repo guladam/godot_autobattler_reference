@@ -5,39 +5,26 @@ extends Area2D
 
 @onready var custom_skin: CustomSkin = $CustomSkin
 @onready var detect_range: DetectRange = $DetectRange
-@onready var attack_smear_anchor: Node2D = $AttackSmearAnchor
-@onready var attack_smear_marker: Marker2D = $AttackSmearAnchor/AttackSmearMarker
+@onready var hurt_box: HurtBox = $HurtBox
+@onready var weapon_anchor: Node2D = $WeaponAnchor
+@onready var weapon_marker: Marker2D = $WeaponAnchor/WeaponMarker
+
 @onready var health_bar: HealthBar = $HealthBar
 @onready var mana_bar: ManaBar = $ManaBar
 @onready var tier_icon: TierIcon = $TierIcon
-@onready var attack_smear_spawner: SceneSpawner = $AttackSmearSpawner
+
+@onready var ability_spawner: SceneSpawner = $AbilitySpawner
 @onready var flip_sprite_to_direction: FlipSpriteToDirection = $FlipSpriteToDirection
-@onready var projectile_spawner: SceneSpawner = $ProjectileSpawner
+@onready var melee_attack: BattleUnitAttack = $MeleeAttack
+@onready var ranged_attack: BattleUnitAttack = $RangedAttack
 @onready var target_finder: TargetFinder = $TargetFinder
 @onready var unit_ai: UnitAI = $UnitAI
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var attack_timer: Timer = $AttackTimer
 
 
-# TODO kinda ugly to do it here
-# this could be its own component? Might be reusable for spawning projectiles
-func spawn_melee_smear(target_position: Vector2) -> void:
-	var angle := global_position.direction_to(target_position).angle()
-	attack_smear_anchor.rotation = angle
-	var smear := attack_smear_spawner.spawn_scene(get_tree().root) as Node2D
-	smear.global_position = attack_smear_marker.global_position
-	smear.rotation = angle
-
-# TODO yikes bruh
-func spawn_projectile(target_position: Vector2) -> Projectile:
-	var angle := global_position.direction_to(target_position).angle()
-	attack_smear_anchor.rotation = angle
-	var projectile := projectile_spawner.spawn_scene(get_tree().root) as Projectile
-	projectile.global_position = attack_smear_marker.global_position
-	projectile.rotation = angle
-	projectile.target = target_position
-	
-	return projectile
+func _ready() -> void:
+	hurt_box.hurt.connect(_on_hurt)
 
 
 func set_stats(value: UnitStats) -> void:
@@ -49,8 +36,22 @@ func set_stats(value: UnitStats) -> void:
 	collision_layer = stats.team + 1
 	# TODO is this even needed?
 	collision_mask = 2 - stats.team
+	# this is def. needed for the hurtbox
+	# TODO does the battle unit need to be Area2D at all?
+	hurt_box.collision_layer = stats.team + 1
+	hurt_box.collision_mask = 2 - stats.team
+	
+	ability_spawner.scene = stats.ability
+	melee_attack.spawner.scene = stats.melee_attack
+	ranged_attack.spawner.scene = stats.ranged_attack
+	
 	detect_range.stats = stats
 	custom_skin.stats = stats
 	health_bar.stats = stats
 	mana_bar.stats = stats
 	tier_icon.stats = stats
+	stats.health_reached_zero.connect(queue_free)
+
+
+func _on_hurt(damage: int) -> void:
+	stats.health -= damage
