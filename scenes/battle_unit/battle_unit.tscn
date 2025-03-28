@@ -46,7 +46,7 @@ collision_layer = 0
 collision_mask = 0
 script = ExtResource("4_tlu18")
 col_shape = NodePath("CollisionShape2D")
-base_range_size = Vector2(36, 36)
+base_range_size = 36.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectRange"]
 shape = SubResource("RectangleShape2D_h2pg7")
