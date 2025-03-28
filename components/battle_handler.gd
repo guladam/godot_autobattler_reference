@@ -52,7 +52,7 @@ func _prepare_fight() -> void:
 		unit.disable_collision(true)
 		unit.hide()
 	
-	for tile: Vector2i in [Vector2i(8, 1), Vector2i(7, 4), Vector2i(9, 6)]:
+	for tile: Vector2i in [Vector2i(8, 1), Vector2i(7, 4), Vector2i(8, 3), Vector2i(9, 5), Vector2i(9, 6)]:
 		var new_unit: BattleUnit = BATTLE_UNIT.instantiate()
 		new_unit.add_to_group("enemy_units")
 		battle_unit_grid.add_child(new_unit)
