@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=28 format=4 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="Script" uid="uid://b41sd6f24uo6m" path="res://scenes/arena/arena.gd" id="1_a1ak0"]
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
@@ -16,8 +16,10 @@
 [ext_resource type="PackedScene" uid="uid://bhhtibvtken5o" path="res://scenes/shop/shop.tscn" id="13_256pg"]
 [ext_resource type="Script" uid="uid://dpd7c8rqccxl3" path="res://components/unit_spawner.gd" id="13_elhf4"]
 [ext_resource type="AudioStream" uid="uid://dubwbrp3e8hg3" path="res://assets/sfx/combine.ogg" id="15_2p0aq"]
+[ext_resource type="Script" uid="uid://crlwtnh8tx0mn" path="res://components/scene_spawner.gd" id="15_l0cts"]
 [ext_resource type="Script" uid="uid://buc1n7o4i2bc0" path="res://components/battle_handler.gd" id="16_kcd4n"]
 [ext_resource type="PackedScene" uid="uid://cxgnlha7i81v2" path="res://scenes/traits/traits.tscn" id="16_uy14c"]
+[ext_resource type="PackedScene" uid="uid://bd6jhfp83q1rv" path="res://scenes/unit/unit.tscn" id="16_ybinm"]
 [ext_resource type="Resource" uid="uid://colcuq2f1xv6x" path="res://data/game_state/game_state.tres" id="17_5rf3s"]
 [ext_resource type="PackedScene" uid="uid://cvarsvlo70pgx" path="res://scenes/team_size_ui/team_size_ui.tscn" id="17_gxlm5"]
 [ext_resource type="Script" uid="uid://bn4qscjt1rk1v" path="res://components/debug_draw.gd" id="18_alc7u"]
@@ -153,11 +155,17 @@ play_areas = [NodePath("../GameArea"), NodePath("../Bench")]
 game_state = ExtResource("17_5rf3s")
 unit_place_sound = ExtResource("12_niusb")
 
-[node name="UnitSpawner" type="Node" parent="." node_paths=PackedStringArray("bench", "game_area")]
+[node name="UnitSpawner" type="Node" parent="." node_paths=PackedStringArray("bench", "game_area", "unit_scene_spawner")]
 script = ExtResource("13_elhf4")
 bench = NodePath("../Bench")
 game_area = NodePath("../GameArea")
 game_state = ExtResource("17_5rf3s")
+unit_scene_spawner = NodePath("SceneSpawner")
+
+[node name="SceneSpawner" type="Node" parent="UnitSpawner"]
+script = ExtResource("15_l0cts")
+scene = ExtResource("16_ybinm")
+metadata/_custom_type_script = "uid://crlwtnh8tx0mn"
 
 [node name="UnitCombiner" type="Node" parent="." node_paths=PackedStringArray("buffer_timer")]
 script = ExtResource("11_ex2js")

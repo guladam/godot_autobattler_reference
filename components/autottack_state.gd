@@ -21,6 +21,7 @@ func enter() -> void:
 	actor_unit.attack_timer.wait_time = 1/actor_unit.stats.attack_speed
 	actor_unit.attack_timer.timeout.connect(_attack)
 	actor_unit.attack_timer.start()
+	actor_unit.animation_player.play("RESET")
 
 
 func exit() -> void:

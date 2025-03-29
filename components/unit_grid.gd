@@ -6,16 +6,12 @@ signal unit_grid_changed
 @export var size: Vector2i
 
 var units: Dictionary
-var bounds: Rect2i
 
 
 func _ready() -> void:
 	for i in size.x:
 		for j in size.y:
 			units[Vector2i(i, j)] = null
-	
-	# TODO kinda dirty, because we already have this in play_area
-	bounds = Rect2i(Vector2.ZERO, size)
 
 
 func add_unit(tile: Vector2i, unit: Node) -> void:

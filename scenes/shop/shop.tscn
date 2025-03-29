@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bhhtibvtken5o"]
+[gd_scene load_steps=16 format=3 uid="uid://bhhtibvtken5o"]
 
 [ext_resource type="PackedScene" uid="uid://h35dg0gwcdag" path="res://scenes/gold_display/gold_display.tscn" id="1_otctg"]
 [ext_resource type="Script" uid="uid://edvw1ix68i2i" path="res://scenes/shop/shop.gd" id="1_w5f7r"]
@@ -8,12 +8,14 @@
 [ext_resource type="Resource" uid="uid://dlnsfkjue2dlt" path="res://data/player/player_stats.tres" id="3_uknfj"]
 [ext_resource type="Resource" uid="uid://d1opxbi6ouvxn" path="res://data/units/harry.tres" id="4_7ji4f"]
 [ext_resource type="Resource" uid="uid://1b645f77jlhi" path="res://data/units/robin.tres" id="5_knwln"]
+[ext_resource type="PackedScene" uid="uid://cdqiy3pdbendd" path="res://scenes/_effects/attack_smear_effect.tscn" id="6_131kw"]
 [ext_resource type="PackedScene" uid="uid://2fft4iykjm1b" path="res://scenes/reroll_button/reroll_button.tscn" id="6_iivgf"]
 [ext_resource type="PackedScene" uid="uid://ch2lduhujm43e" path="res://scenes/xp_tracker/xp_tracker.tscn" id="7_cmru2"]
 [ext_resource type="Script" uid="uid://cr1e2i2xqb3sv" path="res://data/traits/trait.gd" id="7_dww4p"]
 [ext_resource type="PackedScene" uid="uid://da0ap0qtkwrcq" path="res://scenes/xp_button/xp_button.tscn" id="8_epkkf"]
+[ext_resource type="Script" uid="uid://crlwtnh8tx0mn" path="res://components/scene_spawner.gd" id="14_xoc10"]
 
-[sub_resource type="Resource" id="Resource_gs8ul"]
+[sub_resource type="Resource" id="Resource_k5co3"]
 resource_local_to_scene = true
 script = ExtResource("3_qpg5i")
 name = "Bjorn"
@@ -33,6 +35,7 @@ attack_speed = 0.0
 armor = 0
 magic_resist = 0
 attack_range = 0
+melee_attack = ExtResource("6_131kw")
 
 [node name="Shop" type="Control"]
 layout_mode = 3
@@ -72,7 +75,7 @@ layout_mode = 2
 
 [node name="ShopUnitCard" parent="HBoxContainer/VBoxContainer/ShopCards" instance=ExtResource("2_eydp6")]
 layout_mode = 2
-unit_stats = SubResource("Resource_gs8ul")
+unit_stats = SubResource("Resource_k5co3")
 
 [node name="ShopUnitCard2" parent="HBoxContainer/VBoxContainer/ShopCards" instance=ExtResource("2_eydp6")]
 layout_mode = 2
@@ -108,5 +111,10 @@ offset_top = 326.0
 offset_right = -90.0
 offset_bottom = 356.0
 grow_horizontal = 0
+
+[node name="UnitCardSpawner" type="Node" parent="."]
+script = ExtResource("14_xoc10")
+scene = ExtResource("2_eydp6")
+metadata/_custom_type_script = "uid://crlwtnh8tx0mn"
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/RerollButton" to="." method="_on_reroll_button_pressed"]

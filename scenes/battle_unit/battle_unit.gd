@@ -33,11 +33,8 @@ func set_stats(value: UnitStats) -> void:
 	if not is_node_ready():
 		await ready
 	
+	# NOTE this is needed for the detect range areas
 	collision_layer = stats.team + 1
-	# TODO is this even needed?
-	collision_mask = 2 - stats.team
-	# this is def. needed for the hurtbox
-	# TODO does the battle unit need to be Area2D at all?
 	hurt_box.collision_layer = stats.team + 1
 	hurt_box.collision_mask = 2 - stats.team
 	
