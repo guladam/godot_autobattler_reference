@@ -26,6 +26,7 @@ const TEAM_SPRITESHEET := {
 
 const MAX_ATTACK_RANGE := 5
 const MANA_PER_ATTACK := 10
+const MOVE_ONE_TILE_SPEED := 1
 
 @export var name: String
 @export_range(1, 3) var tier := 1 : set = set_tier
@@ -89,6 +90,10 @@ func get_max_health() -> int:
 
 func get_attack_damage() -> int:
 	return attack_damage[tier-1]
+
+
+func get_time_between_attacks() -> float:
+	return 1 / attack_speed
 
 
 func is_melee() -> int:

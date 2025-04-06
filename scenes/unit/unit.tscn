@@ -39,10 +39,13 @@ position = Vector2(16, 8)
 shape = SubResource("RectangleShape2D_0qp17")
 
 [node name="HealthBar" parent="." instance=ExtResource("6_w8051")]
+z_index = 1
 
 [node name="ManaBar" parent="." instance=ExtResource("7_3k3he")]
+z_index = 1
 
 [node name="TierIcon" parent="." instance=ExtResource("5_g2aj7")]
+z_index = 1
 offset_top = -13.0
 offset_right = 10.0
 offset_bottom = -3.0

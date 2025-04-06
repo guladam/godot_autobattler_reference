@@ -9,7 +9,7 @@ var ability: UnitAbility
 
 func enter() -> void:
 	actor_unit = actor as BattleUnit
-	actor_unit.stats.mana -= actor_unit.stats.max_mana
+	actor_unit.stats.mana = 0
 	
 	if not actor_unit.stats.ability:
 		ability_cast_finished.emit.call_deferred()

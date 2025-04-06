@@ -66,25 +66,27 @@ debug_color = Color(0.976471, 0, 0.411765, 0.329412)
 position = Vector2(16, 0)
 
 [node name="HealthBar" parent="." instance=ExtResource("3_vhjnk")]
+z_index = 1
 offset_left = -15.0
 offset_top = -28.0
 offset_right = 15.0
 offset_bottom = -22.0
 
 [node name="ManaBar" parent="." instance=ExtResource("4_03pgi")]
+z_index = 1
 offset_left = -15.0
 offset_top = -23.0
 offset_right = 15.0
 offset_bottom = -19.0
 
 [node name="TierIcon" parent="." instance=ExtResource("5_8ow3a")]
+z_index = 1
 offset_left = -16.0
 offset_top = -21.0
 offset_right = -6.0
 offset_bottom = -11.0
 
 [node name="FSMDebug" type="Label" parent="."]
-visible = false
 offset_left = -43.0
 offset_top = -44.0
 offset_right = 46.0

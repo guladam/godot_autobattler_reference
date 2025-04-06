@@ -17,8 +17,7 @@ func _init(new_actor: Node, current_target: BattleUnit) -> void:
 func enter() -> void:
 	actor_unit = actor as BattleUnit
 	actor_unit.detect_range.area_exited.connect(_on_detect_range_exited)
-	# definitely does not belong here
-	actor_unit.attack_timer.wait_time = 1/actor_unit.stats.attack_speed
+	actor_unit.attack_timer.wait_time = actor_unit.stats.get_time_between_attacks()
 	actor_unit.attack_timer.timeout.connect(_attack)
 	actor_unit.attack_timer.start()
 	actor_unit.animation_player.play("RESET")

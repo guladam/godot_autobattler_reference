@@ -1,19 +1,23 @@
-# NOTE this class could be cleaned up a lot because right now it does quite a bit of everything
-# maybe a BattleUnitSpawner component could be used separately to handle that functionality
-# or even a PackedSceneSpawner component which returns the newly spawned node -->
-# then, the unit_spawner and battle_unit_spawner components would share some code
 class_name BattleHandler
 extends Node
 
-signal battle_ended
+const ZOMBIE_TEST_POSITIONS := [
+	Vector2i(8, 1),
+	Vector2i(7, 4),
+	Vector2i(8, 3),
+	Vector2i(9, 5),
+	Vector2i(9, 6)
+]
+const ZOMBIE := preload("res://data/enemies/zombie.tres")
 
-const BATTLE_UNIT = preload("res://scenes/battle_unit/battle_unit.tscn")
+signal battle_ended
 
 @export var game_state: GameState
 @export var game_area: PlayArea
 @export var game_area_unit_grid: UnitGrid
 @export var battle_unit_grid: UnitGrid
 
+@onready var scene_spawner: SceneSpawner = $SceneSpawner
 
 func _ready() -> void:
 	game_state.changed.connect(_on_game_state_changed)
@@ -37,39 +41,43 @@ func _clean_up_fight() -> void:
 	get_tree().call_group("units", "disable_collision", false)
 
 
+func _setup_battle_unit(unit_coord: Vector2i, new_unit: BattleUnit) -> void:
+	new_unit.stats.reset_health()
+	new_unit.stats.reset_mana()
+	new_unit.global_position = game_area.get_global_from_tile(unit_coord) + Vector2(0, -Arena.QUARTER_CELL_SIZE.y)
+	new_unit.tree_exited.connect(_on_battle_unit_died)
+	battle_unit_grid.add_unit(unit_coord, new_unit)
+
+
 func _prepare_fight() -> void:
+	get_tree().call_group("units", "disable_collision", true)
+	get_tree().call_group("units", "hide")
+	
 	for unit_coord: Vector2i in game_area_unit_grid.get_all_occupied_tiles():
 		var unit: Unit = game_area_unit_grid.units[unit_coord]
-		var new_unit: BattleUnit = BATTLE_UNIT.instantiate()
+		var new_unit := scene_spawner.spawn_scene(battle_unit_grid) as BattleUnit
 		new_unit.add_to_group("player_units")
-		battle_unit_grid.add_child(new_unit)
 		new_unit.stats = unit.stats
-		new_unit.stats.reset_health()
-		new_unit.stats.reset_mana()
-		new_unit.global_position = game_area.get_global_from_tile(unit_coord) + Vector2(0, -Arena.QUARTER_CELL_SIZE.y)
-		new_unit.tree_exited.connect(_on_battle_unit_died)
-		battle_unit_grid.add_unit(unit_coord, new_unit)
-		unit.disable_collision(true)
-		unit.hide()
+		_setup_battle_unit(unit_coord, new_unit)
 	
-	for tile: Vector2i in [Vector2i(8, 1), Vector2i(7, 4), Vector2i(8, 3), Vector2i(9, 5), Vector2i(9, 6)]:
-		var new_unit: BattleUnit = BATTLE_UNIT.instantiate()
+	for unit_coord: Vector2i in ZOMBIE_TEST_POSITIONS:
+		var new_unit := scene_spawner.spawn_scene(battle_unit_grid) as BattleUnit
 		new_unit.add_to_group("enemy_units")
-		battle_unit_grid.add_child(new_unit)
-		new_unit.stats = preload("res://data/enemies/zombie.tres")
-		new_unit.stats.reset_health()
-		new_unit.stats.reset_mana()
-		new_unit.global_position = game_area.get_global_from_tile(tile) + Vector2(0, -Arena.QUARTER_CELL_SIZE.y)
-		battle_unit_grid.add_unit(tile, new_unit)
+		new_unit.stats = ZOMBIE
 		new_unit.stats.team = UnitStats.Team.ENEMY
-		new_unit.tree_exited.connect(_on_battle_unit_died)
+		_setup_battle_unit(unit_coord, new_unit)
 	
-	UnitNavigation.setup()
+	UnitNavigation.update_occupied_tiles()
 	var battle_units := get_tree().get_nodes_in_group("player_units") + get_tree().get_nodes_in_group("enemy_units")
 	battle_units.shuffle()
 	
 	for battle_unit: BattleUnit in battle_units:
 		battle_unit.unit_ai.enabled = true
+
+
+func _end_current_battle() -> void:
+	game_state.current_phase = GameState.Phase.PREPARATION
+	battle_ended.emit()
 
 
 func _on_battle_unit_died() -> void:
@@ -79,13 +87,11 @@ func _on_battle_unit_died() -> void:
 		return
 	
 	if get_tree().get_node_count_in_group("enemy_units") == 0:
-		game_state.current_phase = GameState.Phase.PREPARATION
-		battle_ended.emit()
 		print("player won!")
+		_end_current_battle()
 	if get_tree().get_node_count_in_group("player_units") == 0:
-		game_state.current_phase = GameState.Phase.PREPARATION
-		battle_ended.emit()
 		print("enemy won!")
+		_end_current_battle()
 
 
 func _on_game_state_changed() -> void:

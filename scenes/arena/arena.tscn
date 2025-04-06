@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=29 format=4 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="Script" uid="uid://b41sd6f24uo6m" path="res://scenes/arena/arena.gd" id="1_a1ak0"]
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
@@ -23,6 +23,7 @@
 [ext_resource type="Resource" uid="uid://colcuq2f1xv6x" path="res://data/game_state/game_state.tres" id="17_5rf3s"]
 [ext_resource type="PackedScene" uid="uid://cvarsvlo70pgx" path="res://scenes/team_size_ui/team_size_ui.tscn" id="17_gxlm5"]
 [ext_resource type="Script" uid="uid://bn4qscjt1rk1v" path="res://components/debug_draw.gd" id="18_alc7u"]
+[ext_resource type="PackedScene" uid="uid://bg1r2rkbd021" path="res://scenes/battle_unit/battle_unit.tscn" id="20_ybinm"]
 [ext_resource type="PackedScene" uid="uid://chkfh7chgsbwk" path="res://scenes/start_battle_button/start_battle_button.tscn" id="22_opmde"]
 
 [sub_resource type="Curve" id="Curve_kxla4"]
@@ -182,8 +183,12 @@ game_area = NodePath("../GameArea")
 game_area_unit_grid = NodePath("../GameArea/ArenaUnitGrid")
 battle_unit_grid = NodePath("../BattleGrid")
 
+[node name="SceneSpawner" type="Node" parent="BattleHandler"]
+script = ExtResource("15_l0cts")
+scene = ExtResource("20_ybinm")
+metadata/_custom_type_script = "uid://crlwtnh8tx0mn"
+
 [node name="DebugDraw" type="Node2D" parent="." node_paths=PackedStringArray("game_area")]
-visible = false
 position = Vector2(160, 32)
 script = ExtResource("18_alc7u")
 color = Color(0.521569, 0.443137, 0.0431373, 0.654902)

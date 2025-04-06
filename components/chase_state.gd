@@ -10,8 +10,8 @@ var tween: Tween
 
 func enter() -> void:
 	actor_unit = actor as BattleUnit
-	if actor_unit.target_finder.has_target_in_range():
-		target_reached.emit.call_deferred(actor_unit.target_finder.targets_in_range[0])
+	if _has_target_in_range():
+		_end_chase()
 	else:
 		actor_unit.target_finder.find_target()
 		actor_unit.target_finder.targets_in_range_changed.connect(_on_targets_in_range_changed)
@@ -26,7 +26,7 @@ func chase() -> void:
 	if tween and tween.is_running():
 		return
 
-	if actor_unit.target_finder.has_target_in_range():
+	if _has_target_in_range():
 		return
 
 	actor_unit.target_finder.find_target()
@@ -35,8 +35,8 @@ func chase() -> void:
 	# nowhere to go this frame so either the unit is stuck or can hit someone in range
 	if new_pos == Vector2(-1, -1):
 		# we might already have a new target if a unit died or something?
-		if actor_unit.target_finder.has_target_in_range():
-			target_reached.emit(actor_unit.target_finder.targets_in_range[0])
+		if _has_target_in_range():
+			_end_chase()
 		else:
 			actor_unit.animation_player.play("RESET")
 			stuck.emit()
@@ -45,18 +45,26 @@ func chase() -> void:
 	actor_unit.flip_sprite_to_direction.flip_sprite_to_dir(new_pos)
 	tween = actor_unit.create_tween()
 	tween.tween_callback(actor_unit.animation_player.play.bind("move"))
-	tween.tween_property(actor_unit, "global_position", new_pos, 1.5)
+	tween.tween_property(actor_unit, "global_position", new_pos, UnitStats.MOVE_ONE_TILE_SPEED)
 	tween.finished.connect(
 		func():
 			tween.kill()
 			
-			if actor_unit.target_finder.has_target_in_range():
-				target_reached.emit(actor_unit.target_finder.targets_in_range[0])
+			if _has_target_in_range():
+				_end_chase()
 			else:
 				chase()
 	)
 
 
+func _has_target_in_range() -> bool:
+	return actor_unit.target_finder.has_target_in_range()
+
+
+func _end_chase() -> void:
+	target_reached.emit.call_deferred(actor_unit.target_finder.targets_in_range[0])
+
+
 func _on_targets_in_range_changed() -> void:
-	if not tween and actor_unit.target_finder.has_target_in_range():
-		target_reached.emit(actor_unit.target_finder.targets_in_range[0])
+	if not tween and _has_target_in_range():
+		_end_chase()
