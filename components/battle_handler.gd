@@ -37,6 +37,7 @@ func _input(event: InputEvent) -> void:
 func _clean_up_fight() -> void:
 	get_tree().call_group("player_units", "queue_free")
 	get_tree().call_group("enemy_units", "queue_free")
+	get_tree().call_group("unit_abilities", "queue_free") # NOTE: see unity_ability.gd _ready
 	get_tree().call_group("units", "show")
 	get_tree().call_group("units", "disable_collision", false)
 
