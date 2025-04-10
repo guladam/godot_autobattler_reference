@@ -10,6 +10,7 @@ func use() -> void:
 	hit_box.damage = base_damage_per_tier[caster.stats.tier-1]
 	hit_box.damage += caster.stats.ability_power
 
+	SFXPlayer.play(sound)
 	animation_player.play("swing")
 	animation_player.animation_finished.connect(_on_animation_finished.unbind(1))
 

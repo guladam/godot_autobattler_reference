@@ -1,11 +1,24 @@
-[gd_resource type="Resource" script_class="UnitStats" load_steps=7 format=3 uid="uid://xjus2xsvdrxh"]
+[gd_resource type="Resource" script_class="UnitStats" load_steps=12 format=3 uid="uid://xjus2xsvdrxh"]
 
 [ext_resource type="Script" uid="uid://qtb5h4gbrm1s" path="res://data/units/unit_stats.gd" id="1_n8exx"]
 [ext_resource type="PackedScene" uid="uid://bmpowihx7tk1v" path="res://scenes/_abilities/bjorn_swing.tscn" id="1_vqcxw"]
 [ext_resource type="PackedScene" uid="uid://cdqiy3pdbendd" path="res://scenes/_effects/attack_smear_effect.tscn" id="2_6xuql"]
 [ext_resource type="Resource" uid="uid://d3ebasaaar8eq" path="res://data/traits/viking.tres" id="2_n6hpm"]
+[ext_resource type="AudioStream" uid="uid://cqf8iixui33qs" path="res://assets/sfx/bjorn_1.ogg" id="2_y5alr"]
 [ext_resource type="Script" uid="uid://cr1e2i2xqb3sv" path="res://data/traits/trait.gd" id="2_yadvf"]
 [ext_resource type="Resource" uid="uid://d1hsi8dqs1e1g" path="res://data/traits/fighter.tres" id="3_qp68a"]
+[ext_resource type="AudioStream" uid="uid://drv66ibqjs4mw" path="res://assets/sfx/bjorn_2.ogg" id="3_v1jki"]
+[ext_resource type="AudioStream" uid="uid://cgj55cvyt8vca" path="res://assets/sfx/bjorn_3.ogg" id="4_6ud85"]
+[ext_resource type="AudioStream" uid="uid://pbxc64p3y3uy" path="res://assets/sfx/bjorn_4.ogg" id="5_66cgf"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bk82h"]
+playback_mode = 1
+random_pitch = 1.2
+streams_count = 4
+stream_0/stream = ExtResource("2_y5alr")
+stream_1/stream = ExtResource("3_v1jki")
+stream_2/stream = ExtResource("4_6ud85")
+stream_3/stream = ExtResource("5_66cgf")
 
 [resource]
 script = ExtResource("1_n8exx")
@@ -28,3 +41,4 @@ magic_resist = 0
 attack_range = 1
 melee_attack = ExtResource("2_6xuql")
 ability = ExtResource("1_vqcxw")
+auto_attack_sound = SubResource("AudioStreamRandomizer_bk82h")

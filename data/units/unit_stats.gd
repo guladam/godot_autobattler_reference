@@ -54,6 +54,7 @@ const MOVE_ONE_TILE_SPEED := 1
 @export var melee_attack: PackedScene = preload("res://scenes/_effects/attack_smear_effect.tscn")
 @export var ranged_attack: PackedScene
 @export var ability: PackedScene
+@export var auto_attack_sound: AudioStream
 
 var health: int : set = set_health
 var mana: int : set = set_mana

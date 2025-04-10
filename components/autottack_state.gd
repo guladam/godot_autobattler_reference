@@ -32,6 +32,7 @@ func exit() -> void:
 func _attack() -> void:
 	actor_unit.flip_sprite_to_direction.flip_sprite_to_dir(target.global_position)
 	actor_unit.animation_player.play("attack")
+	SFXPlayer.play(actor_unit.stats.auto_attack_sound)
 	
 	if actor_unit.stats.is_melee():
 		var hitbox := actor_unit.melee_attack.attack(target.global_position) as HitBox

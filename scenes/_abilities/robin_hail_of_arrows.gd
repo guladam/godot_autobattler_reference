@@ -24,6 +24,7 @@ func _spawn_extra_projectile(enemies: Array[Node]) -> void:
 	if valid_enemies.is_empty():
 		return
 	
+	SFXPlayer.play(sound)
 	var enemy := valid_enemies.pick_random() as BattleUnit
 	var projectile := caster.ranged_attack.attack(enemy.global_position) as Projectile
 	projectile.target = enemy.global_position
