@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bg1r2rkbd021"]
+[gd_scene load_steps=23 format=3 uid="uid://bg1r2rkbd021"]
 
 [ext_resource type="Script" uid="uid://c47egeha30o6m" path="res://scenes/battle_unit/battle_unit.gd" id="1_664hq"]
 [ext_resource type="Texture2D" uid="uid://ct4xk88g67xlv" path="res://assets/sprites/monsters.png" id="1_k0une"]
@@ -17,6 +17,8 @@
 [ext_resource type="Script" uid="uid://c6cvhumkp04vx" path="res://components/battle_unit_attack.gd" id="11_a0pnp"]
 [ext_resource type="PackedScene" uid="uid://cdqiy3pdbendd" path="res://scenes/_effects/attack_smear_effect.tscn" id="11_w8xno"]
 [ext_resource type="PackedScene" uid="uid://nu6v4ec87yp5" path="res://scenes/_projectiles/robin_arrow.tscn" id="12_w8xno"]
+[ext_resource type="Script" uid="uid://bjlvlgkaas3iy" path="res://components/modifier_handler.gd" id="17_78w47"]
+[ext_resource type="Script" uid="uid://c7fi2y0bt22jg" path="res://components/modifier.gd" id="18_i648r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6qoms"]
 size = Vector2(36, 36)
@@ -141,6 +143,43 @@ actor = NodePath("..")
 script = ExtResource("8_2mupp")
 actor = NodePath("..")
 fsm = NodePath("../FiniteStateMachine")
+
+[node name="ModifierHandler" type="Node" parent="."]
+script = ExtResource("17_78w47")
+metadata/_custom_type_script = "uid://bjlvlgkaas3iy"
+
+[node name="MaxHealthModifier" type="Node" parent="ModifierHandler"]
+script = ExtResource("18_i648r")
+metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
+
+[node name="MaxManaModifier" type="Node" parent="ModifierHandler"]
+script = ExtResource("18_i648r")
+type = 1
+metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
+
+[node name="AttackSpeedModifier" type="Node" parent="ModifierHandler"]
+script = ExtResource("18_i648r")
+type = 2
+metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
+
+[node name="ADModifier" type="Node" parent="ModifierHandler"]
+script = ExtResource("18_i648r")
+type = 3
+metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
+
+[node name="APModifier" type="Node" parent="ModifierHandler"]
+script = ExtResource("18_i648r")
+type = 4
+metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
+
+[node name="ArmorModifier" type="Node" parent="ModifierHandler"]
+script = ExtResource("18_i648r")
+metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
+
+[node name="MRModifier" type="Node" parent="ModifierHandler"]
+script = ExtResource("18_i648r")
+type = 6
+metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
 
 [node name="AttackTimer" type="Timer" parent="."]
 

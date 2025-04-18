@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bd6jhfp83q1rv"]
+[gd_scene load_steps=15 format=3 uid="uid://bd6jhfp83q1rv"]
 
 [ext_resource type="Script" uid="uid://dohbumtdar080" path="res://scenes/unit/unit.gd" id="1_v6qje"]
 [ext_resource type="Resource" uid="uid://xjus2xsvdrxh" path="res://data/units/bjorn.tres" id="2_3ccms"]
@@ -13,8 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://r6i2ug5jon3k" path="res://scenes/mana_bar/mana_bar.tscn" id="7_3k3he"]
 [ext_resource type="Script" uid="uid://dh6q35aw8telh" path="res://components/unit_animations.gd" id="9_tr4ow"]
 [ext_resource type="Script" uid="uid://bygnbenaert6a" path="res://components/quick_sell.gd" id="10_jih4l"]
-[ext_resource type="Script" uid="uid://bjlvlgkaas3iy" path="res://components/modifier_handler.gd" id="14_u15f5"]
-[ext_resource type="Script" uid="uid://c7fi2y0bt22jg" path="res://components/modifier.gd" id="15_bg1qp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0qp17"]
 size = Vector2(36, 36)
@@ -74,43 +72,6 @@ unit = NodePath("..")
 [node name="QuickSell" type="Node" parent="." node_paths=PackedStringArray("unit")]
 script = ExtResource("10_jih4l")
 unit = NodePath("..")
-
-[node name="ModifierHandler" type="Node" parent="."]
-script = ExtResource("14_u15f5")
-metadata/_custom_type_script = "uid://bjlvlgkaas3iy"
-
-[node name="MaxHealthModifier" type="Node" parent="ModifierHandler"]
-script = ExtResource("15_bg1qp")
-metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
-
-[node name="MaxManaModifier" type="Node" parent="ModifierHandler"]
-script = ExtResource("15_bg1qp")
-type = 1
-metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
-
-[node name="AttackSpeedModifier" type="Node" parent="ModifierHandler"]
-script = ExtResource("15_bg1qp")
-type = 2
-metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
-
-[node name="ADModifier" type="Node" parent="ModifierHandler"]
-script = ExtResource("15_bg1qp")
-type = 3
-metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
-
-[node name="APModifier" type="Node" parent="ModifierHandler"]
-script = ExtResource("15_bg1qp")
-type = 4
-metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
-
-[node name="ArmorModifier" type="Node" parent="ModifierHandler"]
-script = ExtResource("15_bg1qp")
-metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
-
-[node name="MRModifier" type="Node" parent="ModifierHandler"]
-script = ExtResource("15_bg1qp")
-type = 6
-metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

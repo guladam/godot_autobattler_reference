@@ -19,6 +19,7 @@ extends Area2D
 @onready var ranged_attack: BattleUnitAttack = $RangedAttack
 @onready var target_finder: TargetFinder = $TargetFinder
 @onready var unit_ai: UnitAI = $UnitAI
+@onready var modifier_handler: ModifierHandler = $ModifierHandler
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var attack_timer: Timer = $AttackTimer
 
