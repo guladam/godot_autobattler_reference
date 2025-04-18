@@ -2,75 +2,38 @@
 class_name ModifierType
 extends Node
 
-@export var owner_node: Node:
-	set(value):
-		owner_node = value
-		notify_property_list_changed()
-
-var owner_property: String:
-	set(value):
-		owner_property = value
-		notify_property_list_changed()
+const script_pool := {
+	"UnitStats": preload("uid://qtb5h4gbrm1s"),
+	"Projectile": preload("uid://cfjvvctujfttw")
+}
 
 var modified_property: String
 
 
 func _get_property_list() -> Array[Dictionary]:
-	var properties: Array[Dictionary] = []
-	var owner_script: Script = owner_node.get_script()
-	
-	if not owner_script: 
-		return properties
-	
-	var possible_properties := owner_script.get_script_property_list()
-	var property_names = possible_properties.map(func(dict): return dict.get("name"))
-	property_names = property_names.slice(1)
+	var property_names: PackedStringArray = []
+	for current_class: String in script_pool.keys():
+		var possible_properties = script_pool[current_class].get_script_property_list()
+		property_names.append_array(possible_properties.map(
+			func(dict): return current_class + "/" + dict.get("name")
+		).slice(1))
 	
 	var property := {
-		"name": "owner_property",
-		"type": TYPE_STRING,
-		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": ",".join(property_names)
-	}
-	properties.append(property)
-	
-	var owner_prop = owner_node.get(owner_property)
-	
-	if not owner_prop:
-		return properties
-		
-	var owner_property_script: Script = owner_prop.get_script()
-	
-	if not owner_property_script:
-		return properties
-	
-	var modifier_properties := owner_property_script.get_script_property_list()
-	property_names = modifier_properties.map(func(dict): return dict.get("name"))
-	property_names = property_names.slice(1)
-	
-	var modifier_property := {
 		"name": "modified_property",
 		"type": TYPE_STRING,
 		"hint": PROPERTY_HINT_ENUM,
 		"hint_string": ",".join(property_names)
 	}
 	
-	properties.append(modifier_property)
-	return properties
+	return [property]
 
 
 func _get(property: StringName):
-	if property == "owner_property":
-		return owner_property
 	if property == "modified_property":
 		return modified_property
 
 
 func _set(property: StringName, value: Variant):
-	if property == "owner_property":
-		owner_property = value
-		return true
-	
 	if property == "modified_property":
 		modified_property = value
 		return true

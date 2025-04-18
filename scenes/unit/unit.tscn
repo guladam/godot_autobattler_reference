@@ -74,10 +74,9 @@ unit = NodePath("..")
 script = ExtResource("10_jih4l")
 unit = NodePath("..")
 
-[node name="ModifierType" type="Node" parent="." node_paths=PackedStringArray("owner_node")]
+[node name="ModifierType" type="Node" parent="."]
 script = ExtResource("14_1ifho")
-owner_node = NodePath("../Visuals/Skin")
-owner_property = "stats"
+modified_property = "UnitStats/attack_range"
 metadata/_custom_type_script = "uid://c7fi2y0bt22jg"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
