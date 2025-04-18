@@ -1,44 +1,18 @@
-@tool
-class_name ModifierType
+class_name Modifier
 extends Node
 
-const script_pool := {
-	"UnitStats": preload("uid://qtb5h4gbrm1s"),
-	"Projectile": preload("uid://cfjvvctujfttw")
+enum Type {
+	UNIT_MAXHEALTH,
+	UNIT_MAXMANA,
+	UNIT_ATKSPEED,
+	UNIT_AD,
+	UNIT_AP,
+	UNIT_ARMOR,
+	UNIT_MAGICRESIST,
+	NO_MODIFIER
 }
 
-var modified_property: String
-
-
-func _get_property_list() -> Array[Dictionary]:
-	var property_names: PackedStringArray = []
-	for current_class: String in script_pool.keys():
-		var possible_properties = script_pool[current_class].get_script_property_list()
-		property_names.append_array(possible_properties.map(
-			func(dict): return current_class + "/" + dict.get("name")
-		).slice(1))
-	
-	var property := {
-		"name": "modified_property",
-		"type": TYPE_STRING,
-		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": ",".join(property_names)
-	}
-	
-	return [property]
-
-
-func _get(property: StringName):
-	if property == "modified_property":
-		return modified_property
-
-
-func _set(property: StringName, value: Variant):
-	if property == "modified_property":
-		modified_property = value
-		return true
-	
-	return false
+@export var type: Type
 
 
 func get_value(source: String) -> ModifierValue:
@@ -72,6 +46,12 @@ func clear_values() -> void:
 func get_modified_value(base: int) -> int:
 	var flat_result: int = base
 	var percent_result: float = 1.0
+	
+	# ZERO modifier overwrites everything and returns 0
+	for value: ModifierValue in get_children():
+		if value.type == ModifierValue.Type.ZERO:
+			return 0
+
 	# Apply flat modifiers first
 	for value: ModifierValue in get_children():
 		if value.type == ModifierValue.Type.FLAT:
