@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=30 format=4 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="Script" uid="uid://b41sd6f24uo6m" path="res://scenes/arena/arena.gd" id="1_a1ak0"]
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://cvarsvlo70pgx" path="res://scenes/team_size_ui/team_size_ui.tscn" id="17_gxlm5"]
 [ext_resource type="Script" uid="uid://bn4qscjt1rk1v" path="res://components/debug_draw.gd" id="18_alc7u"]
 [ext_resource type="PackedScene" uid="uid://bg1r2rkbd021" path="res://scenes/battle_unit/battle_unit.tscn" id="20_ybinm"]
+[ext_resource type="Script" uid="uid://doeqhx1ghnj38" path="res://components/trait_tracker.gd" id="21_5ilg6"]
 [ext_resource type="PackedScene" uid="uid://chkfh7chgsbwk" path="res://scenes/start_battle_button/start_battle_button.tscn" id="22_opmde"]
 
 [sub_resource type="Curve" id="Curve_kxla4"]
@@ -188,6 +189,11 @@ script = ExtResource("15_l0cts")
 scene = ExtResource("20_ybinm")
 metadata/_custom_type_script = "uid://crlwtnh8tx0mn"
 
+[node name="TraitTracker" type="Node" parent="." node_paths=PackedStringArray("arena_grid")]
+script = ExtResource("21_5ilg6")
+arena_grid = NodePath("../GameArea/ArenaUnitGrid")
+metadata/_custom_type_script = "uid://doeqhx1ghnj38"
+
 [node name="DebugDraw" type="Node2D" parent="." node_paths=PackedStringArray("game_area")]
 position = Vector2(160, 32)
 script = ExtResource("18_alc7u")
@@ -200,8 +206,8 @@ metadata/_edit_lock_ = true
 [node name="Shop" parent="UI" instance=ExtResource("13_256pg")]
 unique_name_in_owner = true
 
-[node name="Traits" parent="UI" node_paths=PackedStringArray("arena_grid") instance=ExtResource("16_uy14c")]
-arena_grid = NodePath("../../GameArea/ArenaUnitGrid")
+[node name="Traits" parent="UI" instance=ExtResource("16_uy14c")]
+unique_name_in_owner = true
 
 [node name="TeamSizeUI" parent="UI" node_paths=PackedStringArray("arena_grid") instance=ExtResource("17_gxlm5")]
 offset_left = -6.0
