@@ -18,6 +18,10 @@ func _ready() -> void:
 
 	_roll_units()
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("test1"):
+		player_stats.gold = 99
+
 
 func _roll_units() -> void:
 	for i in 5:

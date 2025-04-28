@@ -177,12 +177,13 @@ combine_sound = ExtResource("15_2p0aq")
 [node name="BufferTimer" type="Timer" parent="UnitCombiner"]
 one_shot = true
 
-[node name="BattleHandler" type="Node" parent="." node_paths=PackedStringArray("game_area", "game_area_unit_grid", "battle_unit_grid")]
+[node name="BattleHandler" type="Node" parent="." node_paths=PackedStringArray("game_area", "game_area_unit_grid", "battle_unit_grid", "trait_tracker")]
 script = ExtResource("16_kcd4n")
 game_state = ExtResource("17_5rf3s")
 game_area = NodePath("../GameArea")
 game_area_unit_grid = NodePath("../GameArea/ArenaUnitGrid")
 battle_unit_grid = NodePath("../BattleGrid")
+trait_tracker = NodePath("../TraitTracker")
 
 [node name="SceneSpawner" type="Node" parent="BattleHandler"]
 script = ExtResource("15_l0cts")
@@ -195,6 +196,7 @@ arena_grid = NodePath("../GameArea/ArenaUnitGrid")
 metadata/_custom_type_script = "uid://doeqhx1ghnj38"
 
 [node name="DebugDraw" type="Node2D" parent="." node_paths=PackedStringArray("game_area")]
+visible = false
 position = Vector2(160, 32)
 script = ExtResource("18_alc7u")
 color = Color(0.521569, 0.443137, 0.0431373, 0.654902)

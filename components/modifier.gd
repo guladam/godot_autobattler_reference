@@ -43,14 +43,14 @@ func clear_values() -> void:
 		value.queue_free()
 
 
-func get_modified_value(base: int) -> int:
-	var flat_result: int = base
+func get_modified_value(base: float) -> float:
+	var flat_result: float = base
 	var percent_result: float = 1.0
 	
 	# ZERO modifier overwrites everything and returns 0
 	for value: ModifierValue in get_children():
 		if value.type == ModifierValue.Type.ZERO:
-			return 0
+			return 0.0
 
 	# Apply flat modifiers first
 	for value: ModifierValue in get_children():
@@ -62,4 +62,4 @@ func get_modified_value(base: int) -> int:
 		if value.type == ModifierValue.Type.PERCENT_BASED:
 			percent_result += value.percent_value
 			
-	return floori(flat_result * percent_result)
+	return flat_result * percent_result

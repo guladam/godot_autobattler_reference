@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="Trait" load_steps=3 format=3 uid="uid://bs7a5bcut586a"]
+[gd_resource type="Resource" script_class="Trait" load_steps=4 format=3 uid="uid://bs7a5bcut586a"]
 
 [ext_resource type="Texture2D" uid="uid://c32cyuudt3x6x" path="res://assets/sprites/traits/noble.png" id="1_awfif"]
 [ext_resource type="Script" uid="uid://cr1e2i2xqb3sv" path="res://data/traits/trait.gd" id="1_eojo0"]
+[ext_resource type="Script" uid="uid://b002yn371wklh" path="res://data/traits/noble.gd" id="3_tdjhl"]
 
 [resource]
 script = ExtResource("1_eojo0")
@@ -9,5 +10,5 @@ name = "noble"
 icon = ExtResource("1_awfif")
 description = ""
 levels = 1
-unit_requirements = Array[int]([3])
-unit_modifiers = Array[PackedScene]([])
+unit_requirements = Array[int]([1])
+trait_bonus_script = ExtResource("3_tdjhl")

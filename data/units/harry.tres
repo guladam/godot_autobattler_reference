@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="UnitStats" load_steps=5 format=3 uid="uid://d1opxbi6ouvxn"]
+[gd_resource type="Resource" script_class="UnitStats" load_steps=6 format=3 uid="uid://d1opxbi6ouvxn"]
 
+[ext_resource type="PackedScene" uid="uid://cdqiy3pdbendd" path="res://scenes/_effects/attack_smear_effect.tscn" id="1_bj5lt"]
 [ext_resource type="Script" uid="uid://qtb5h4gbrm1s" path="res://data/units/unit_stats.gd" id="1_n7wn6"]
 [ext_resource type="Script" uid="uid://cr1e2i2xqb3sv" path="res://data/traits/trait.gd" id="2_juxpv"]
 [ext_resource type="Resource" uid="uid://cse4d6ci0do3j" path="res://data/traits/elf.tres" id="2_krlpu"]
@@ -15,12 +16,13 @@ gold_cost = 1
 pool_count = 20
 skin_coordinates = Vector2i(2, 2)
 team = 0
-max_health = Array[int]([])
-max_mana = 0
-starting_mana = 0
-attack_damage = Array[int]([])
+max_health = Array[int]([20, 30, 50])
+max_mana = 100
+starting_mana = 30
+attack_damage = Array[int]([3, 7, 12])
 ability_power = 0
-attack_speed = 0.0
+attack_speed = 0.5
 armor = 0
 magic_resist = 0
-attack_range = 2
+attack_range = 1
+melee_attack = ExtResource("1_bj5lt")

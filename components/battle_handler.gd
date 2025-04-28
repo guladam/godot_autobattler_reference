@@ -16,6 +16,7 @@ signal battle_ended
 @export var game_area: PlayArea
 @export var game_area_unit_grid: UnitGrid
 @export var battle_unit_grid: UnitGrid
+@export var trait_tracker: TraitTracker
 
 @onready var scene_spawner: SceneSpawner = $SceneSpawner
 
@@ -38,6 +39,7 @@ func _clean_up_fight() -> void:
 	get_tree().call_group("player_units", "queue_free")
 	get_tree().call_group("enemy_units", "queue_free")
 	get_tree().call_group("unit_abilities", "queue_free") # NOTE: see unity_ability.gd _ready
+	get_tree().call_group("trait_bonuses", "queue_free")
 	get_tree().call_group("units", "show")
 	get_tree().call_group("units", "disable_collision", false)
 
@@ -68,8 +70,16 @@ func _prepare_fight() -> void:
 		new_unit.stats.team = UnitStats.Team.ENEMY
 		_setup_battle_unit(unit_coord, new_unit)
 	
+	var player_units := get_tree().get_nodes_in_group("player_units")
+	var enemy_units := get_tree().get_nodes_in_group("enemy_units")
+	
+	for active_trait: Trait in trait_tracker.active_traits:
+		var bonus_node := active_trait.trait_bonus_script.new(active_trait) as TraitBonus
+		add_child(bonus_node)
+		bonus_node.apply_bonus()
+	
 	UnitNavigation.update_occupied_tiles()
-	var battle_units := get_tree().get_nodes_in_group("player_units") + get_tree().get_nodes_in_group("enemy_units")
+	var battle_units := player_units + enemy_units
 	battle_units.shuffle()
 	
 	for battle_unit: BattleUnit in battle_units:

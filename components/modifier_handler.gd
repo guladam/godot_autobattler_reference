@@ -18,7 +18,7 @@ func get_modifier(type: Modifier.Type) -> Modifier:
 	return null
 
 
-func get_modified_value(base: int, type: Modifier.Type) -> int:
+func get_modified_value(base: float, type: Modifier.Type) -> float:
 	var modifier := get_modifier(type)
 	
 	if not modifier:

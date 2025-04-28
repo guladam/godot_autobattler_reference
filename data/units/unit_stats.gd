@@ -107,7 +107,7 @@ func set_tier(value: int) -> void:
 
 
 func set_health(value: int) -> void:
-	health = value
+	health = clampi(value, 0, get_max_health())
 	changed.emit()
 	
 	if health <= 0:

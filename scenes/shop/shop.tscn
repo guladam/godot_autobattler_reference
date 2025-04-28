@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://da0ap0qtkwrcq" path="res://scenes/xp_button/xp_button.tscn" id="8_epkkf"]
 [ext_resource type="Script" uid="uid://crlwtnh8tx0mn" path="res://components/scene_spawner.gd" id="14_xoc10"]
 
-[sub_resource type="Resource" id="Resource_k5co3"]
+[sub_resource type="Resource" id="Resource_131kw"]
 resource_local_to_scene = true
 script = ExtResource("3_qpg5i")
 name = "Bjorn"
@@ -75,7 +75,7 @@ layout_mode = 2
 
 [node name="ShopUnitCard" parent="HBoxContainer/VBoxContainer/ShopCards" instance=ExtResource("2_eydp6")]
 layout_mode = 2
-unit_stats = SubResource("Resource_k5co3")
+unit_stats = SubResource("Resource_131kw")
 
 [node name="ShopUnitCard2" parent="HBoxContainer/VBoxContainer/ShopCards" instance=ExtResource("2_eydp6")]
 layout_mode = 2
