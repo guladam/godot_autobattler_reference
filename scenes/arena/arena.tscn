@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://bktq4cwp01peb"]
+[gd_scene load_steps=33 format=4 uid="uid://bktq4cwp01peb"]
 
 [ext_resource type="Script" uid="uid://b41sd6f24uo6m" path="res://scenes/arena/arena.gd" id="1_a1ak0"]
 [ext_resource type="TileSet" uid="uid://de57fp7kv3q7p" path="res://scenes/arena/tileset.tres" id="1_hreld"]
@@ -12,9 +12,12 @@
 [ext_resource type="Resource" uid="uid://doebgx0llcf1o" path="res://data/unit_pool/unit_pool.tres" id="10_if8r1"]
 [ext_resource type="Resource" uid="uid://dlnsfkjue2dlt" path="res://data/player/player_stats.tres" id="10_n3gg6"]
 [ext_resource type="Script" uid="uid://c1mmqo5u7scxk" path="res://components/unit_combiner.gd" id="11_ex2js"]
+[ext_resource type="PackedScene" uid="uid://ds3bb3ob0014f" path="res://scenes/bench_item/bench_item.tscn" id="11_o7rjm"]
 [ext_resource type="AudioStream" uid="uid://xgrsj3clmat0" path="res://assets/sfx/unit_place.ogg" id="12_niusb"]
+[ext_resource type="Resource" uid="uid://y8urtd3hnktb" path="res://data/items/gloves.tres" id="12_xr6px"]
 [ext_resource type="PackedScene" uid="uid://bhhtibvtken5o" path="res://scenes/shop/shop.tscn" id="13_256pg"]
 [ext_resource type="Script" uid="uid://dpd7c8rqccxl3" path="res://components/unit_spawner.gd" id="13_elhf4"]
+[ext_resource type="Resource" uid="uid://cwdni4hysacqp" path="res://data/items/ring.tres" id="13_vspv4"]
 [ext_resource type="AudioStream" uid="uid://dubwbrp3e8hg3" path="res://assets/sfx/combine.ogg" id="15_2p0aq"]
 [ext_resource type="Script" uid="uid://crlwtnh8tx0mn" path="res://components/scene_spawner.gd" id="15_l0cts"]
 [ext_resource type="Script" uid="uid://buc1n7o4i2bc0" path="res://components/battle_handler.gd" id="16_kcd4n"]
@@ -150,6 +153,18 @@ position = Vector2(80, 288)
 unit_pool = ExtResource("10_if8r1")
 player_stats = ExtResource("10_n3gg6")
 metadata/_edit_lock_ = true
+
+[node name="BenchItem" parent="." instance=ExtResource("11_o7rjm")]
+position = Vector2(16, 240)
+collision_layer = 16
+
+[node name="BenchItem2" parent="." instance=ExtResource("11_o7rjm")]
+position = Vector2(16, 272)
+item = ExtResource("12_xr6px")
+
+[node name="BenchItem3" parent="." instance=ExtResource("11_o7rjm")]
+position = Vector2(16, 304)
+item = ExtResource("13_vspv4")
 
 [node name="UnitMover" type="Node" parent="." node_paths=PackedStringArray("play_areas")]
 script = ExtResource("9_snp81")

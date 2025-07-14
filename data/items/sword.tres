@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bfbkb3fkil5vw"]
+
+[ext_resource type="Script" uid="uid://bhwlqjboawfa4" path="res://components/modifier_value.gd" id="1_lpgsc"]
+[ext_resource type="Script" uid="uid://cifp7uhs41la1" path="res://data/items/item.gd" id="2_1ml53"]
+
+[sub_resource type="Resource" id="Resource_lpgsc"]
+resource_local_to_scene = true
+script = ExtResource("1_lpgsc")
+type = 1
+percent_value = 0.0
+flat_value = 4
+source = ""
+metadata/_custom_type_script = "uid://bhwlqjboawfa4"
+
+[resource]
+script = ExtResource("2_1ml53")
+name = "Sword"
+id = &"sword"
+description = "+4 AD"
+sprite_coordinates = Vector2i(0, 1)
+modifiers = Dictionary[int, ExtResource("1_lpgsc")]({
+3: SubResource("Resource_lpgsc")
+})
+metadata/_custom_type_script = "uid://cifp7uhs41la1"

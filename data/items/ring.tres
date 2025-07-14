@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cwdni4hysacqp"]
+
+[ext_resource type="Script" uid="uid://bhwlqjboawfa4" path="res://components/modifier_value.gd" id="1_rkyew"]
+[ext_resource type="Script" uid="uid://cifp7uhs41la1" path="res://data/items/item.gd" id="2_cj5jq"]
+
+[sub_resource type="Resource" id="Resource_rkyew"]
+resource_local_to_scene = true
+script = ExtResource("1_rkyew")
+type = 1
+percent_value = 0.0
+flat_value = 5
+source = ""
+metadata/_custom_type_script = "uid://bhwlqjboawfa4"
+
+[resource]
+script = ExtResource("2_cj5jq")
+name = "Ring"
+id = &"ring"
+description = "+5 AP"
+sprite_coordinates = Vector2i(0, 17)
+modifiers = Dictionary[int, ExtResource("1_rkyew")]({
+4: SubResource("Resource_rkyew")
+})
+metadata/_custom_type_script = "uid://cifp7uhs41la1"
