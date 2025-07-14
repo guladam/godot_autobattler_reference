@@ -18,6 +18,7 @@ func set_enabled(value: bool) -> void:
 		actor.stats.mana_bar_filled.connect(_on_mana_bar_filled)
 	else:
 		fsm.change_state(null)
+		actor.stats.mana_bar_filled.disconnect(_on_mana_bar_filled)
 
 
 func _physics_process(delta: float) -> void:

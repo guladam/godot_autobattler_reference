@@ -12,7 +12,7 @@ func initialize(battle_grid_node: UnitGrid, game_area_node: PlayArea) -> void:
 	game_area = game_area_node
 	battle_grid = battle_grid_node
 	
-	full_grid_region = Rect2i(0, 0, battle_grid.size.x, battle_grid.size.y)
+	full_grid_region = Rect2i(Vector2i.ZERO, battle_grid.size)
 	astar_grid = AStarGrid2D.new()
 	astar_grid.region = full_grid_region
 	astar_grid.cell_size = Arena.CELL_SIZE

@@ -1,5 +1,6 @@
+@tool
 class_name ModifierValue
-extends Node
+extends Resource
 
 enum Type {PERCENT_BASED, FLAT, ZERO}
 
@@ -9,9 +10,14 @@ enum Type {PERCENT_BASED, FLAT, ZERO}
 @export var source: String
 
 
-static func create_new_modifier(modifier_source: String, what_type: Type) -> ModifierValue:
-	var new_modifier := new()
-	new_modifier.source = modifier_source
-	new_modifier.type = what_type
-	
-	return new_modifier
+func _init() -> void:
+	resource_local_to_scene = true
+
+
+func _to_string() -> String:
+	return "Type: %s | Source: %s | %%: %s | Flat: %s" % [
+		Type.keys()[type],
+		source,
+		percent_value,
+		flat_value
+	]

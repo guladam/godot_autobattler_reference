@@ -16,6 +16,7 @@ signal battle_ended
 @export var game_area: PlayArea
 @export var game_area_unit_grid: UnitGrid
 @export var battle_unit_grid: UnitGrid
+@export var trait_tracker: TraitTracker
 
 @onready var scene_spawner: SceneSpawner = $SceneSpawner
 
@@ -50,6 +51,13 @@ func _setup_battle_unit(unit_coord: Vector2i, new_unit: BattleUnit) -> void:
 	battle_unit_grid.add_unit(unit_coord, new_unit)
 
 
+func _add_trait_bonuses(new_unit: BattleUnit) -> void:
+	for unit_trait: Trait in new_unit.stats.traits:
+		if trait_tracker.active_traits.has(unit_trait):
+			var trait_bonus := unit_trait.get_active_bonus(trait_tracker.unique_traits[unit_trait])
+			trait_bonus.apply_bonus(new_unit)
+
+
 func _prepare_fight() -> void:
 	get_tree().call_group("units", "disable_collision", true)
 	get_tree().call_group("units", "hide")
@@ -60,6 +68,7 @@ func _prepare_fight() -> void:
 		new_unit.add_to_group("player_units")
 		new_unit.stats = unit.stats
 		_setup_battle_unit(unit_coord, new_unit)
+		_add_trait_bonuses(new_unit)
 	
 	for unit_coord: Vector2i in ZOMBIE_TEST_POSITIONS:
 		var new_unit := scene_spawner.spawn_scene(battle_unit_grid) as BattleUnit

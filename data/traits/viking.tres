@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="Trait" load_steps=3 format=3 uid="uid://d3ebasaaar8eq"]
+[gd_resource type="Resource" script_class="Trait" load_steps=5 format=3 uid="uid://d3ebasaaar8eq"]
 
 [ext_resource type="Script" uid="uid://cr1e2i2xqb3sv" path="res://data/traits/trait.gd" id="1_0db5l"]
 [ext_resource type="Texture2D" uid="uid://cmjp32ur0thqa" path="res://assets/sprites/traits/viking.png" id="1_brctw"]
+[ext_resource type="Script" uid="uid://cqqjw0xcbo87s" path="res://data/traits/trait_bonus.gd" id="3_wlqq8"]
+[ext_resource type="Resource" uid="uid://dj858eu5ii1nx" path="res://data/traits/viking_bonus1.tres" id="4_epfqc"]
 
 [resource]
 script = ExtResource("1_0db5l")
@@ -9,5 +11,5 @@ name = "viking"
 icon = ExtResource("1_brctw")
 description = ""
 levels = 1
-unit_requirements = Array[int]([2])
-unit_modifiers = Array[PackedScene]([])
+unit_requirements = Array[int]([1])
+trait_bonuses = Array[ExtResource("3_wlqq8")]([ExtResource("4_epfqc")])

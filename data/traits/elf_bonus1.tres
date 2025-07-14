@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ElfBonus" load_steps=3 format=3 uid="uid://p02lsl87bgjy"]
+
+[ext_resource type="Script" uid="uid://bhwlqjboawfa4" path="res://components/modifier_value.gd" id="2_hwjbj"]
+[ext_resource type="Script" uid="uid://bq5ytlj46idvi" path="res://data/traits/elf_bonus.gd" id="3_888ct"]
+
+[resource]
+script = ExtResource("3_888ct")
+modifiers = Dictionary[int, ExtResource("2_hwjbj")]({})
+metadata/_custom_type_script = "uid://cqqjw0xcbo87s"

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="VikingBonus" load_steps=4 format=3 uid="uid://dj858eu5ii1nx"]
+
+[ext_resource type="Script" uid="uid://bhwlqjboawfa4" path="res://components/modifier_value.gd" id="1_ruwrs"]
+[ext_resource type="Script" uid="uid://dodfmhu8tastq" path="res://data/traits/viking_bonus.gd" id="2_qf8vc"]
+
+[sub_resource type="Resource" id="Resource_kvo05"]
+resource_local_to_scene = true
+script = ExtResource("1_ruwrs")
+type = 0
+percent_value = -0.75
+flat_value = 0
+source = "viking_bonus"
+metadata/_custom_type_script = "uid://bhwlqjboawfa4"
+
+[resource]
+script = ExtResource("2_qf8vc")
+hp_threshold_percent = 0.7
+atk_speed_bonus = SubResource("Resource_kvo05")
+metadata/_custom_type_script = "uid://cqqjw0xcbo87s"

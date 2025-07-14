@@ -97,7 +97,7 @@ func get_time_between_attacks() -> float:
 	return 1 / attack_speed
 
 
-func is_melee() -> int:
+func is_melee() -> bool:
 	return attack_range == 1
 
 

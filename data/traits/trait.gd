@@ -7,7 +7,7 @@ extends Resource
 
 @export_range(1, 5) var levels: int
 @export var unit_requirements: Array[int]
-@export var unit_modifiers: Array[PackedScene]
+@export var trait_bonuses: Array[TraitBonus]
 
 
 func get_unique_unit_count(units: Array[Unit]) -> int:
@@ -25,15 +25,27 @@ func get_unique_unit_count(units: Array[Unit]) -> int:
 	return unique_units.size()
 
 
-func get_levels_bbcode(unit_count: int) -> String:
-	var code: PackedStringArray = []
-	var reached_level := unit_requirements.filter(
+func get_active_bonus(unit_count: int) -> TraitBonus:
+	var reached_levels := get_reached_levels(unit_count)
+	if reached_levels.is_empty():
+		return null
+	
+	return trait_bonuses[get_reached_levels(unit_count).size()-1]
+
+
+func get_reached_levels(unit_count: int) -> Array[int]:
+	return unit_requirements.filter(
 		func(requirement: int):
 			return unit_count >= requirement
 	)
+
+
+func get_levels_bbcode(unit_count: int) -> String:
+	var code: PackedStringArray = []
+	var reached_levels := get_reached_levels(unit_count)
 	
 	for i: int in levels:
-		if i == (reached_level.size()-1):
+		if i == (reached_levels.size()-1):
 			code.append("[color=#fafa82]%s[/color]" % unit_requirements[i])
 		else:
 			code.append(str(unit_requirements[i]))

@@ -1,5 +1,7 @@
 class_name Modifier
-extends Node
+extends RefCounted
+
+signal changed
 
 enum Type {
 	UNIT_MAXHEALTH,
@@ -12,11 +14,17 @@ enum Type {
 	NO_MODIFIER
 }
 
-@export var type: Type
+var type: Type
+var values: Array[ModifierValue]
+
+
+func _init(new_type: Type) -> void:
+	type = new_type
+	values = []
 
 
 func get_value(source: String) -> ModifierValue:
-	for value: ModifierValue in get_children():
+	for value: ModifierValue in values:
 		if value.source == source:
 			return value
 		
@@ -26,40 +34,43 @@ func get_value(source: String) -> ModifierValue:
 func add_new_value(value: ModifierValue) -> void:
 	var modifier_value := get_value(value.source)
 	if not modifier_value:
-		add_child(value)
+		values.append(value.duplicate())
+		changed.emit()
 	else:
 		modifier_value.flat_value = value.flat_value
 		modifier_value.percent_value = value.percent_value
+		changed.emit()
 
 
 func remove_value(source: String) -> void:
-	for value: ModifierValue in get_children():
+	for value: ModifierValue in values:
 		if value.source == source:
-			value.queue_free()
+			values.erase(value)
+			changed.emit()
 
 
 func clear_values() -> void:
-	for value: ModifierValue in get_children():
-		value.queue_free()
+	values.clear()
+	changed.emit()
 
 
-func get_modified_value(base: int) -> int:
-	var flat_result: int = base
+func get_modified_value(base: float) -> float:
+	var flat_result: float = base
 	var percent_result: float = 1.0
 	
 	# ZERO modifier overwrites everything and returns 0
-	for value: ModifierValue in get_children():
+	for value: ModifierValue in values:
 		if value.type == ModifierValue.Type.ZERO:
 			return 0
 
 	# Apply flat modifiers first
-	for value: ModifierValue in get_children():
+	for value: ModifierValue in values:
 		if value.type == ModifierValue.Type.FLAT:
 			flat_result += value.flat_value
 	
 	# Apply % modifiers next
-	for value: ModifierValue in get_children():
+	for value: ModifierValue in values:
 		if value.type == ModifierValue.Type.PERCENT_BASED:
 			percent_result += value.percent_value
 			
-	return floori(flat_result * percent_result)
+	return flat_result * percent_result
