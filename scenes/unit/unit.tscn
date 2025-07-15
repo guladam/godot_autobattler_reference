@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bd6jhfp83q1rv"]
+[gd_scene load_steps=17 format=3 uid="uid://bd6jhfp83q1rv"]
 
 [ext_resource type="Script" uid="uid://dohbumtdar080" path="res://scenes/unit/unit.gd" id="1_v6qje"]
 [ext_resource type="Resource" uid="uid://xjus2xsvdrxh" path="res://data/units/bjorn.tres" id="2_3ccms"]
@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://r6i2ug5jon3k" path="res://scenes/mana_bar/mana_bar.tscn" id="7_3k3he"]
 [ext_resource type="Script" uid="uid://dh6q35aw8telh" path="res://components/unit_animations.gd" id="9_tr4ow"]
 [ext_resource type="Script" uid="uid://bygnbenaert6a" path="res://components/quick_sell.gd" id="10_jih4l"]
+[ext_resource type="Script" uid="uid://b12mk6pip65k7" path="res://components/item_handler.gd" id="10_u15f5"]
+[ext_resource type="Resource" uid="uid://fvplqtwr4c8h" path="res://data/items/item_db.tres" id="11_bg1qp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0qp17"]
 size = Vector2(36, 36)
@@ -53,6 +55,11 @@ offset_bottom = -3.0
 [node name="DragAndDrop" type="Node" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("3_dhhtl")
 target = NodePath("..")
+
+[node name="ItemHandler" type="Node" parent="."]
+script = ExtResource("10_u15f5")
+item_db = ExtResource("11_bg1qp")
+metadata/_custom_type_script = "uid://b12mk6pip65k7"
 
 [node name="VelocityBasedRotation" type="Node" parent="."]
 script = ExtResource("4_j53m8")

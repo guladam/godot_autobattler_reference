@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://ds3bb3ob0014f"]
+[gd_scene load_steps=8 format=3 uid="uid://ds3bb3ob0014f"]
 
 [ext_resource type="Script" uid="uid://c0fuh0th6368u" path="res://scenes/bench_item/bench_item.gd" id="1_po2yw"]
 [ext_resource type="Texture2D" uid="uid://ces5oauwngvu7" path="res://assets/sprites/items.png" id="1_vijbe"]
 [ext_resource type="Resource" uid="uid://bfbkb3fkil5vw" path="res://data/items/sword.tres" id="2_d16qx"]
 [ext_resource type="Script" uid="uid://4wud1xnefim6" path="res://components/drag_and_drop.gd" id="2_vu0ti"]
 [ext_resource type="Script" uid="uid://bwgitqq2wbmhh" path="res://components/packed_sprite2d.gd" id="3_cejgj"]
+[ext_resource type="Texture2D" uid="uid://btfp4m7os6l2i" path="res://assets/sprites/item_background.png" id="3_d6wef"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_imnf0"]
 
@@ -13,6 +14,9 @@ collision_layer = 16
 monitorable = false
 script = ExtResource("1_po2yw")
 item = ExtResource("2_d16qx")
+
+[node name="ItemBackground" type="Sprite2D" parent="."]
+texture = ExtResource("3_d6wef")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_imnf0")

@@ -154,16 +154,37 @@ unit_pool = ExtResource("10_if8r1")
 player_stats = ExtResource("10_n3gg6")
 metadata/_edit_lock_ = true
 
-[node name="BenchItem" parent="." instance=ExtResource("11_o7rjm")]
+[node name="BenchItems" type="Node2D" parent="."]
 position = Vector2(16, 240)
-collision_layer = 16
+metadata/_edit_lock_ = true
 
-[node name="BenchItem2" parent="." instance=ExtResource("11_o7rjm")]
-position = Vector2(16, 272)
+[node name="BenchItem" parent="BenchItems" instance=ExtResource("11_o7rjm")]
+
+[node name="BenchItem2" parent="BenchItems" instance=ExtResource("11_o7rjm")]
+position = Vector2(0, 32)
 item = ExtResource("12_xr6px")
 
-[node name="BenchItem3" parent="." instance=ExtResource("11_o7rjm")]
-position = Vector2(16, 304)
+[node name="BenchItem3" parent="BenchItems" instance=ExtResource("11_o7rjm")]
+position = Vector2(0, 64)
+item = ExtResource("13_vspv4")
+
+[node name="BenchItem4" parent="BenchItems" instance=ExtResource("11_o7rjm")]
+position = Vector2(32, 0)
+
+[node name="BenchItem5" parent="BenchItems" instance=ExtResource("11_o7rjm")]
+position = Vector2(32, 32)
+item = ExtResource("12_xr6px")
+
+[node name="BenchItem6" parent="BenchItems" instance=ExtResource("11_o7rjm")]
+position = Vector2(32, 64)
+item = ExtResource("13_vspv4")
+
+[node name="BenchItem7" parent="BenchItems" instance=ExtResource("11_o7rjm")]
+position = Vector2(32, 96)
+item = ExtResource("13_vspv4")
+
+[node name="BenchItem8" parent="BenchItems" instance=ExtResource("11_o7rjm")]
+position = Vector2(0, 96)
 item = ExtResource("13_vspv4")
 
 [node name="UnitMover" type="Node" parent="." node_paths=PackedStringArray("play_areas")]

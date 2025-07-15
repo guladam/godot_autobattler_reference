@@ -17,6 +17,7 @@ script = ExtResource("2_1ml53")
 name = "Sword"
 id = &"sword"
 description = "+4 AD"
+component = true
 sprite_coordinates = Vector2i(0, 1)
 modifiers = Dictionary[int, ExtResource("1_lpgsc")]({
 3: SubResource("Resource_lpgsc")

@@ -17,7 +17,8 @@ script = ExtResource("2_cj5jq")
 name = "Ring"
 id = &"ring"
 description = "+5 AP"
-sprite_coordinates = Vector2i(0, 17)
+component = true
+sprite_coordinates = Vector2i(1, 17)
 modifiers = Dictionary[int, ExtResource("1_rkyew")]({
 4: SubResource("Resource_rkyew")
 })

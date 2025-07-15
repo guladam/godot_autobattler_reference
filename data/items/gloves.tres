@@ -17,6 +17,7 @@ script = ExtResource("2_33y6e")
 name = "Gloves"
 id = &"gloves"
 description = "+10% ATK Speed"
+component = true
 sprite_coordinates = Vector2i(1, 13)
 modifiers = Dictionary[int, ExtResource("1_dyvg7")]({
 2: SubResource("Resource_dyvg7")

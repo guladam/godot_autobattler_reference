@@ -4,6 +4,7 @@ extends Resource
 @export var name: String
 @export var id: StringName
 @export_multiline var description: String
+@export var component: bool
 @export var sprite_coordinates: Vector2i
 @export var modifiers: Dictionary[Modifier.Type, ModifierValue]
 

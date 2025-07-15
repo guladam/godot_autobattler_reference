@@ -15,6 +15,7 @@ func _ready() -> void:
 	area_exited.connect(_on_area_exited)
 	drag_and_drop.drag_canceled.connect(_on_drag_canceled)
 	drag_and_drop.dropped.connect(_on_dropped)
+	item = item
 
 
 func _set_item(new_item: Item) -> void:
@@ -42,5 +43,8 @@ func _on_drag_canceled(starting_position: Vector2) -> void:
 func _on_dropped(starting_position: Vector2) -> void:
 	if not hovered_unit:
 		global_position = starting_position
+	elif hovered_unit.get_node("ItemHandler").add_item(item):
+		queue_free()
 	else:
-		print("equip item on %s!" % hovered_unit)
+		global_position = starting_position
+		

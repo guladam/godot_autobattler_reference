@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bg1r2rkbd021"]
+[gd_scene load_steps=24 format=3 uid="uid://bg1r2rkbd021"]
 
 [ext_resource type="Script" uid="uid://c47egeha30o6m" path="res://scenes/battle_unit/battle_unit.gd" id="1_664hq"]
 [ext_resource type="Texture2D" uid="uid://ct4xk88g67xlv" path="res://assets/sprites/monsters.png" id="1_k0une"]
@@ -16,7 +16,9 @@
 [ext_resource type="AnimationLibrary" uid="uid://cb5e07mpc7mf1" path="res://assets/animations/battleunit_animations.res" id="10_4m1os"]
 [ext_resource type="Script" uid="uid://c6cvhumkp04vx" path="res://components/battle_unit_attack.gd" id="11_a0pnp"]
 [ext_resource type="PackedScene" uid="uid://cdqiy3pdbendd" path="res://scenes/_effects/attack_smear_effect.tscn" id="11_w8xno"]
+[ext_resource type="Script" uid="uid://b12mk6pip65k7" path="res://components/item_handler.gd" id="12_i648r"]
 [ext_resource type="PackedScene" uid="uid://nu6v4ec87yp5" path="res://scenes/_projectiles/robin_arrow.tscn" id="12_w8xno"]
+[ext_resource type="Resource" uid="uid://fvplqtwr4c8h" path="res://data/items/item_db.tres" id="13_1lglk"]
 [ext_resource type="Script" uid="uid://bjlvlgkaas3iy" path="res://components/modifier_handler.gd" id="17_78w47"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6qoms"]
@@ -108,6 +110,11 @@ metadata/_custom_type_script = "uid://u504uo8jeavd"
 [node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("debug_label")]
 script = ExtResource("7_e7yjp")
 debug_label = NodePath("../FSMDebug")
+
+[node name="ItemHandler" type="Node" parent="."]
+script = ExtResource("12_i648r")
+item_db = ExtResource("13_1lglk")
+metadata/_custom_type_script = "uid://b12mk6pip65k7"
 
 [node name="MeleeAttack" type="Node" parent="." node_paths=PackedStringArray("battle_unit", "anchor", "spawn_point", "spawner")]
 script = ExtResource("11_a0pnp")
