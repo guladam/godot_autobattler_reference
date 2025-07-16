@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bhn1mhwtrb5h6"]
+[gd_resource type="Resource" script_class="RingRing" load_steps=4 format=3 uid="uid://bhn1mhwtrb5h6"]
 
 [ext_resource type="Script" uid="uid://bhwlqjboawfa4" path="res://components/modifier_value.gd" id="1_07ps7"]
-[ext_resource type="Script" uid="uid://cifp7uhs41la1" path="res://data/items/item.gd" id="2_58ufg"]
+[ext_resource type="Script" uid="uid://8numiary66om" path="res://data/items/ringring.gd" id="2_07ps7"]
 
 [sub_resource type="Resource" id="Resource_07ps7"]
 resource_local_to_scene = true
@@ -13,10 +13,11 @@ source = "ring_ring"
 metadata/_custom_type_script = "uid://bhwlqjboawfa4"
 
 [resource]
-script = ExtResource("2_58ufg")
+script = ExtResource("2_07ps7")
 name = "RingRing"
 id = &"ring_ring"
-description = "+13 AP"
+description = "+13 AP
+Begin: Launch a 10 dmg fireball at a random enemy."
 component = false
 sprite_coordinates = Vector2i(0, 17)
 modifiers = Dictionary[int, ExtResource("1_07ps7")]({

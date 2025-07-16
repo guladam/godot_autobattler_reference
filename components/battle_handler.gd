@@ -67,6 +67,10 @@ func _prepare_fight() -> void:
 		var new_unit := scene_spawner.spawn_scene(battle_unit_grid) as BattleUnit
 		new_unit.add_to_group("player_units")
 		new_unit.stats = unit.stats
+		# TODO temp solution
+		for item in unit.item_handler.equipped_items:
+			new_unit.item_handler.add_item(item)
+		# TODO end
 		_setup_battle_unit(unit_coord, new_unit)
 		_add_trait_bonuses(new_unit)
 	
@@ -81,7 +85,12 @@ func _prepare_fight() -> void:
 	var battle_units := get_tree().get_nodes_in_group("player_units") + get_tree().get_nodes_in_group("enemy_units")
 	battle_units.shuffle()
 	
+	# TODO make this nicer
 	for battle_unit: BattleUnit in battle_units:
+		for item: Item in battle_unit.item_handler.equipped_items:
+			item.apply_modifiers(battle_unit)
+			item.apply_bonus_effect(battle_unit)
+	# TODO end
 		battle_unit.unit_ai.enabled = true
 
 

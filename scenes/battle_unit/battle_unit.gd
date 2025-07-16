@@ -15,6 +15,7 @@ extends Area2D
 
 @onready var ability_spawner: SceneSpawner = $AbilitySpawner
 @onready var flip_sprite_to_direction: FlipSpriteToDirection = $FlipSpriteToDirection
+@onready var item_handler: ItemHandler = $ItemHandler
 @onready var melee_attack: BattleUnitAttack = $MeleeAttack
 @onready var ranged_attack: BattleUnitAttack = $RangedAttack
 @onready var target_finder: TargetFinder = $TargetFinder
