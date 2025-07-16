@@ -7,7 +7,7 @@ extends Area2D
 @onready var packed_sprite_2d: PackedSprite2D = $PackedSprite2D
 @onready var drag_and_drop: DragAndDrop = $DragAndDrop
 
-var hovered_unit: Node2D
+var hovered_unit: Area2D
 
 
 func _ready() -> void:
@@ -41,10 +41,9 @@ func _on_drag_canceled(starting_position: Vector2) -> void:
 
 
 func _on_dropped(starting_position: Vector2) -> void:
-	if not hovered_unit:
+	if not hovered_unit or not hovered_unit.item_handler:
 		global_position = starting_position
-	elif hovered_unit.get_node("ItemHandler").add_item(item):
+	elif hovered_unit.item_handler.add_item(item):
 		queue_free()
 	else:
 		global_position = starting_position
-		
