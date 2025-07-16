@@ -15,7 +15,7 @@ func _ready() -> void:
 	area_exited.connect(_on_area_exited)
 	drag_and_drop.drag_canceled.connect(_on_drag_canceled)
 	drag_and_drop.dropped.connect(_on_dropped)
-	item = item
+	# item = item # NOTE test code
 
 
 func _set_item(new_item: Item) -> void:

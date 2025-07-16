@@ -10,6 +10,7 @@ const QUARTER_CELL_SIZE := Vector2(8, 8)
 @onready var game_area: PlayArea = $GameArea
 @onready var battle_grid: UnitGrid = $BattleGrid
 @onready var sell_portal: SellPortal = $SellPortal
+@onready var bench_items: BenchItems = $BenchItems
 @onready var unit_mover: UnitMover = $UnitMover
 @onready var unit_spawner: UnitSpawner = $UnitSpawner
 @onready var unit_combiner: UnitCombiner = $UnitCombiner
@@ -21,6 +22,7 @@ const QUARTER_CELL_SIZE := Vector2(8, 8)
 
 func _ready() -> void:
 	UnitNavigation.initialize(battle_grid, game_area)
+	sell_portal.unit_sold.connect(bench_items.return_items_from_unit)
 	unit_spawner.unit_spawned.connect(sell_portal.setup_unit)
 	unit_spawner.unit_spawned.connect(unit_mover.setup_unit)
 	unit_spawner.unit_spawned.connect(unit_combiner.queue_unit_combination_update.unbind(1))

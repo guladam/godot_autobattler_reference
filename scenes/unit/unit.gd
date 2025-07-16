@@ -9,6 +9,7 @@ extends Area2D
 @onready var mana_bar: ManaBar = $ManaBar
 @onready var tier_icon: TierIcon = $TierIcon
 @onready var drag_and_drop: DragAndDrop = $DragAndDrop
+@onready var item_handler: ItemHandler = $ItemHandler
 @onready var velocity_based_rotation: VelocityBasedRotation = $VelocityBasedRotation
 @onready var outline_highlighter: OutlineHighlighter = $OutlineHighlighter
 @onready var animations: UnitAnimations = $Animations

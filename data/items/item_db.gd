@@ -4,13 +4,13 @@ extends Resource
 @export var recipes: Array[ItemRecipe]
 
 
-func combine_item_components(items: Array[Item], equipped_item: Item) -> ItemRecipe:
-	var components := _get_component_items(items)
+func get_recipe_for_new_item(equipped_items: Array[Item], new_item: Item) -> ItemRecipe:
+	var components := _get_component_items(equipped_items)
 	
-	if not equipped_item.component or components.is_empty():
+	if not new_item.component or components.is_empty():
 		return null
 	
-	return _get_recipe_from_components(components[0], equipped_item)
+	return _get_recipe_from_components(components[0], new_item)
 
 
 func _get_component_items(items: Array[Item]) -> Array[Item]:

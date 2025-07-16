@@ -16,15 +16,15 @@ func _ready() -> void:
 
 func add_item(new_item: Item) -> bool:
 	# Get recipe for combining new item with an existing one
-	# TODO rename combine_item_components
-	var recipe := item_db.combine_item_components(equipped_items, new_item)
+	var recipe := item_db.get_recipe_for_new_item(equipped_items, new_item)
+	
 	# If there's one, we combine them
 	if recipe:
 		_combine_components(recipe, new_item)
 		return true
+	
 	# If not, we try to equip the item as is
-	else:
-		return _try_equipping_item(new_item)
+	return _try_equipping_item(new_item)
 
 
 func _combine_components(recipe: ItemRecipe, new_item: Item) -> void:

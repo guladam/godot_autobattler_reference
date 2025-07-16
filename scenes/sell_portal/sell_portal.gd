@@ -1,6 +1,8 @@
 class_name SellPortal
 extends Area2D
 
+signal unit_sold(unit: Unit)
+
 @export var unit_pool: UnitPool
 @export var player_stats: PlayerStats
 @export var sell_sound: AudioStream
@@ -26,9 +28,10 @@ func setup_unit(unit: Unit) -> void:
 func _sell_unit(unit: Unit) -> void:
 	player_stats.gold += unit.stats.get_gold_value()
 	var combined_units = unit.stats.get_combined_unit_count()
-	# TODO give items back to item pool
 	for i in combined_units:
 		unit_pool.add_unit(unit.stats)
+	
+	unit_sold.emit(unit)
 	
 	unit.queue_free()
 	SFXPlayer.play(sell_sound)
