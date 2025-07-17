@@ -27,7 +27,7 @@ func enter() -> void:
 
 
 func exit() -> void:
-	#as_modifier.changed.disconnect(_setup_attack_timer)
+	as_modifier.changed.disconnect(_setup_attack_timer)
 	actor_unit.detect_range.area_exited.disconnect(_on_detect_range_exited)
 	actor_unit.attack_timer.stop()
 	actor_unit.attack_timer.timeout.disconnect(_attack)

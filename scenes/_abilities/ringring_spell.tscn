@@ -10,12 +10,12 @@ script = ExtResource("1_6cvf7")
 damage = 10
 metadata/_custom_type_script = "uid://bxrwc3ux0jusb"
 
-[node name="BattleUnitAttack" type="Node" parent="." node_paths=PackedStringArray("spawner")]
+[node name="FireballAttack" type="Node" parent="." node_paths=PackedStringArray("spawner")]
 script = ExtResource("2_ropkm")
-spawner = NodePath("../SceneSpawner")
+spawner = NodePath("FireballSpawner")
 metadata/_custom_type_script = "uid://c6cvhumkp04vx"
 
-[node name="SceneSpawner" type="Node" parent="."]
+[node name="FireballSpawner" type="Node" parent="FireballAttack"]
 script = ExtResource("3_uo22c")
 scene = ExtResource("4_ageu7")
 metadata/_custom_type_script = "uid://crlwtnh8tx0mn"

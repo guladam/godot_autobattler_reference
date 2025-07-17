@@ -1,4 +1,3 @@
-# TODO might move the array actually to the unitstats resource?
 class_name ItemHandler
 extends Node
 
@@ -25,6 +24,12 @@ func add_item(new_item: Item) -> bool:
 	
 	# If not, we try to equip the item as is
 	return _try_equipping_item(new_item)
+
+
+func copy_items(other_handler: ItemHandler) -> void:
+	other_handler.equipped_items.clear()
+	for item: Item in equipped_items:
+		other_handler.add_item(item)
 
 
 func _combine_components(recipe: ItemRecipe, new_item: Item) -> void:

@@ -2,13 +2,12 @@ extends UnitAbility
 
 @export var damage: int
 
-@onready var fireball_attack := $BattleUnitAttack
+@onready var fireball_attack: BattleUnitAttack = $FireballAttack
 
 func use() -> void:
-	# TODO cleaner to just duplicate the node and change the spawner?
 	fireball_attack.battle_unit = caster
 	fireball_attack.anchor = caster.ranged_attack.anchor
-	fireball_attack.spawn_point = caster.ranged_attack.spawn_point
+	fireball_attack.spawn_point = caster.ranged_attack.anchor
 	
 	var all_enemies := get_tree().get_nodes_in_group(UnitStats.TARGET[caster.stats.team])
 	_spawn_projectile(all_enemies)
