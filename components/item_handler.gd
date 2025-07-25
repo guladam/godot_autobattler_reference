@@ -1,6 +1,7 @@
 class_name ItemHandler
 extends Node
 
+signal item_removed(item: Item)
 signal items_changed
 
 const MAX_ITEMS_HELD := 3
@@ -26,7 +27,13 @@ func add_item(new_item: Item) -> bool:
 	return _try_equipping_item(new_item)
 
 
-func copy_items(other_handler: ItemHandler) -> void:
+func _remove_item(idx: int) -> void:
+	var item := equipped_items[idx]
+	equipped_items[idx] = null
+	item_removed.emit(item)
+
+
+func copy_items_to(other_handler: ItemHandler) -> void:
 	other_handler.equipped_items.clear()
 	for item: Item in equipped_items:
 		other_handler.add_item(item)
@@ -35,7 +42,9 @@ func copy_items(other_handler: ItemHandler) -> void:
 func _combine_components(recipe: ItemRecipe, new_item: Item) -> void:
 	var equipped_component := recipe.get_other_source_item(new_item)
 	var idx := equipped_items.find(equipped_component)
+	_remove_item(idx) # NOTE this needs to be done, so modifiers can be deleted before combining into new ones
 	equipped_items[idx] = recipe.result
+	equipped_items[idx].equip_index = idx
 	items_changed.emit()
 
 
@@ -45,5 +54,6 @@ func _try_equipping_item(item: Item) -> bool:
 		return false
 	
 	equipped_items.append(item)
+	equipped_items[-1].equip_index = equipped_items.size()-1
 	items_changed.emit()
 	return true

@@ -51,13 +51,19 @@ func _setup_battle_unit(unit_coord: Vector2i, new_unit: BattleUnit) -> void:
 	new_unit.stats.reset_mana()
 	new_unit.global_position = game_area.get_global_from_tile(unit_coord) + Vector2(0, -Arena.QUARTER_CELL_SIZE.y)
 	new_unit.tree_exited.connect(_on_battle_unit_died)
-	new_unit.item_handler.items_changed.connect(_on_battle_unit_items_changed.bind(new_unit))
 	battle_unit_grid.add_unit(unit_coord, new_unit)
 
 
 func _add_items(unit: Unit, new_unit: BattleUnit) -> void:
 	for item in unit.item_handler.equipped_items:
 		new_unit.item_handler.add_item(item)
+	
+	# NOTE this was previously inside setup battle unit BUT --> we simultaneously called this which copies battle unit items 
+	# to OG units while iterating through the items of the OG unit above, leading to an error where not all items of units 
+	# were copied over to battle units!
+	new_unit.item_handler.items_changed.connect(_on_battle_unit_items_changed.bind(new_unit))
+	new_unit.item_handler.item_removed.connect(_on_battle_unit_item_removed.bind(new_unit))
+	_on_battle_unit_items_changed(new_unit)
 
 
 func _add_trait_bonuses(new_unit: BattleUnit) -> void:
@@ -119,13 +125,16 @@ func _on_battle_unit_died() -> void:
 func _on_battle_unit_items_changed(battle_unit: BattleUnit) -> void:
 	var coord := battle_unit_coordinates[battle_unit]
 	var unit := game_area_unit_grid.units[coord] as Unit
-	battle_unit.item_handler.copy_items(unit.item_handler)
+	battle_unit.item_handler.copy_items_to(unit.item_handler)
 	
-	# TODO remove all modifiers before re-applying them here
-	# also modifiers need to be item-unique! otherwise we can't stack them
 	for item: Item in battle_unit.item_handler.equipped_items:
+		item.remove_modifiers(battle_unit)
 		item.apply_modifiers(battle_unit)
 		item.apply_bonus_effect(battle_unit) # TODO this shouldn't be here I think! only at start of battle
+
+
+func _on_battle_unit_item_removed(item: Item, battle_unit: BattleUnit) -> void:
+	item.remove_modifiers(battle_unit)
 
 
 func _on_game_state_changed() -> void:

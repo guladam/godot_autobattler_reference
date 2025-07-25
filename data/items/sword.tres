@@ -13,6 +13,7 @@ source = ""
 metadata/_custom_type_script = "uid://bhwlqjboawfa4"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("2_1ml53")
 name = "Sword"
 id = &"sword"
