@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://s7ic0xchlx33"]
+
+[ext_resource type="Script" uid="uid://bfiqmx6d18lft" path="res://scenes/tooltip/tooltip_handler.gd" id="1_a76mo"]
+[ext_resource type="PackedScene" uid="uid://clacfm3o58ut3" path="res://scenes/tooltip/popup.tscn" id="2_ww7my"]
+
+[node name="TooltipHandler" type="Control"]
+z_index = 999
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_a76mo")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Popup" parent="CanvasLayer" instance=ExtResource("2_ww7my")]
+unique_name_in_owner = true
+visible = false

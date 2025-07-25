@@ -9,7 +9,7 @@
 script = ExtResource("1_0db5l")
 name = "viking"
 icon = ExtResource("1_brctw")
-description = ""
+description = "Die with might!"
 levels = 1
 unit_requirements = Array[int]([1])
 trait_bonuses = Array[ExtResource("3_wlqq8")]([ExtResource("4_epfqc")])

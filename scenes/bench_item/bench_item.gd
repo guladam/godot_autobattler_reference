@@ -11,6 +11,7 @@ var hovered_unit: Area2D
 
 
 func _ready() -> void:
+	input_event.connect(_on_input_event)
 	area_entered.connect(_on_area_entered)
 	area_exited.connect(_on_area_exited)
 	drag_and_drop.drag_canceled.connect(_on_drag_canceled)
@@ -25,6 +26,16 @@ func _set_item(new_item: Item) -> void:
 		return
 	
 	packed_sprite_2d.coordinates = item.sprite_coordinates
+
+
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("tooltip"):
+		TooltipHandler.popup.show_popup(
+			packed_sprite_2d.get_texture_as_atlas(),
+			item.name,
+			item.description,
+			get_global_mouse_position()
+		)
 
 
 func _on_area_entered(area: Area2D) -> void:

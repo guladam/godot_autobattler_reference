@@ -10,7 +10,8 @@
 script = ExtResource("1_8t2ng")
 name = "elf"
 icon = ExtResource("1_6llwr")
-description = ""
+description = "Elves attack faster
+They get + 10/20% ATKSPEED"
 levels = 2
 unit_requirements = Array[int]([1, 2])
 trait_bonuses = Array[ExtResource("3_ce4st")]([ExtResource("4_lj4a4"), ExtResource("5_13q1s")])

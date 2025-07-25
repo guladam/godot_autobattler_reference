@@ -10,6 +10,10 @@ extends PanelContainer
 @onready var trait_label: Label = %TraitLabel
 
 
+func _ready() -> void:
+	gui_input.connect(_on_gui_input)
+
+
 func update(unique_units: int) -> void:
 	active_units_label.text = str(unique_units)
 	trait_level_labels.text = trait_data.get_levels_bbcode(unique_units)
@@ -32,3 +36,13 @@ func _set_active(value: bool) -> void:
 		modulate.a = 1.0
 	else:
 		modulate.a = 0.5
+
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("tooltip"):
+		TooltipHandler.popup.show_popup(
+			trait_icon.icon.texture,
+			trait_data.name,
+			trait_data.description,
+			get_global_mouse_position()
+		)

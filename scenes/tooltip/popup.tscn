@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=3 uid="uid://clacfm3o58ut3"]
+
+[ext_resource type="Script" uid="uid://dv640sgqnoiue" path="res://scenes/tooltip/popup.gd" id="1_4uxio"]
+[ext_resource type="Texture2D" uid="uid://c32cyuudt3x6x" path="res://assets/sprites/traits/noble.png" id="1_6olum"]
+[ext_resource type="FontFile" uid="uid://8di0jvr25vat" path="res://assets/font/m5x7.ttf" id="2_4uxio"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4uxio"]
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 0.607843)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.821789, 0.821789, 0.821788, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Popup" type="PopupPanel"]
+auto_translate_mode = 1
+title = "Popup"
+position = Vector2i(100, 100)
+size = Vector2i(121, 160)
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_4uxio")
+script = ExtResource("1_4uxio")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 119.0
+offset_bottom = 158.0
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PopupIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("1_6olum")
+stretch_mode = 5
+
+[node name="PopupTitle" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Popup title"
+vertical_alignment = 1
+
+[node name="PopupDescription" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(105, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("2_4uxio")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "Here's the detailed description of the popup window. Here's the detailed description of the popup window."
+fit_content = true
+scroll_active = false
