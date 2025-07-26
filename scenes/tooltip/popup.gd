@@ -20,7 +20,7 @@ func _clear() -> void:
 func _get_position(mouse_pos: Vector2i) -> Vector2i:
 	var screen_size := get_tree().root.get_visible_rect().size
 	var combined_coords := mouse_pos + Vector2i(size)
-	var final_pos := mouse_pos
+	var final_pos: Vector2 = mouse_pos
 	if combined_coords.x < 0:
 		final_pos.x = 0
 	if combined_coords.y < 0:
@@ -35,9 +35,9 @@ func _get_position(mouse_pos: Vector2i) -> Vector2i:
 
 func show_popup(content: Control, pos: Vector2i) -> void:
 	_clear()
+	await get_tree().process_frame # for size reset, we need children deleted
 	content_container.add_child(content)
 	reset_size()
-	print(size)
 	global_position = _get_position(pos)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	show()

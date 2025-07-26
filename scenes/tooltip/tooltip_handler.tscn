@@ -10,3 +10,7 @@ script = ExtResource("1_a76mo")
 [node name="Popup" parent="." instance=ExtResource("2_ww7my")]
 unique_name_in_owner = true
 visible = false
+
+[node name="Popup2" parent="." instance=ExtResource("2_ww7my")]
+unique_name_in_owner = true
+visible = false

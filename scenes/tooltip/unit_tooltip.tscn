@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=3 uid="uid://cilwlkukpj0j6"]
+
+[ext_resource type="PackedScene" uid="uid://cuqct6gepc6dy" path="res://scenes/tier_icon/tier_icon.tscn" id="1_dle6y"]
+[ext_resource type="Script" uid="uid://dv11t14mv7wux" path="res://scenes/tooltip/unit_tooltip.gd" id="1_r2pbp"]
+[ext_resource type="PackedScene" uid="uid://6t7poyqji4dh" path="res://scenes/health_bar/health_bar.tscn" id="2_a3dy5"]
+[ext_resource type="FontFile" uid="uid://8di0jvr25vat" path="res://assets/font/m5x7.ttf" id="3_a3dy5"]
+[ext_resource type="PackedScene" uid="uid://r6i2ug5jon3k" path="res://scenes/mana_bar/mana_bar.tscn" id="4_r2pbp"]
+[ext_resource type="PackedScene" uid="uid://bawctqdrd1wmj" path="res://scenes/item_ui/item_ui.tscn" id="6_r2pbp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_myopk"]
+line_spacing = 0.0
+font = ExtResource("3_a3dy5")
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[node name="UnitTooltip" type="VBoxContainer"]
+theme_override_constants/separation = 4
+script = ExtResource("1_r2pbp")
+
+[node name="Title" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TierIcon" parent="Title" instance=ExtResource("1_dle6y")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="UnitName" type="Label" parent="Title"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Bjorn"
+vertical_alignment = 1
+
+[node name="HealthBar" parent="." instance=ExtResource("2_a3dy5")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 16)
+layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="HealthBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0/1000"
+label_settings = SubResource("LabelSettings_myopk")
+horizontal_alignment = 1
+
+[node name="ManaBar" parent="." instance=ExtResource("4_r2pbp")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+value = 50.0
+
+[node name="ManaLabel" type="Label" parent="ManaBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "50/100"
+label_settings = SubResource("LabelSettings_myopk")
+horizontal_alignment = 1
+
+[node name="ItemContainer" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Item1" parent="ItemContainer" instance=ExtResource("6_r2pbp")]
+layout_mode = 2
+
+[node name="Item2" parent="ItemContainer" instance=ExtResource("6_r2pbp")]
+layout_mode = 2
+
+[node name="Item3" parent="ItemContainer" instance=ExtResource("6_r2pbp")]
+layout_mode = 2

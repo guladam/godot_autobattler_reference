@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bd6jhfp83q1rv"]
+[gd_scene load_steps=18 format=3 uid="uid://bd6jhfp83q1rv"]
 
 [ext_resource type="Script" uid="uid://dohbumtdar080" path="res://scenes/unit/unit.gd" id="1_v6qje"]
 [ext_resource type="Resource" uid="uid://xjus2xsvdrxh" path="res://data/units/bjorn.tres" id="2_3ccms"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://bygnbenaert6a" path="res://components/quick_sell.gd" id="10_jih4l"]
 [ext_resource type="Script" uid="uid://b12mk6pip65k7" path="res://components/item_handler.gd" id="10_u15f5"]
 [ext_resource type="Resource" uid="uid://fvplqtwr4c8h" path="res://data/items/item_db.tres" id="11_bg1qp"]
+[ext_resource type="Script" uid="uid://bb61bhbbwn73c" path="res://components/unit_tooltip_component.gd" id="16_bg1qp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0qp17"]
 size = Vector2(36, 36)
@@ -79,6 +80,11 @@ unit = NodePath("..")
 [node name="QuickSell" type="Node" parent="." node_paths=PackedStringArray("unit")]
 script = ExtResource("10_jih4l")
 unit = NodePath("..")
+
+[node name="UnitTooltipComponent" type="Node" parent="." node_paths=PackedStringArray("unit")]
+script = ExtResource("16_bg1qp")
+unit = NodePath("..")
+metadata/_custom_type_script = "uid://bb61bhbbwn73c"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
