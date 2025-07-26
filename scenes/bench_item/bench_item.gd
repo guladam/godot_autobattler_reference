@@ -28,14 +28,23 @@ func _set_item(new_item: Item) -> void:
 	packed_sprite_2d.coordinates = item.sprite_coordinates
 
 
+func _get_tooltip() -> ItemTraitTooltip:
+	var new_tooltip := TooltipHandler.ITEM_TRAIT_TOOLTIP.instantiate() as ItemTraitTooltip
+	new_tooltip.setup(
+		packed_sprite_2d.get_texture_as_atlas(),
+		item.name,
+		item.description
+	)
+	return new_tooltip
+
+
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("tooltip"):
 		TooltipHandler.popup.show_popup(
-			packed_sprite_2d.get_texture_as_atlas(),
-			item.name,
-			item.description,
+			_get_tooltip(),
 			get_global_mouse_position()
 		)
+		get_viewport().set_input_as_handled()
 
 
 func _on_area_entered(area: Area2D) -> void:

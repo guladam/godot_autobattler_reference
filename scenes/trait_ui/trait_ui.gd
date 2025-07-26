@@ -38,11 +38,21 @@ func _set_active(value: bool) -> void:
 		modulate.a = 0.5
 
 
+func _get_trait_tooltip() -> ItemTraitTooltip:
+	var new_tooltip := TooltipHandler.ITEM_TRAIT_TOOLTIP.instantiate() as ItemTraitTooltip
+	new_tooltip.setup(
+		trait_icon.icon.texture,
+		trait_data.name,
+		trait_data.description,
+		150.0
+	)
+	return new_tooltip
+
+
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("tooltip"):
 		TooltipHandler.popup.show_popup(
-			trait_icon.icon.texture,
-			trait_data.name,
-			trait_data.description,
+			_get_trait_tooltip(),
 			get_global_mouse_position()
 		)
+		accept_event()
