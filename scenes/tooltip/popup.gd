@@ -35,7 +35,7 @@ func _get_position(mouse_pos: Vector2i) -> Vector2i:
 
 func show_popup(content: Control, pos: Vector2i) -> void:
 	_clear()
-	await get_tree().process_frame # for size reset, we need children deleted
+	await get_tree().process_frame # TODO hacky for size reset, we need children deleted
 	content_container.add_child(content)
 	reset_size()
 	global_position = _get_position(pos)
@@ -47,3 +47,8 @@ func hide_popup() -> void:
 	_clear()
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hide()
+
+
+func center() -> void:
+	var screen_size := get_tree().root.get_visible_rect().size
+	global_position = (screen_size / 2) - (size / 2)

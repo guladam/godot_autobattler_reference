@@ -102,6 +102,9 @@ func _prepare_fight() -> void:
 	for battle_unit: BattleUnit in battle_units:
 		battle_unit.unit_ai.enabled = true
 
+		for item: Item in battle_unit.item_handler.equipped_items:
+			item.apply_bonus_effect(battle_unit)
+
 
 func _end_current_battle() -> void:
 	game_state.current_phase = GameState.Phase.PREPARATION
@@ -130,7 +133,7 @@ func _on_battle_unit_items_changed(battle_unit: BattleUnit) -> void:
 	for item: Item in battle_unit.item_handler.equipped_items:
 		item.remove_modifiers(battle_unit)
 		item.apply_modifiers(battle_unit)
-		item.apply_bonus_effect(battle_unit) # TODO this shouldn't be here I think! only at start of battle
+		#item.apply_bonus_effect(battle_unit) # NOTE this shouldn't be here, only at start of battle BUT depends on how you want your game to work
 
 
 func _on_battle_unit_item_removed(item: Item, battle_unit: BattleUnit) -> void:

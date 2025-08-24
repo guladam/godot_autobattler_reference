@@ -6,5 +6,6 @@
 [node name="RobinHailOfArrows" type="Node2D"]
 script = ExtResource("1_ojsfy")
 extra_shots_per_tier = Array[int]([1, 2, 3])
+time_between_extra_shots = 0.15
 sound = ExtResource("2_ivmqt")
 metadata/_custom_type_script = "uid://bxrwc3ux0jusb"

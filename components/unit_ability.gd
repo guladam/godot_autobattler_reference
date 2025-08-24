@@ -7,7 +7,7 @@ signal ability_cast_finished
 @export var sound: AudioStream
 
 # NOTE show how this can happen when an ability is created but cannot be used 
-# for Robin
+# for Robin e.g. when you fill your mana bar as the battle concludes
 func _ready() -> void:
 	add_to_group("unit_abilities")
 

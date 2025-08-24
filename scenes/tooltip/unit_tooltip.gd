@@ -3,9 +3,8 @@ extends VBoxContainer
 
 @export var stats: UnitStats:
 	set(value):
-		await ready # TODO hacky
 		stats = value
-		if stats:
+		if stats and is_node_ready():
 			tier_icon.stats = stats
 			health_bar.stats = stats
 			mana_bar.stats = stats
@@ -15,9 +14,8 @@ extends VBoxContainer
 
 @export var item_handler: ItemHandler:
 	set(value):
-		await ready # TODO hacky
 		item_handler = value
-		if item_handler:
+		if item_handler and is_node_ready():
 			item_handler.items_changed.connect(_on_items_changed)
 			_on_items_changed()
 
@@ -29,6 +27,12 @@ extends VBoxContainer
 @onready var mana_label: Label = %ManaLabel
 @onready var item_container: HBoxContainer = %ItemContainer
 
+# NOTE we need this because we set export vars before adding the child
+# dynamically to the SceneTree --> see unit_tooltip_component.gd
+func _ready() -> void:
+	stats = self.stats
+	item_handler = self.item_handler
+
 
 func _on_stats_changed() -> void:
 	# NOTE obviously a lot of stats missing 
@@ -39,7 +43,6 @@ func _on_stats_changed() -> void:
 
 func _on_items_changed() -> void:
 	for i: int in item_container.get_child_count():
-		print(i)
 		var item_ui := item_container.get_child(i) as ItemUI
 		var item: Item = null
 		

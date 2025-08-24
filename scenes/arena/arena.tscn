@@ -209,8 +209,9 @@ metadata/_edit_lock_ = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Shop" parent="UI" instance=ExtResource("13_256pg")]
+[node name="Shop" parent="UI" node_paths=PackedStringArray("unit_grids") instance=ExtResource("13_256pg")]
 unique_name_in_owner = true
+unit_grids = [NodePath("../../GameArea/ArenaUnitGrid"), NodePath("../../Bench/BenchUnitGrid")]
 
 [node name="Traits" parent="UI" instance=ExtResource("16_uy14c")]
 unique_name_in_owner = true

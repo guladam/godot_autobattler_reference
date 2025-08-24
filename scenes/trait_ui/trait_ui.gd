@@ -40,12 +40,11 @@ func _set_active(value: bool) -> void:
 
 func _get_trait_tooltip() -> ItemTraitTooltip:
 	var new_tooltip := TooltipHandler.ITEM_TRAIT_TOOLTIP.instantiate() as ItemTraitTooltip
-	new_tooltip.setup(
-		trait_icon.icon.texture,
-		trait_data.name,
-		trait_data.description,
-		150.0
-	)
+	var data := new_tooltip.ItemTraitTooltipData.new()
+	data.texture = trait_data.icon
+	data.title = trait_data.name
+	data.description = trait_data.description
+	new_tooltip.setup(data, 150.0)
 	return new_tooltip
 
 

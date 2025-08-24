@@ -14,3 +14,6 @@ visible = false
 [node name="Popup2" parent="." instance=ExtResource("2_ww7my")]
 unique_name_in_owner = true
 visible = false
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

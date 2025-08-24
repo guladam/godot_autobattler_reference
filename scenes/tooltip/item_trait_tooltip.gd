@@ -18,15 +18,11 @@ func _ready() -> void:
 	popup_description.custom_minimum_size.x = tooltip_data.min_size_x
 
 
-func setup(texture: Texture, title: String, description: String, min_x: float = 0.0) -> void:
-	tooltip_data = ItemTraitTooltipData.new()
-	tooltip_data.texture = texture
-	tooltip_data.title = title
-	tooltip_data.description = description
+func setup(data: ItemTraitTooltipData, min_x: float = 0.0) -> void:
+	tooltip_data = data
 	tooltip_data.min_size_x = min_x
 
-# TODO check order --> where should this go?
-# or we can just delete this lol
+
 class ItemTraitTooltipData:
 	var texture: Texture
 	var title: String

@@ -8,7 +8,6 @@ func _ready() -> void:
 	unit.input_event.connect(_on_input_event)
 
 
-# NOTE order might be wrong here
 func _get_tooltip() -> UnitTooltip:
 	if not (unit is Unit or unit is BattleUnit):
 		return

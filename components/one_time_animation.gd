@@ -5,4 +5,4 @@ extends Node
 
 
 func _ready() -> void:
-	animation_player.animation_finished.connect(owner.queue_free.unbind(1))
+	animation_player.animation_finished.connect(animation_player.owner.queue_free.unbind(1))

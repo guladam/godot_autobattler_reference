@@ -23,11 +23,11 @@ func _ready() -> void:
 
 func _get_item_tooltip() -> ItemTraitTooltip:
 	var new_tooltip := TooltipHandler.ITEM_TRAIT_TOOLTIP.instantiate() as ItemTraitTooltip
-	new_tooltip.setup(
-		icon.texture.duplicate(),
-		item.name,
-		item.description
-	)
+	var data := new_tooltip.ItemTraitTooltipData.new()
+	data.texture = icon.texture.duplicate()
+	data.title = item.name
+	data.description = item.description
+	new_tooltip.setup(data)
 	return new_tooltip
 
 

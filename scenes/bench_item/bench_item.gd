@@ -30,11 +30,11 @@ func _set_item(new_item: Item) -> void:
 
 func _get_tooltip() -> ItemTraitTooltip:
 	var new_tooltip := TooltipHandler.ITEM_TRAIT_TOOLTIP.instantiate() as ItemTraitTooltip
-	new_tooltip.setup(
-		packed_sprite_2d.get_texture_as_atlas(),
-		item.name,
-		item.description
-	)
+	var data := new_tooltip.ItemTraitTooltipData.new()
+	data.texture = packed_sprite_2d.get_texture_as_atlas()
+	data.title = item.name
+	data.description = item.description
+	new_tooltip.setup(data)
 	return new_tooltip
 
 

@@ -21,6 +21,7 @@ func enter() -> void:
 		ability.ability_cast_finished.connect(_on_ability_cast_finished, CONNECT_ONE_SHOT)
 		ability.use.call_deferred()
 
+
 func exit() -> void:
 	if ability:
 		ability.queue_free()
